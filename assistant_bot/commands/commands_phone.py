@@ -1,3 +1,5 @@
+from colorama import Fore, Style
+
 from ..address_book import Record, AddressBook
 from ..decorators import input_error
 from ..constants import TEXT
@@ -8,9 +10,9 @@ def change_phone(args, book: AddressBook):
     contact = book.find(name)
 
     if contact is not None:
-        return contact.edit_phone(old_phone, new_phone)
+        contact.edit_phone(old_phone, new_phone)
     else:
-        return TEXT["CONTACT_NOT_FOUND"]
+        print(Fore.LIGHTBLACK_EX + TEXT["CONTACT_NOT_FOUND"] + Style.RESET_ALL)
 
 @input_error("Please give me name.")
 def show_phone(args, book: AddressBook):
@@ -18,9 +20,9 @@ def show_phone(args, book: AddressBook):
     contact = book.find(name)
 
     if contact:
-        return contact.find_phones()
+        contact.find_phones()
     else:
-        return TEXT["CONTACT_NOT_FOUND"]
+        print(Fore.LIGHTBLACK_EX + TEXT["CONTACT_NOT_FOUND"] + Style.RESET_ALL)
 
 @input_error("Please give me name and phone.")
 def add_phone(args, book: AddressBook):
@@ -28,12 +30,12 @@ def add_phone(args, book: AddressBook):
     contact = book.find(name)
 
     if contact:
-        return contact.add_phone(phone)
+        contact.add_phone(phone)
     else:
         contact = Record(name)
-        result_add_phone = contact.add_phone(phone)
-        book.add_record(contact)
-        return result_add_phone
+        added = contact.add_phone(phone)
+        if added:
+            book.add_record(contact)
 
 @input_error("Please give me name and phone.")
 def remove_phone(args, book: AddressBook):
@@ -41,9 +43,9 @@ def remove_phone(args, book: AddressBook):
     contact = book.find(name)
 
     if contact:
-        return contact.remove_phone(phone)
+        contact.remove_phone(phone)
     else:
-        return TEXT["CONTACT_NOT_FOUND"]
+        print(Fore.LIGHTBLACK_EX + TEXT["CONTACT_NOT_FOUND"] + Style.RESET_ALL)
 
 
 __all__ = [

@@ -1,5 +1,6 @@
 from collections import UserDict
 from datetime import datetime
+from colorama import Fore, Style
 
 from ..utils import get_birthdays_per_week
 from ..constants import TEXT
@@ -24,7 +25,10 @@ class AddressBook(UserDict):
 
     def delete(self, name):
         removed_contact = self.data.pop(name, None)
-        return TEXT["CONTACT_DELETED"] if removed_contact else TEXT["CONTACT_NOT_FOUND"]
+        if removed_contact:
+            print(Fore.GREEN + TEXT["CONTACT_DELETED"] + Style.RESET_ALL)
+        else:
+            print(Fore.LIGHTBLACK_EX + TEXT["CONTACT_NOT_FOUND"] + Style.RESET_ALL)
 
     def birthdays(self) -> str:
         contacts_with_birthdays = list()
