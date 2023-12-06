@@ -25,5 +25,6 @@ setup(
       'Intended Audience :: Developers',
       'Programming Language :: Python :: 3',
     ],
-    entry_points={'console_scripts': ['assistant-bot = assistant_bot.main:main']}
+    entry_points={'console_scripts': ['assistant-bot = assistant_bot.main:main']},
+    install_requires=['colorama'],
 )

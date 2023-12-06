@@ -1,8 +1,8 @@
-from .bot import run_bot
+from .bot import start_bot
 
 
 def main():
-    run_bot()
+    start_bot()
 
 if __name__ == "__main__":
     main()

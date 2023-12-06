@@ -1,14 +1,14 @@
 from ..constants import MENU, TEXT
 
 
-def show_menu():
-    return MENU
+def show_menu(*_):
+    print(MENU)
 
-def show_bye():
-    return TEXT["BYE"]
+def show_bye(*_):
+    print(TEXT["BYE"])
 
-def show_hello():
-    return TEXT["GREETING"]
+def show_hello(*_):
+    print(TEXT["GREETING"])
 
 
 __all__ = [

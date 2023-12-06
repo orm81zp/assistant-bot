@@ -1,23 +1,23 @@
+from colorama import Fore, Style
+
 from ..address_book import Record, AddressBook
 from ..decorators import input_error
 from ..constants import TEXT
 
-    
+
 @input_error("Please give me name and birthday.")
 def add_birthday(args, book: AddressBook):
     name, birthday = args
 
     contact = book.find(name)
     if contact:
-        return contact.add_birthday(birthday)
+        contact.add_birthday(birthday)
     else:
         contact = Record(name)
-        result_add_birthday = contact.add_birthday(birthday)
+        added = contact.add_birthday(birthday)
 
-        if contact.birthday is not None:
+        if added:
             book.add_record(contact)
-        
-        return result_add_birthday
 
 @input_error("Please give me name.")
 def show_birthday(args, book: AddressBook):
@@ -25,13 +25,16 @@ def show_birthday(args, book: AddressBook):
 
     contact = book.find(name)
     if contact:
-        return contact.find_birthday()
+        print(contact.find_birthday())
     else:
-        return TEXT["CONTACT_NOT_FOUND"]
+        print(Fore.LIGHTBLACK_EX + TEXT["CONTACT_NOT_FOUND"] + Style.RESET_ALL)
 
-def birthdays(book: AddressBook):
-    birthdays = book.birthdays()
-    return birthdays if birthdays else TEXT["NO_DATA_TO_DISPLAY"]
+def birthdays(_, book: AddressBook):
+    all_birthdays = book.birthdays()
+    if all_birthdays:
+        print(all_birthdays)
+    else:
+        print(Fore.LIGHTBLACK_EX + TEXT["NO_DATA_TO_DISPLAY"] + Style.RESET_ALL)
 
 __all__ = [
     "add_birthday",
