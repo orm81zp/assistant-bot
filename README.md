@@ -22,7 +22,7 @@ from assistant_bot import run_bot
 run_bot()
 ```
 
-or directly from the terminal `assistant-bot-run`
+or directly from the terminal `assistant-bot`
 
 ## Basic functionality
 
@@ -35,8 +35,8 @@ or directly from the terminal `assistant-bot-run`
 - Search by notes.
 - Edit and delete notes.
 
-All data (contacts, notes) are stored on the hard disk in the package folder.
-The assistant Bot can be restarted without losing data.
+All data (contacts, notes) are stored on the hard disk in the package folder. Dump file name is `assistant_data.bin`.
+The Assistant Bot can be restarted without losing data.
 
 ### Commands
 
