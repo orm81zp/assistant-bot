@@ -9,7 +9,8 @@ def get_long_description():
         return fh.read()
 
 
-setup(name='assistant_bot',
+setup(
+    name='assistant-bot',
     version='0.0.1',
     description='Assistant Bot',
     long_description=get_long_description(),
@@ -20,5 +21,9 @@ setup(name='assistant_bot',
     license='MIT',
     packages=find_namespace_packages(),
     include_package_data=True,
-    entry_points={'console_scripts': ['assistant-bot = assistant_bot:run_bot']}
+    classifiers=[
+      'Intended Audience :: Developers',
+      'Programming Language :: Python :: 3',
+    ],
+    entry_points={'console_scripts': ['assistant-bot = assistant_bot.main:main']}
 )

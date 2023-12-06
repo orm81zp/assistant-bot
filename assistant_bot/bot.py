@@ -25,9 +25,4 @@ def run_bot():
         except Exception as err:
             print("Oops! Something went wrong.", err)
 
-
-if __name__ == "__main__":
-    run_bot()
-
-
 __all__ = ["run_bot"]
