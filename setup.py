@@ -20,5 +20,5 @@ setup(name='assistant_bot',
     license='MIT',
     packages=find_namespace_packages(),
     include_package_data=True,
-    entry_points={'console_scripts': ['assistant_bot_run = assistant_bot:run_bot']}
+    entry_points={'console_scripts': ['assistant-bot-run = assistant_bot:run_bot']}
 )
