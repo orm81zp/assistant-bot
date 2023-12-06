@@ -34,8 +34,8 @@ def parse_input(user_input: str | None):
     cmd = cmd.strip().lower()
     return cmd, *args
 
-def is_yes_prompt():
-    user_input = input("Are you sure you want to delete the contact (y or n)? ")
+def is_yes_prompt(msg = "Are you sure?"):
+    user_input = input(f"{msg} (y or n) ")
     if not user_input:
         raise InputBotExseption
 

@@ -1,4 +1,5 @@
 from ..address_book import AddressBook
+from ..utils import is_yes_prompt
 from .all_commands import (
     add_phone,
     remove_phone,
@@ -32,7 +33,8 @@ def commands_handler(command, book: AddressBook, args):
     elif command == "birthdays":
         print(birthdays(book))
     elif command == "remove-contact":
-        print(remove_contact(args, book))
+        if is_yes_prompt("Please confirm the deletion of the contact"):
+            print(remove_contact(args, book))
     elif command == "hello":
         print(show_hello())
     elif command == "help":
