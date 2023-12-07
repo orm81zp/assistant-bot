@@ -1,5 +1,9 @@
 from collections import defaultdict
 from datetime import datetime
+from prettytable import PrettyTable
+from colorama import Fore, Style
+
+from ..constants import TEXT
 
 class InvalidUserArgs(Exception):
     pass
@@ -49,7 +53,7 @@ def parse_user_data(user):
     birthday = user["birthday"].date()
     return name, birthday
 
-def get_birthdays_per_week(users, days_range = None) -> str:
+def get_birthdays_per_week(users, days_range = None):
     """Takes the list of users with required \"name\" and \"birthday\" keys and show them with birthdays one week ahead of the current day
 
     Parameters:
@@ -71,7 +75,7 @@ def get_birthdays_per_week(users, days_range = None) -> str:
 
             if birthday_this_year < today:
                 birthday_this_year = birthday.replace(year=today.year + 1)
-            
+
             delta_days = (birthday_this_year - today).days
 
             if delta_days < days_range:
@@ -79,16 +83,25 @@ def get_birthdays_per_week(users, days_range = None) -> str:
                 weekday = get_weekday(birthday_weekday)
                 grouped_birthdays[weekday].append(name)
         except InvalidUserArgs:
-            print("Not found required \"name\" and \"birthday\" keys.")
+            print(Fore.RED + "Not found required \"name\" and \"birthday\" keys."+ Style.RESET_ALL)
         except InvalidUserDateType:
-            print("Birthday value must be a datetime type.")
+            print(Fore.RED + "Birthday value must be a datetime type." + Style.RESET_ALL)
         except Exception as err:
-            print(err)
+            print(Fore.RED + f"Oops! Something went wrong, {err}" + Style.RESET_ALL)
     
-    output = ""
-    for weekday, users_list in grouped_birthdays.items():
-        output += "{}: {}".format(weekday, ", ".join(users_list)) + "\n"
-    
-    return output
+
+    if len(grouped_birthdays) > 0:
+        table = PrettyTable()
+        table.field_names = ['Weekday', 'Contacts']
+        table.align = 'l'
+
+        for weekday, users_list in grouped_birthdays.items():
+            table.add_row([
+                weekday,
+                ", ".join(users_list)
+            ])
+        print(table)
+    else:
+        print(Fore.LIGHTBLACK_EX + TEXT["NO_DATA_TO_DISPLAY"] + Style.RESET_ALL)
 
 __all__ = ["get_birthdays_per_week"]
