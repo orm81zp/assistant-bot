@@ -15,7 +15,7 @@ setup(
     description='A personal console bot assistant that helps you manage your contacts and notes.',
     long_description=get_long_description(),
     long_description_content_type='text/markdown',
-    url='https://github.com/orm81zp/goit-assistant-bot',
+    url='https://github.com/orm81zp/assistant_bot',
     author='Roman',
     author_email='orm81zp@gmail.com',
     license='MIT',
