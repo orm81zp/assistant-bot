@@ -15,7 +15,7 @@ setup(
     description='A personal console bot assistant that helps you manage your contacts and notes.',
     long_description=get_long_description(),
     long_description_content_type='text/markdown',
-    url='https://github.com/orm81zp/assistant_bot',
+    url='https://github.com/orm81zp/goit-assistant-bot',
     author='Roman',
     author_email='orm81zp@gmail.com',
     license='MIT',
@@ -23,7 +23,7 @@ setup(
     include_package_data=True,
     classifiers=[
       'Intended Audience :: Developers',
-      'Programming Language :: Python :: 3',
+      'Programming Language :: Python :: >=3.12',
     ],
     entry_points={'console_scripts': ['run_bot = goit_assistant_bot.bot:run_bot']},
     install_requires=['colorama', "prettytable"],

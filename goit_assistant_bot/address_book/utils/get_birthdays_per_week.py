@@ -91,9 +91,8 @@ def get_birthdays_per_week(users, days_range = None):
     
 
     if len(grouped_birthdays) > 0:
-        table = PrettyTable()
+        table = PrettyTable(align="l")
         table.field_names = ['Weekday', 'Contacts']
-        table.align = 'l'
 
         for weekday, users_list in grouped_birthdays.items():
             table.add_row([

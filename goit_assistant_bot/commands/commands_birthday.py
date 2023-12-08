@@ -8,7 +8,7 @@ from ..utils import is_yes_prompt
 from goit_assistant_bot.utils import print_diff
 
 
-@input_error("Please give me name and birthday.")
+@input_error("Please give me <name> <birthday>")
 def add_birthday(args, book: AddressBook):
     name, birthday = args
 
@@ -26,7 +26,7 @@ def add_birthday(args, book: AddressBook):
         if contact.add_birthday(birthday):
             book.add_record(contact)
 
-@input_error("Please give me name.")
+@input_error("Please give me <name>")
 def show_birthday(args, book: AddressBook):
     name = args[0]
 
@@ -36,7 +36,7 @@ def show_birthday(args, book: AddressBook):
     else:
         print(Fore.LIGHTBLACK_EX + TEXT["CONTACT_NOT_FOUND"] + Style.RESET_ALL)
 
-@input_error("Please give me name.")
+@input_error("Please give me <name>")
 def remove_birthday(args, book: AddressBook):
     name = args[0]
 
@@ -47,7 +47,7 @@ def remove_birthday(args, book: AddressBook):
     else:
         print(Fore.LIGHTBLACK_EX + TEXT["CONTACT_NOT_FOUND"] + Style.RESET_ALL)
 
-@input_error("Days range must be a number.")
+@input_error("[days range] must be a number, 7 days by default")
 def birthdays(args, book: AddressBook):
     days_range = int(args[0]) if len(args) > 0 else None
     book.birthdays(days_range)

@@ -1,5 +1,7 @@
 from ..constants import EXIT_COMMANDS
 from .commands import (
+    add_contact,
+    remove_contact,
     add_phone,
     remove_phone,
     change_phone,
@@ -8,7 +10,6 @@ from .commands import (
     add_birthday,
     show_birthday,
     birthdays,
-    remove_contact,
     show_hello,
     show_menu,
     show_bye,
@@ -24,123 +25,210 @@ from .commands import (
     remove_tag,
     show_all_tags,
     show_tag,
-    show_notes_by_tag,
+    search_note_by_tag,
     remove_address,
     remove_birthday,
     remove_email,
+    search_contact,
+    search_note,
+    change_contact_name,
 )
 
-COMMANDS = [
+CONTACT_COMMANDS = [
     {
-        "commands": ["hello", "start", "hi"],
-        "command": show_hello,
+        "commands":["add-contact"],
+        "arguments": ["<name>"],
+        "func": add_contact,
     },
     {
-        "commands": ["help", "commands", "need help", "info"],
-        "command": show_menu,
+        "commands":["search-contact"],
+        "arguments": ["<search value>"],
+        "func": search_contact,
     },
     {
-        "commands": ["add-contact", "add contact", "new contact", "create contact", "add phone", "add"],
-        "command": add_phone,
+        "commands":["change-contact-name"],
+        "arguments": ["<name> <new name>"],
+        "func": change_contact_name,
     },
     {
-        "commands":["all-contacts", "all contacts", "show contacts","show address book","show all book", "show all", "show contacts", "all"],
-        "command": show_all,
+        "commands":["all-contacts", "show-contacts"],
+        "arguments": [],
+        "func": show_all,
     },
     {
-        "commands": ["show-phone", "show phone", "get phone", "phone"],
-        "command": show_phone,
+        "commands": ["remove-contact"],
+        "arguments": ["<name>"],
+        "func": remove_contact,
+    },
+]
+
+BIRTHDAY_COMMANDS = [
+    {
+        "commands": ["add-birthday"],
+        "arguments": ["<name>", "<birthday>"],
+        "func": add_birthday,
     },
     {
-        "commands": ["change-phone", "change contact", "change phone", "change number", "update phone", "update number", "update contact"],
-        "command": change_phone,
+        "commands": ["show-birthday"],
+        "arguments": ["<name>"],
+        "func": show_birthday,
     },
     {
-        "commands": ["remove-phone", "delete number", "remove phone"],
-        "command": remove_phone,
+        "commands": ["remove-birthday"],
+        "arguments": ["<name>"],
+        "func": remove_birthday,
     },
     {
-        "commands": ["add-birthday", "add birthday", "new birthday", "create birthday"],
-        "command": add_birthday,
+        "commands":["show-birthdays"],
+        "arguments": [],
+        "func": birthdays,
+    },
+]
+
+ADDRESS_COMMANDS = [
+    {
+        "commands": ["add-address"],
+        "arguments": ["<name>", "<address>"],
+        "func": add_address,
     },
     {
-        "commands": ["show-birthday", "show birthday", "birth day", "birthday"],
-        "command": show_birthday,
+        "commands": ["show-address"],
+        "arguments": ["<name>"],
+        "func": show_address,
     },
     {
-        "commands": ["remove-birthday", "remove birthday", "delete birthday"],
-        "command": remove_birthday,
+        "commands": ["remove-address"],
+        "arguments": ["<name>"],
+        "func": remove_address,
+    },
+]
+
+NOTE_COMMANDS = [
+    {
+        "commands": ["add-note"],
+        "arguments": ["<text>"],
+        "func": add_note,
     },
     {
-        "commands":["birthdays", "show-birthdays", "show birthdays", "all birthdays", "get birthdays"],
-        "command": birthdays,
+        "commands": ["show-note"],
+        "arguments": ["<note id>"],
+        "func": show_note,
     },
     {
-        "commands": ["add-email", "add email", "new email", "create email"],
-        "command": add_email,
+        "commands":["search-note"],
+        "arguments": ["<search value>"],
+        "func": search_note,
     },
     {
-        "commands": ["show-email", "show email", "get email", "email"],
-        "command": show_email,
+        "commands": ["remove-note"],
+        "arguments": ["<note id>"],
+        "func": remove_note,
     },
     {
-        "commands": ["remove-email", "remove email", "delete email"],
-        "command": remove_email,
+        "commands": ["all-notes", "show-notes"],
+        "arguments": [],
+        "func": show_all_notes,
     },
     {
-        "commands": ["add-address", "add address", "new address", "create address"],
-        "command": add_address,
+        "commands": ["search-note-by-tag"],
+        "arguments": ["<tag>"],
+        "func": search_note_by_tag,
+    },
+]
+
+TAG_COMMANDS = [
+    {
+        "commands": ["add-tag"],
+        "arguments": ["<note id>", "<tag>"],
+        "func": add_tag,
     },
     {
-        "commands": ["show-address", "show address", "get address", "address"],
-        "command": show_address,
+        "commands": ["remove-tag"],
+        "arguments": ["<note id>", "<tag>"],
+        "func": remove_tag,
     },
     {
-        "commands": ["remove-address", "remove address", "delete address"],
-        "command": remove_address,
+        "commands": ["all-tags", "show-tags"],
+        "arguments": [],
+        "func": show_all_tags,
     },
     {
-        "commands": ["add-note", "add note", "create note", "new note"],
-        "command": add_note,
+        "commands": ["show-tag"],
+        "arguments": ["<note id>"],
+        "func": show_tag,
+    },
+]
+
+EMAIL_COMMANDS = [
+    {
+        "commands": ["add-email"],
+        "arguments": ["<name>", "<email>"],
+        "func": add_email,
     },
     {
-        "commands": ["show-note", "get note", "note"],
-        "command": show_note,
+        "commands": ["show-email"],
+        "arguments": ["<name>"],
+        "func": show_email,
     },
     {
-        "commands": ["remove-note", "remove note", "delete note"],
-        "command": remove_note,
+        "commands": ["remove-email"],
+        "arguments": ["<name>"],
+        "func": remove_email,
+    },
+]
+
+PHONE_COMMANDS = [
+    {
+        "commands": ["add-phone"],
+        "arguments": ["<name>", "<phone>"],
+        "func": add_phone,
     },
     {
-        "commands": ["all-notes", "show notes", "all notes", "show all notes", "get notes", "notes"],
-        "command": show_all_notes,
+        "commands": ["show-phone"],
+        "arguments": ["<name>"],
+        "func": show_phone,
     },
     {
-        "commands": ["show-for-tag", "show for tag", "show notes by tag", "show notes for tag", "notes by tag", "notes for tag", "by tag"],
-        "command": show_notes_by_tag,
+        "commands": ["change-phone"],
+        "arguments": ["<name>", "<old phone>", "<new phone>"],
+        "func": change_phone,
     },
     {
-        "commands": ["add-tag", "add tag", "create tag", "new tag"],
-        "command": add_tag,
+        "commands": ["remove-phone"],
+        "arguments": ["<name>", "<phone>"],
+        "func": remove_phone,
+    },
+]
+
+GENERAL_COMMANDS = [
+    {
+        "commands": ["hello", "start"],
+        "arguments": [],
+        "func": show_hello,
     },
     {
-        "commands": ["remove-tag", "delete tag", "remove tag"],
-        "command": remove_tag,
-    },
-    {
-        "commands": ["all-tags", "all tags", "show all tags", "tags"],
-        "command": show_all_tags,
-    },
-    {
-        "commands": ["show-tag", "show tag", "get tag", "tag"],
-        "command": show_tag,
-    },
-    {
-        "commands": ["remove-contact", "remove contact", "delete contact", "delete-contact", "delete record", "remove record"],
-        "command": remove_contact,
+        "commands": ["help"],
+        "arguments": [],
+        "func": show_menu,
     },
     {
         "commands": EXIT_COMMANDS,
-        "command": show_bye,
+        "arguments": [],
+        "func": show_bye,
     },
+]
+
+COMMANDS = GENERAL_COMMANDS + CONTACT_COMMANDS + BIRTHDAY_COMMANDS + ADDRESS_COMMANDS + NOTE_COMMANDS + TAG_COMMANDS + EMAIL_COMMANDS + PHONE_COMMANDS 
+
+COMMAND_VARIANTS = set()
+
+for i in COMMANDS:
+    for command in i["commands"]:
+        COMMAND_VARIANTS.add(command)
+
+COMMAND_VARIANTS = list(COMMAND_VARIANTS)
+
+__all__ = [
+    "COMMAND_VARIANTS",
+    "COMMANDS",
 ]

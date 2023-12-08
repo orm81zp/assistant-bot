@@ -1,3 +1,4 @@
+import re
 from .field import Field
 from ..exceptions import ValidationValueExseption
 from ..constants import TEXT
@@ -13,7 +14,8 @@ class Name(Field):
 
     @value.setter
     def value(self, new_value):
-        if isinstance(new_value, str):
+        new_value = new_value.strip()
+        if re.search(r"^[a-zA-Z0-9_.-]{1,30}$", new_value):
             self._value = new_value
         else:
             raise ValidationValueExseption(TEXT["NAME_VALIDATION"])

@@ -83,6 +83,16 @@ class Record:
 
         print(Fore.LIGHTBLACK_EX + TEXT["PHONE_NUMBER_NOT_FOUND"] + Style.RESET_ALL)
 
+    def change_name(self, name, new_name):
+        if name != new_name:
+            self.name = Name(name)
+            print(Fore.GREEN + TEXT["NAME_UPDATED"] + Style.RESET_ALL)
+            return True
+
+        print(Fore.LIGHTBLACK_EX + TEXT["NAMES_THE_SAME"] + Style.RESET_ALL)
+        return False
+
+
     def remove_address(self):
         self.address = None
         print(Fore.GREEN + TEXT["ADDRESS_DELETED"] + Style.RESET_ALL)

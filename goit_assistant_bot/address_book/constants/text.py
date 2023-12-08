@@ -2,6 +2,7 @@ from colorama import Fore, Style
 
 TEXT = {
     "CONTACT_DELETED": "Contact deleted.",
+    "CONTACT_ADDED": "Contact added.",
     "CONTACT_NOT_FOUND": "Contact not found.",
     "NO_DATA_TO_DISPLAY": "There are no data to display.",
 
@@ -12,7 +13,9 @@ TEXT = {
     "PHONE_NUMBER_DELETED": "Phone number deleted.",
     "PHONE_NUMBER_EXISTS": "Phone number already exists. Use \"change <username> <phone>\" if you want to update it.",
 
-    "NAME_VALIDATION": Fore.RED + "Only string accepted for name." + Style.RESET_ALL,
+    "NAME_UPDATED": "Name updated.",
+    "NAMES_THE_SAME": "Names are the same.",
+    "NAME_VALIDATION": Fore.RED + "Name failed validation. " + Style.RESET_ALL +  "Contains from 1 to 30 characters, equivalent to a-zA-Z0-9_.-" + Fore.BLUE + "Examples: Max, Israel-Nolan" + Style.RESET_ALL,
 
     "BIRTHDAY_ADDED": "Birthday added.",
     "BIRTHDAY_UPDATED": "Birthday updated.",
@@ -29,11 +32,11 @@ TEXT = {
     "ADDRESS_ADDED": "Address added.",
     "ADDRESS_UPDATED": "Address updated.",
     "ADDRESS_DELETED": "Address deleted.",
-    "ADDRESS_VALIDATION": Fore.RED + "Address failed validation. " + Style.RESET_ALL +  "Must contain at least 10 characters. " + Fore.BLUE + "Example: 3944 D Street" + Style.RESET_ALL,
+    "ADDRESS_VALIDATION": Fore.RED + "Address failed validation. " + Style.RESET_ALL +  "Contains from 10 to 50 characters. " + Fore.BLUE + "Example: 3944 D Street" + Style.RESET_ALL,
     "ADDRESS_NOT_FOUND": Fore.LIGHTBLACK_EX + "Address not found. " + Style.RESET_ALL + "Type " + Fore.BLUE + "add-address <username> <address>" + Style.RESET_ALL + " to add one.",
     
-    "NOTE_VALIDATION": Fore.RED + "Note failed validation. " + Style.RESET_ALL +  "Must contain at least 10 characters.",
-    "TAG_VALIDATION": Fore.RED + "Tag failed validation. " + Style.RESET_ALL +  "Must contain from 1 to 15 characters.",
+    "NOTE_VALIDATION": Fore.RED + "Note failed validation. " + Style.RESET_ALL +  "Contains from 10 to 100 characters.",
+    "TAG_VALIDATION": Fore.RED + "Tag failed validation. " + Style.RESET_ALL +  "Contains from 1 to 15 characters.",
     "TAG_REMOVED": "Tag deleted.",
     "TAG_NOT_FOUND": "Tag not found.",
     "TAG_ADDED": "Tag added.",

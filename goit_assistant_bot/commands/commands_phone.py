@@ -7,7 +7,7 @@ from ..utils import is_yes_prompt
 
 from goit_assistant_bot.utils import print_diff
 
-@input_error("Please give me name, old phone and new phone.")
+@input_error("Please give me <name> <old phone> <new phone>")
 def change_phone(args, book: AddressBook):
     name, old_phone, new_phone = args
     contact = book.find(name)
@@ -19,7 +19,7 @@ def change_phone(args, book: AddressBook):
     else:
         print(Fore.LIGHTBLACK_EX + TEXT["CONTACT_NOT_FOUND"] + Style.RESET_ALL)
 
-@input_error("Please give me name.")
+@input_error("Please give me <name>")
 def show_phone(args, book: AddressBook):
     name = args[0]
     contact = book.find(name)
@@ -29,7 +29,7 @@ def show_phone(args, book: AddressBook):
     else:
         print(Fore.LIGHTBLACK_EX + TEXT["CONTACT_NOT_FOUND"] + Style.RESET_ALL)
 
-@input_error("Please give me name and phone.")
+@input_error("Please give me <name> <phone>")
 def add_phone(args, book: AddressBook):
     name, phone = args
     contact = book.find(name)
@@ -42,7 +42,7 @@ def add_phone(args, book: AddressBook):
         if is_added:
             book.add_record(contact)
 
-@input_error("Please give me name and phone.")
+@input_error("Please give me <name> <phone>")
 def remove_phone(args, book: AddressBook):
     name, phone = args
 

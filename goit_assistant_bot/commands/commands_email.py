@@ -8,7 +8,7 @@ from ..utils import is_yes_prompt
 from goit_assistant_bot.utils import print_diff
 
 
-@input_error("Please give me name and email.")
+@input_error("Please give me <name> <email>")
 def add_email(args, book: AddressBook):
     name, email = args
     contact = book.find(name)
@@ -26,7 +26,7 @@ def add_email(args, book: AddressBook):
         if contact.add_email(email):
             book.add_record(contact)
 
-@input_error("Please give me name.")
+@input_error("Please give me <name>")
 def show_email(args, book: AddressBook):
     name = args[0]
     contact = book.find(name)
@@ -35,7 +35,7 @@ def show_email(args, book: AddressBook):
     else:
         print(Fore.LIGHTBLACK_EX + TEXT["CONTACT_NOT_FOUND"] + Style.RESET_ALL)
 
-@input_error("Please give me name.")
+@input_error("Please give me <name>")
 def remove_email(args, book: AddressBook):
     name = args[0]
     contact = book.find(name)

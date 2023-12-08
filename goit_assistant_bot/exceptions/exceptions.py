@@ -6,4 +6,12 @@ class ValidationValueExseption(Exception):
         self.message = message
         super().__init__(self.message)
 
-__all__ = ["InputBotExseption", "ValidationValueExseption"]
+
+class UnexpectedException(Exception):
+    pass
+
+__all__ = [
+    "InputBotExseption",
+    "ValidationValueExseption",
+    "UnexpectedException"
+]

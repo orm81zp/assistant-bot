@@ -22,6 +22,11 @@ class AddressBook(UserDict):
     def add_record(self, contact: Record):
         self.data["contacts"][contact.name.value] = contact
 
+    def add_contact(self, name: str):
+        contact = Record(name)
+        self.add_record(contact)
+        print(Fore.GREEN + TEXT["CONTACT_ADDED"] + Style.RESET_ALL)
+
     def add_note(self, note: Note):
         self.data["notes"].append(note)
         print(Fore.GREEN + TEXT["NOTE_ADDED"] + Style.RESET_ALL)
@@ -34,9 +39,8 @@ class AddressBook(UserDict):
     def show_tag(self, index: int):
         note = self.find_note(index)
         if note:
-            table = PrettyTable()
-            table.field_names = ["Index", "Text", "Tags"]
-            table.align = 'l'
+            table = PrettyTable(align="l")
+            table.field_names = ["Id", "Text", "Tags"]
             table.add_row([
                 index,
                 note.get_content("-"),
@@ -61,12 +65,11 @@ class AddressBook(UserDict):
             print(Fore.LIGHTBLACK_EX + TEXT["NOTE_NOT_FOUND"] + Style.RESET_ALL)
             return None
 
-    def find_all(self):
-        if len(self.data["contacts"]) > 0:
-            table = PrettyTable()
-            table.field_names = ['Name', 'Phones', 'Birthday', 'Email', 'Address']
-            table.align = 'l'
-            for contact in self.data["contacts"].values():
+    def show_all(self, contacts: list[Record]):
+        if len(contacts) > 0:
+            table = PrettyTable(align="l")
+            table.field_names = ["Name", "Phones", "Birthday", "Email", "Address"]
+            for contact in contacts:
                 table.add_row([
                     contact.name,
                     contact.get_string_phones(no_data_message="-"),
@@ -78,13 +81,68 @@ class AddressBook(UserDict):
         else:
             print(Fore.LIGHTBLACK_EX + TEXT["NO_DATA_TO_DISPLAY"] + Style.RESET_ALL)
 
-    def show_all_notes(self):
-        if len(self.data["notes"]) > 0:
-            table = PrettyTable()
-            table.field_names = ['Index', 'Text', 'Tags']
-            table.align = 'l'
-            for index in range(len(self.data["notes"])):
-                note = self.find_note(index)
+
+    def find_all(self):
+        contacts = self.data["contacts"].values()
+        self.show_all(contacts)
+
+
+    def search_contact(self, search_value: str):
+        found_contacts: list[Record] = []
+        search_value = search_value.lower()
+        contacts = self.data["contacts"].values()
+
+        for contact in contacts:
+            potential_contact: Record = contact
+
+            # searching by name
+            if str(potential_contact.name).lower().find(search_value) > -1:
+                found_contacts.append(potential_contact)
+                continue
+            # searching by phone number
+            phones = potential_contact.phones
+            if len(phones) > 0:
+                for phone in phones:
+                    if str(phone).find(search_value) > -1:
+                        found_contacts.append(potential_contact)
+                        continue
+            # searching by birthday
+            if potential_contact.birthday:
+                if str(potential_contact.birthday).find(search_value) > -1:
+                    found_contacts.append(potential_contact)
+                    continue
+            # searching by email
+            if potential_contact.email:
+                if str(potential_contact.email).lower().find(search_value) > -1:
+                    found_contacts.append(potential_contact)
+                    continue
+            # searching by address
+            if potential_contact.address:
+                if str(potential_contact.address).lower().find(search_value) > -1:
+                    found_contacts.append(potential_contact)
+                    continue
+
+        self.show_all(found_contacts)
+
+
+    def search_note(self, search_value: str):
+        notes: list[Note] = []
+        search_value = search_value.lower()
+
+        for note in self.data["notes"]:
+            potential_note: Note = note
+            if str(potential_note.content).lower().find(search_value) > -1:
+                notes.append(potential_note)
+
+        self.show_all_notes(notes)
+
+
+    def show_all_notes(self, notes: list[Note]):
+        if len(notes) > 0:
+            table = PrettyTable(align="l")
+            table.field_names = ["Id", "Text", "Tags"]
+            for index in range(len(notes)):
+                note = notes[index]
                 if note:
                     table.add_row([
                         index,
@@ -95,47 +153,45 @@ class AddressBook(UserDict):
         else:
             print(Fore.LIGHTBLACK_EX + TEXT["NO_DATA_TO_DISPLAY"] + Style.RESET_ALL)
 
-    def show_notes_by_tag(self, tag):
-        table = PrettyTable()
-        table.field_names = ['Index', 'Text', "Tags"]
-        table.align = 'l'
+    def find_all_notes(self):
+        self.show_all_notes(self.data["notes"])
 
-        has_data = False
-        for index in range(len(self.data["notes"])):
-            note = self.find_note(index)
+    def show_notes_by_tag(self, tag):
+        table = PrettyTable(align="l")
+        table.field_names = ["Id", "Text", "Tags"]
+        notes: list[Note] = self.data["notes"]
+
+        for index in range(len(notes)):
+            note = notes[index]
             if note and note.find_tag(tag):
                 table.add_row([
                     index,
                     note.get_content("-"),
                     note.get_tags("-"),
                 ])
-                if not has_data:
-                    has_data = True
 
-        if has_data:
-            print(table)
-        else:
-            print(Fore.LIGHTBLACK_EX + TEXT["NO_DATA_TO_DISPLAY"] + Style.RESET_ALL)
+        print(table)
 
     def show_all_tags(self):
         if len(self.data["notes"]) > 0:
-            table = PrettyTable()
-            table.field_names = ['Tags', 'Note Indexes']
-            table.align = 'l'
-
             notes = defaultdict(list)
             for index in range(len(self.data["notes"])):
-                note = self.find_note(index)
-                if note:
-                    for tag_index in range(len(note.tags)):
-                        notes[str(note.tags[tag_index]).lower()].append(str(index))
+                note = self.data["notes"][index]
+                for tag_index in range(len(note.tags)):
+                    notes[str(note.tags[tag_index]).lower()].append(str(index))
 
-            for k, v in notes.items():
-                table.add_row([
-                    k,
-                    ', '.join(v),
-                ])
-            print(table)
+            if len(notes) > 0:
+                table = PrettyTable(align="l")
+                table.field_names = ["Tags", "Note IDs"]
+
+                for k, v in notes.items():
+                    table.add_row([
+                        k,
+                        ", ".join(v),
+                    ])
+                print(table)
+            else:
+                print(Fore.LIGHTBLACK_EX + TEXT["NO_DATA_TO_DISPLAY"] + Style.RESET_ALL)
         else:
             print(Fore.LIGHTBLACK_EX + TEXT["NO_DATA_TO_DISPLAY"] + Style.RESET_ALL)
 
@@ -166,9 +222,8 @@ class AddressBook(UserDict):
         note = self.find_note(index)
 
         if note:
-            table = PrettyTable()
-            table.field_names = ['Index', 'Text', 'Tags']
-            table.align = 'l'
+            table = PrettyTable(align="l")
+            table.field_names = ["Id", "Text", "Tags"]
             table.add_row([
                 index,
                 note.get_content("-"),

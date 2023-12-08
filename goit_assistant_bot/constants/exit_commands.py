@@ -1,3 +1,3 @@
-EXIT_COMMANDS = ["close", "exit", "bye", "good bye", "goodbye", "end", "stop"]
+EXIT_COMMANDS = ["close", "exit"]
 
 __all__ = ["EXIT_COMMANDS"]
