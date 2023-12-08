@@ -12,7 +12,7 @@ Python >= 3.12
 
 ### By GitHub
 
-1. [Download ZIP][](https://github.com/orm81zp/goit-assistant-bot) from GitHub
+1. [Download ZIP](https://github.com/orm81zp/goit-assistant-bot) from GitHub
 2. Extract
 3. Install requirements
 4. Run `test_run_bot.py`
