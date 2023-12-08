@@ -2,7 +2,7 @@
 
 ## Description
 
-**Personal assistant** for managing contacts and notes.
+A personal console bot assistant that helps you manage your contacts and notes.
 
 ## Requirements
 

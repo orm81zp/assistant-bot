@@ -10,9 +10,9 @@ def get_long_description():
 
 
 setup(
-    name='assistant-bot',
+    name='goit-assistant-bot',
     version='0.0.1',
-    description='Assistant Bot',
+    description='A personal console bot assistant that helps you manage your contacts and notes.',
     long_description=get_long_description(),
     long_description_content_type='text/markdown',
     url='https://github.com/orm81zp/assistant_bot',
@@ -25,6 +25,6 @@ setup(
       'Intended Audience :: Developers',
       'Programming Language :: Python :: 3',
     ],
-    entry_points={'console_scripts': ['assistant-bot = assistant_bot.main:main']},
-    install_requires=['colorama'],
+    entry_points={'console_scripts': ['run_bot = goit_assistant_bot.bot:run_bot']},
+    install_requires=['colorama', "prettytable"],
 )
