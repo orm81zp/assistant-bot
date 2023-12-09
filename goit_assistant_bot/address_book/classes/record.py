@@ -106,24 +106,33 @@ class Record:
         if len(self.phones) > 0:
             print(self.get_phones())
         else:
-            print(TEXT["NO_DATA_TO_DISPLAY"])
+            print(TEXT["NOT_FOUND"])
 
     @confirm_prompt("Existing address will be deleted, continue?")
     def remove_address(self):
-        self.address = None
-        print(TEXT["DELETED"])
+        if self.address:
+            self.address = None
+            print(TEXT["DELETED"])
+        else:
+            print(TEXT["NOT_FOUND"])
 
     @confirm_prompt("Existing email will be deleted, continue?")
     def remove_email(self):
-        self.email = None
-        print(TEXT["DELETED"])
+        if self.email:
+            self.email = None
+            print(TEXT["DELETED"])
+        else:
+            print(TEXT["NOT_FOUND"])
 
     @confirm_prompt("Existing birthday will be deleted, continue?")
     def remove_birthday(self):
-        self.birthday = None
-        print(TEXT["DELETED"])
+        if self.birthday:
+            self.birthday = None
+            print(TEXT["DELETED"])
+        else:
+            print(TEXT["NOT_FOUND"])
 
-    @confirm_prompt()
+    @confirm_prompt("Existing phone number will be deleted, continue?")
     def remove_phone(self, phone_number):
         phone = self.get_phone(phone_number)
         if phone:

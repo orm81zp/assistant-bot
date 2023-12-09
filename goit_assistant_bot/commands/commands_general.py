@@ -8,12 +8,7 @@ def print_rules(rules=None):
 
     print(Fore.YELLOW + "Validation rules:" + Style.RESET_ALL)
     for k, v in rules.items():
-
-        if isinstance(k, list):
-            k_string = ", ".join(k)
-            print(f"{k_string:<20} - {v}")
-        else:
-            print(f"{k:<20} - {v}")
+        print(f"{k:<30} - {v}")
 
 def print_argument_types(types=None):
     if not types:
@@ -21,7 +16,7 @@ def print_argument_types(types=None):
 
     print(Fore.YELLOW + "Types of argumets:" + Style.RESET_ALL)
     for k, v in types.items():
-        print(f"{k:<20} - {v}")
+        print(f"{k:<30} - {v}")
 
 def show_help(args, *_):
     """Displays help information"""

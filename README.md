@@ -33,7 +33,7 @@ from goit-assistant-bot import run_bot
 run_bot()
 ```
 
-or directly from the terminal `run_bot` after installation from pip..
+or directly from the terminal `run_bot` after installation from pip.
 
 ## Basic functionality
 
@@ -47,7 +47,7 @@ or directly from the terminal `run_bot` after installation from pip..
 - Edit and delete notes.
 
 All data (contacts, notes) are stored on the hard disk. Default dump file name is `assistant_data.bin`.
-To specify a dump file send its name as a first argument of `run_bot`, for example `run_bot data.bin`. Acceptable extension is `.bin` or `.data`.
+To specify a dump file send its name as a first argument of `run_bot`, for example `run_bot work_contacts.bin`. Acceptable extension is `.bin` or `.data`.
 Data is saved after closing the programm by `exit` or `close` commands and restoring after running next time. The Assistant Bot can be restarted without losing data.
 
 ### Commands
@@ -88,33 +88,33 @@ help                           - used to display information about all commands 
 close | exit                   - used to close the program: close
 
 Types of argumets:
-<required>           - required argument
-[optional]           - optional argument
+<required>                     - required argument
+[optional]                     - optional argument
 
 Validation rules:
-<name>               - contains from 1 to 30 characters. Example: Max
-<new name>           - Same as for <name>
-<phone>              - begins with + and consist of 12 digits. Example: +380630000001
-<old phone>          - Same as for <phone>
-<new phone>          - Same as for <phone>
-<address>            - contains from 10 to 50 characters. Example: 3944 D Street
-<email>              - must be a valid email address. Example: max101@gmail.com
-<note index>         - must be a number, starts from 0
-<tag>                - contains from 1 to 15 characters
-<text>               - contains from 10 to 500 characters
-<birthday>           - contains numbers separated by a dot in the following format DD.MM.YYYY. Example: 24.06.2001
-<search value>       - case-insensitive characters. Example: hello world
-[days range]         - (optional) must be number. Example: 14
-[command name]       - (optional) an existing command name. Example: add-phone
+<name>                         - contains from 1 to 30 characters. Example: Max
+<new name>                     - Same as for <name>
+<phone>                        - begins with + and consist of 12 digits. Example: +380630000001
+<old phone>                    - Same as for <phone>
+<new phone>                    - Same as for <phone>
+<address>                      - contains from 10 to 100 characters. Example: 3944 D Street
+<email>                        - must be a valid email address. Example: max101@gmail.com
+<note index>                   - must be a number, starts from 0
+<tag>                          - contains from 1 to 15 characters
+<text>                         - contains from 10 to 500 characters
+<birthday>                     - contains numbers separated by a dot in the following format DD.MM.YYYY. Example: 24.06.2001
+<search value>                 - case-insensitive characters. Example: hello world
+[days range]                   - (optional) must be number. Example: 14
+[command name]                 - (optional) an existing command name. Example: add-phone
 ```
 
 ### Examples of the use some commands
 
 ### help
 
-Used to display all commands : `help`.
+Used to display all commands: `help`.
 
-To display help information about a particular command use `help [command name]`.
+To display information about a specific command and usage rules type `help [command name]`.
 
 ```
 Enter a command: help add-birthday
@@ -141,7 +141,7 @@ Used to add a birthday: `add-birthday <name> <birthday>`. Will be replaced if al
 
 ```
 Enter a command: add-birthday John 28.11.2001
-Birthday added.
+Added.
 ```
 
 ### add-email
@@ -169,12 +169,12 @@ Enter a command: all-contacts
 ### remove-contact
 
 Used to remove a contact: `remove-contact <name>`
-You need to confirm removing a contact with "yes" or "y".
+You need to confirm with "yes" or "y".
 
 ```
 Enter a command: remove-contact John
-Please confirm the removal of the contact (yes/no) yes
-Contact deleted.
+Existing contact will be deleted, continue? (yes/no) yes
+Deleted.
 ```
 
 ### birthdays
@@ -210,7 +210,7 @@ Used to add a note: `add-note <text>`
 
 ```
 Enter a command: add-note Hello world! Let's study something!
-Note added.
+Added.
 ```
 
 ### all-notes
@@ -233,5 +233,5 @@ use `close` or `exit` to close the program.
 ```
 Enter a command: exit
 Good bye!
-Address Book saved!
+Saved!
 ```

@@ -47,25 +47,26 @@ class Tag(Field):
         return f'Tag: {self._value}'
 
 class Note:
-    def __init__(self, content):
+    def __init__(self, content, uuid):
         self.content = NoteContent(content)
+        self.uuid = uuid
         self.tags = []
 
     def get_content(self, no_data_message = ""):
         return self.content.value if self.content else no_data_message
 
-    def get_tags(self, no_data_message = "NO TAGS"):
-        return " ".join("#" + str(tag) for tag in self.tags) if len(self.tags) > 0 else no_data_message
+    def get_tags(self, no_data_message = "no tags"):
+        return " ".join(str(tag) for tag in self.tags) if len(self.tags) > 0 else no_data_message
 
-    def is_tag_exists(self, tag):
+    def tag_exists(self, tag):
         for itag in self.tags:
             if str(itag).lower() == tag.lower():
                 return True
         return False
 
     def remove_tag(self, tag):
-        if self.is_tag_exists(tag):
-            self.tags = list(filter(lambda t: t.value.lower() != tag.lower(), self.tags))
+        if self.tag_exists(tag):
+            self.tags = list(filter(lambda t: str(t).lower() != tag.lower(), self.tags))
             print(TEXT["DELETED"])
             return True
 
@@ -73,7 +74,7 @@ class Note:
         return False
 
     def add_tag(self, tag):
-        if self.is_tag_exists(tag):
+        if self.tag_exists(tag):
             print(TEXT["EXISTS"])
             return False
 
