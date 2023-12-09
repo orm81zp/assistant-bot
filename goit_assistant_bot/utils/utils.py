@@ -39,12 +39,10 @@ def stop_work():
     finally:
         os._exit(0)
 
-def is_yes_prompt(msg = "Are you sure?"):
-    user_input = input(f"{msg} (y or n) ")
-    if not user_input:
-        raise InputBotExseption
-
+def is_yes_prompt(msg = "Please confirm"):
+    user_input = input(f"{msg} (yes/no) ")
     user_input = user_input.strip().lower()
+
     return user_input in ["yes", "y"]
 
 __all__ = [

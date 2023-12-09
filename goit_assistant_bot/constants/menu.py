@@ -19,16 +19,16 @@ remove-address                  - used to remove an address: "remove-address <na
 
 [Note commands]
 add-note                        - used to add a note: "add-note <text>"
-show-note                       - used to display a note: "show-note <note id>"
-remove-note                     - used to remove a note: "remove-note <note id>"
+show-note                       - used to display a note: "show-note <note index>"
+remove-note                     - used to remove a note: "remove-note <note index>"
 all-notes | show-notes          - used to display all notes: "all-notes"
 search-note                     - used to search notes by content (case-insensitive): "search-note <search value>"
 search-note-by-tag              - used to display all notes found by a tag (case-insensitive, strict match): "search-note-by-tag <tag>"
 
 [Tag commands]
-add-tag                         - used to add a tag: "add-tag <note id> <tag>"
-show-tag                        - used to display a tag: "show-tag <note id>"
-remove-tag                      - used to remove a tag: "remove-tag <note id> <tag>"
+add-tag                         - used to add a tag: "add-tag <note index> <tag>"
+show-tag                        - used to display a tag: "show-tag <note index>"
+remove-tag                      - used to remove a tag: "remove-tag <note index> <tag>"
 all-tags | show-tags            - used to display all tags: "all-tags"
 
 [Email commands]
@@ -54,11 +54,11 @@ Types of argumets:
 Validation rules:
 <name>             - Contains from 1 to 30 characters. Example: Max
 <address>          - Contains from 10 to 50 characters. Example: 3944 D Street
-<email>            - Must be a correct email address. Example: max101@gmail.com
+<email>            - Must be a valid email address. Example: max101@gmail.com
 <phone>            - begins with + and consist of 12 digits. Example: +380630000001
-<note id>          - Must be a number, starts from 0
+<note index>       - Must be a number, starts from 0
 <tag>              - Contains from 1 to 15 characters
-<text>             - Contains from 10 to 100 characters
+<text>             - Contains from 10 to 500 characters
 <birthday>         - Contains numbers separated by a dot in the following format DD.MM.YYYY. Example: 24.06.2001
 [days range]       - must be number. Example: 14
 """

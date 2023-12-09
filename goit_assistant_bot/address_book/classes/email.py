@@ -13,7 +13,7 @@ class Email(Field):
 
     @value.setter
     def value(self, new_value):
-        if re.search(r"^[a-zA-Z][\w.]+@[a-zA-Z]+\.[a-zA-Z]{2,}$", new_value):
+        if re.search(r"^[a-zA-Z]{1}[a-zA-Z0-9_\.-]{1,}@[a-zA-Z]+\.[a-zA-Z]{2,}$", new_value):
             self._value = new_value
         else:
             raise ValidationValueExseption(TEXT["EMAIL_VALIDATION"])

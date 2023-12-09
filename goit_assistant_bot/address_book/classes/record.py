@@ -7,6 +7,7 @@ from .email import Email
 from .address import Address
 from ..constants import TEXT
 
+from goit_assistant_bot.decorators import confirm_prompt
 
 class Record:
     def __init__(self, name):
@@ -21,7 +22,7 @@ class Record:
 
     def get_phone(self, phone_number) -> Phone | None:
         for phone in self.phones:
-            if phone == phone_number:
+            if str(phone) == phone_number:
                 return phone
 
         return None
@@ -36,17 +37,10 @@ class Record:
             return True
 
     def add_birthday(self, birthday: str) -> bool:
-        birthday = birthday.strip()
         message = TEXT["BIRTHDAY_UPDATED"] if self.birthday else TEXT["BIRTHDAY_ADDED"]
         self.birthday = Birthday(birthday)
         print(Fore.GREEN + message + Style.RESET_ALL)
         return self.birthday is not None
-
-    def show_birthday(self):
-        if (self.birthday):
-            print(self.birthday)
-        else:
-            print(TEXT["BIRTHDAY_NOT_FOUND"])
 
     def add_email(self, email: str) -> bool:
         email = email.strip()
@@ -55,12 +49,6 @@ class Record:
         print(Fore.GREEN + message + Style.RESET_ALL)
         return self.email is not None
 
-    def show_email(self):
-        if (self.email):
-            print(self.email)
-        else:
-            print(TEXT["EMAIL_NOT_FOUND"])
-
     def add_address(self, address: str) -> bool:
         address = address.strip()
         message = TEXT["ADDRESS_UPDATED"] if self.address else TEXT["ADDRESS_ADDED"]
@@ -68,16 +56,29 @@ class Record:
         print(Fore.GREEN + message + Style.RESET_ALL)
         return self.address is not None
 
+    def show_birthday(self):
+        if (self.birthday):
+            print(self.birthday)
+        else:
+            print(TEXT["BIRTHDAY_NOT_FOUND"])
+
+    def show_email(self):
+        if (self.email):
+            print(self.email)
+        else:
+            print(TEXT["EMAIL_NOT_FOUND"])
+
     def show_address(self):
         if self.address:
             print(self.address)
         else:
             print(TEXT["ADDRESS_NOT_FOUND"])
 
+    @confirm_prompt()
     def remove_phone(self, phone_number):
         phone = self.get_phone(phone_number)
         if phone:
-            self.phones = list(filter((lambda phone: phone != phone_number), self.phones))
+            self.phones = list(filter((lambda phone: str(phone) != phone_number), self.phones))
             print(Fore.GREEN + TEXT["PHONE_NUMBER_DELETED"] + Style.RESET_ALL)
             return True
 
@@ -85,22 +86,24 @@ class Record:
 
     def change_name(self, name, new_name):
         if name != new_name:
-            self.name = Name(name)
+            self.name = Name(new_name)
             print(Fore.GREEN + TEXT["NAME_UPDATED"] + Style.RESET_ALL)
             return True
 
         print(Fore.LIGHTBLACK_EX + TEXT["NAMES_THE_SAME"] + Style.RESET_ALL)
         return False
 
-
+    @confirm_prompt()
     def remove_address(self):
         self.address = None
         print(Fore.GREEN + TEXT["ADDRESS_DELETED"] + Style.RESET_ALL)
 
+    @confirm_prompt()
     def remove_email(self):
         self.email = None
         print(Fore.GREEN + TEXT["EMAIL_DELETED"] + Style.RESET_ALL)
 
+    @confirm_prompt()
     def remove_birthday(self):
         self.birthday = None
         print(Fore.GREEN + TEXT["BIRTHDAY_DELETED"] + Style.RESET_ALL)
@@ -113,13 +116,6 @@ class Record:
             return True
         
         print(Fore.LIGHTBLACK_EX + TEXT["PHONE_NUMBER_NOT_FOUND"] + Style.RESET_ALL)
-
-    def find_phone(self, phone_number):
-        phone = self.get_phone(phone_number)
-        if phone:
-            print(phone.value)
-        else:
-            print(Fore.LIGHTBLACK_EX + TEXT["PHONE_NUMBER_NOT_FOUND"] + Style.RESET_ALL)
 
     def find_phones(self):
         if len(self.phones) > 0:

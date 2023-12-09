@@ -11,11 +11,12 @@ from goit_assistant_bot.utils import print_diff
 @input_error("Please give me <name> <birthday>")
 def add_birthday(args, book: AddressBook):
     name, birthday = args
+    birthday = birthday.strip()
 
     contact = book.find(name)
     if contact:
         if contact.birthday:
-            if is_yes_prompt("Birthday already added, update?"):
+            if is_yes_prompt("Birthday already exists, update?"):
                 old_value = contact.birthday.value
                 if contact.add_birthday(birthday):
                     print_diff(old_value, birthday)
@@ -42,7 +43,6 @@ def remove_birthday(args, book: AddressBook):
 
     contact = book.find(name)
     if contact:
-        if is_yes_prompt("Please confirm the removal of the birthday"):
             contact.remove_birthday()
     else:
         print(Fore.LIGHTBLACK_EX + TEXT["CONTACT_NOT_FOUND"] + Style.RESET_ALL)

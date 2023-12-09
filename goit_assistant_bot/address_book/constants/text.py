@@ -20,13 +20,14 @@ TEXT = {
     "BIRTHDAY_ADDED": "Birthday added.",
     "BIRTHDAY_UPDATED": "Birthday updated.",
     "BIRTHDAY_DELETED": "Birthday deleted.",
-    "BIRTHDAY_VALIDATION": Fore.RED + "Birthday failed validation. " + Style.RESET_ALL +  "Must be numbers separated by a dot, format DD.MM.YYYY. " + Fore.BLUE + "Example: 24.06.2001" + Style.RESET_ALL,
+    "BIRTHDAY_VALIDATION": Fore.RED + "Birthday failed validation. " + Style.RESET_ALL +  "Must be a valid date in DD.MM.YYYY format. " + Fore.BLUE + "Example: 24.10.2001" + Style.RESET_ALL,
+    "BIRTHDAY_IN_THE_FUTURE": Fore.RED + "Birthday failed validation. " + Style.RESET_ALL +  "Birthday can't be in the future " + Style.RESET_ALL,
     "BIRTHDAY_NOT_FOUND": Fore.LIGHTBLACK_EX + "Birthday not found. " + Style.RESET_ALL + "Type " + Fore.BLUE + "add-birthday <username> <birthday>" + Style.RESET_ALL + " to add one.",
 
     "EMAIL_ADDED": "Email added.",
     "EMAIL_UPDATED": "Email updated.",
     "EMAIL_DELETED": "Email deleted.",
-    "EMAIL_VALIDATION": Fore.RED + "Email failed validation. " + Style.RESET_ALL +  "Must starts with a letter, contain @ and has a domen name with at least 2 characters. " + Fore.BLUE + "Example: dummy21@gmail.com" + Style.RESET_ALL,
+    "EMAIL_VALIDATION": Fore.RED + "Email failed validation. " + Style.RESET_ALL +  "Must be a valid email address. " + Fore.BLUE + "Example: dummy21@gmail.com" + Style.RESET_ALL,
     "EMAIL_NOT_FOUND": Fore.LIGHTBLACK_EX + "Email not found. " + Style.RESET_ALL + "Type " + Fore.BLUE + "add-email <username> <email>" + Style.RESET_ALL + " to add one.",
 
     "ADDRESS_ADDED": "Address added.",
@@ -35,7 +36,7 @@ TEXT = {
     "ADDRESS_VALIDATION": Fore.RED + "Address failed validation. " + Style.RESET_ALL +  "Contains from 10 to 50 characters. " + Fore.BLUE + "Example: 3944 D Street" + Style.RESET_ALL,
     "ADDRESS_NOT_FOUND": Fore.LIGHTBLACK_EX + "Address not found. " + Style.RESET_ALL + "Type " + Fore.BLUE + "add-address <username> <address>" + Style.RESET_ALL + " to add one.",
     
-    "NOTE_VALIDATION": Fore.RED + "Note failed validation. " + Style.RESET_ALL +  "Contains from 10 to 100 characters.",
+    "NOTE_VALIDATION": Fore.RED + "Note failed validation. " + Style.RESET_ALL +  "Contains from 10 to 500 characters.",
     "TAG_VALIDATION": Fore.RED + "Tag failed validation. " + Style.RESET_ALL +  "Contains from 1 to 15 characters.",
     "TAG_REMOVED": "Tag deleted.",
     "TAG_NOT_FOUND": "Tag not found.",
