@@ -16,7 +16,7 @@ def add_address(args, book: AddressBook):
     contact = book.find(name)
     if contact:
         if contact.address:
-            if is_yes_prompt("Address already added, update?"):
+            if is_yes_prompt("Address already exists, update?"):
                 old_value = contact.address.value
                 if contact.add_address(address):
                     print_diff(old_value, address)
@@ -42,8 +42,7 @@ def remove_address(args, book: AddressBook):
     name = args[0]
     contact = book.find(name)
     if contact:
-        if is_yes_prompt("Please confirm the removal of the address"):
-            contact.remove_address()
+        contact.remove_address()
     else:
         print(Fore.LIGHTBLACK_EX + TEXT["CONTACT_NOT_FOUND"] + Style.RESET_ALL)
 

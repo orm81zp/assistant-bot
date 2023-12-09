@@ -111,7 +111,7 @@ NOTE_COMMANDS = [
     },
     {
         "commands": ["show-note"],
-        "arguments": ["<note id>"],
+        "arguments": ["<note index>"],
         "func": show_note,
     },
     {
@@ -121,7 +121,7 @@ NOTE_COMMANDS = [
     },
     {
         "commands": ["remove-note"],
-        "arguments": ["<note id>"],
+        "arguments": ["<note index>"],
         "func": remove_note,
     },
     {
@@ -139,12 +139,12 @@ NOTE_COMMANDS = [
 TAG_COMMANDS = [
     {
         "commands": ["add-tag"],
-        "arguments": ["<note id>", "<tag>"],
+        "arguments": ["<note index>", "<tag>"],
         "func": add_tag,
     },
     {
         "commands": ["remove-tag"],
-        "arguments": ["<note id>", "<tag>"],
+        "arguments": ["<note index>", "<tag>"],
         "func": remove_tag,
     },
     {
@@ -154,7 +154,7 @@ TAG_COMMANDS = [
     },
     {
         "commands": ["show-tag"],
-        "arguments": ["<note id>"],
+        "arguments": ["<note index>"],
         "func": show_tag,
     },
 ]

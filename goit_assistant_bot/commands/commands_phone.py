@@ -45,8 +45,6 @@ def add_phone(args, book: AddressBook):
 @input_error("Please give me <name> <phone>")
 def remove_phone(args, book: AddressBook):
     name, phone = args
-
-    print("name", name)
     contact = book.find(name)
 
     if contact:

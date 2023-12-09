@@ -8,6 +8,9 @@ from ..constants import TEXT
 from .record import Record
 from .note import Note
 
+from goit_assistant_bot.decorators import confirm_prompt
+
+TABLE_MAX_WIDTH = 80
 
 class AddressBook(UserDict):
     def __init__(self):
@@ -27,37 +30,33 @@ class AddressBook(UserDict):
         self.add_record(contact)
         print(Fore.GREEN + TEXT["CONTACT_ADDED"] + Style.RESET_ALL)
 
-    def add_note(self, note: Note):
+    def add_note(self, content: str):
+        note = Note(content)
         self.data["notes"].append(note)
         print(Fore.GREEN + TEXT["NOTE_ADDED"] + Style.RESET_ALL)
 
-    def add_tag(self, index: int, tag: str):
-        note = self.find_note(index)
+    def add_tag(self, index, tag):
+        note = self.get_note_by_index(index)
         if note:
             note.add_tag(tag)
 
-    def show_tag(self, index: int):
-        note = self.find_note(index)
+    def show_tag(self, index):
+        note = self.get_note_by_index(index)
         if note:
-            table = PrettyTable(align="l")
-            table.field_names = ["Id", "Text", "Tags"]
-            table.add_row([
-                index,
-                note.get_content("-"),
-                note.get_tags("-")
+            print(note.get_string_tags())
+        else:
+            print(Fore.LIGHTBLACK_EX + TEXT["NO_DATA_TO_DISPLAY"] + Style.RESET_ALL)
 
-            ])
-            print(table)
-
-    def remove_tag(self, index: int, tag: str):
-        note = self.find_note(index)
+    @confirm_prompt()
+    def remove_tag(self, index, tag):
+        note = self.get_note_by_index(index)
         if note:
             note.remove_tag(tag)
 
     def find(self, name) -> Record | None:
         return self.data["contacts"].get(name, None)
 
-    def find_note(self, index) -> Note | None:
+    def get_note_by_index(self, index) -> Note | None:
         try:
             note = self.data["notes"][index]
             return note
@@ -67,8 +66,10 @@ class AddressBook(UserDict):
 
     def show_all(self, contacts: list[Record]):
         if len(contacts) > 0:
-            table = PrettyTable(align="l")
-            table.field_names = ["Name", "Phones", "Birthday", "Email", "Address"]
+            table = PrettyTable(["Name", "Phones", "Birthday", "Email", "Address"])
+            table.align = "l"
+            table.max_width = TABLE_MAX_WIDTH
+
             for contact in contacts:
                 table.add_row([
                     contact.name,
@@ -126,7 +127,7 @@ class AddressBook(UserDict):
 
 
     def search_note(self, search_value: str):
-        notes: list[Note] = []
+        notes = []
         search_value = search_value.lower()
 
         for note in self.data["notes"]:
@@ -139,16 +140,18 @@ class AddressBook(UserDict):
 
     def show_all_notes(self, notes: list[Note]):
         if len(notes) > 0:
-            table = PrettyTable(align="l")
-            table.field_names = ["Id", "Text", "Tags"]
-            for index in range(len(notes)):
-                note = notes[index]
-                if note:
-                    table.add_row([
-                        index,
-                        note.get_content("-"),
-                        note.get_tags("-")
-                    ])
+            table = PrettyTable(["Index", "Text", "Tags"])
+            table.align = "l"
+            table.max_width = TABLE_MAX_WIDTH
+
+            index = 0
+            for note in notes:
+                table.add_row([
+                    index,
+                    note.get_string_content("-"),
+                    note.get_string_tags("-")
+                ])
+                index += 1
             print(table)
         else:
             print(Fore.LIGHTBLACK_EX + TEXT["NO_DATA_TO_DISPLAY"] + Style.RESET_ALL)
@@ -157,32 +160,36 @@ class AddressBook(UserDict):
         self.show_all_notes(self.data["notes"])
 
     def show_notes_by_tag(self, tag):
-        table = PrettyTable(align="l")
-        table.field_names = ["Id", "Text", "Tags"]
-        notes: list[Note] = self.data["notes"]
+        table = PrettyTable(["Index", "Text", "Tags"])
+        table.align = "l"
+        table.max_width = TABLE_MAX_WIDTH
 
-        for index in range(len(notes)):
-            note = notes[index]
-            if note and note.find_tag(tag):
+        index = 0
+        for note in self.data["notes"]:
+            if note.is_tag_exists(tag):
                 table.add_row([
                     index,
-                    note.get_content("-"),
-                    note.get_tags("-"),
+                    note.get_string_content("-"),
+                    note.get_string_tags("-"),
                 ])
+            index += 1
 
         print(table)
 
     def show_all_tags(self):
         if len(self.data["notes"]) > 0:
             notes = defaultdict(list)
-            for index in range(len(self.data["notes"])):
-                note = self.data["notes"][index]
-                for tag_index in range(len(note.tags)):
-                    notes[str(note.tags[tag_index]).lower()].append(str(index))
+
+            index = 0
+            for note in self.data["notes"]:
+                for itag in note.tags:
+                    notes[str(itag).lower()].append(str(index))
+                index += 1
 
             if len(notes) > 0:
-                table = PrettyTable(align="l")
-                table.field_names = ["Tags", "Note IDs"]
+                table = PrettyTable(["Tags", "Note Index"])
+                table.align = "l"
+                table.max_width = TABLE_MAX_WIDTH
 
                 for k, v in notes.items():
                     table.add_row([
@@ -202,32 +209,35 @@ class AddressBook(UserDict):
         else:
             print(Fore.LIGHTBLACK_EX + TEXT["CONTACT_NOT_FOUND"] + Style.RESET_ALL)
 
-    def remove_note(self, index: int):
-        note = self.find_note(index)
+    @confirm_prompt()
+    def remove_note(self, index):
+        note = self.get_note_by_index(index)
 
         if note:
             new_notes = []
-            for note_index in range(len(self.data["notes"])):
-                if note_index != index:
-                    new_notes.append(self.data["notes"][note_index])
+            for nindex in range(len(self.data["notes"])):
+                if nindex != index:
+                    new_notes.append(self.data["notes"][nindex])
 
             self.data["notes"] = new_notes
             print(Fore.GREEN + TEXT["NOTE_DELETED"] + Style.RESET_ALL)
+
             return True
 
         print(Fore.LIGHTBLACK_EX + TEXT["NOTE_NOT_FOUND"] + Style.RESET_ALL)
         return False
 
-    def show_note(self, index) -> Record | None:
-        note = self.find_note(index)
+    def show_note(self, index):
+        note = self.get_note_by_index(index)
 
         if note:
-            table = PrettyTable(align="l")
-            table.field_names = ["Id", "Text", "Tags"]
+            table = PrettyTable(["Index", "Text", "Tags"])
+            table.align = "l"
+            table.max_width = TABLE_MAX_WIDTH
             table.add_row([
                 index,
-                note.get_content("-"),
-                note.get_tags("-")
+                note.get_string_content("-"),
+                note.get_string_tags("-")
 
             ])
 

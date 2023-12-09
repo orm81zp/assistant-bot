@@ -14,7 +14,7 @@ class NoteContent(Field):
 
     @value.setter
     def value(self, new_value):
-        if len(new_value) > 10 and len(new_value) <= 100:
+        if len(new_value) > 10 and len(new_value) <= 500:
             self._value = new_value
         else:
             raise ValidationValueExseption(TEXT["NOTE_VALIDATION"])
@@ -52,24 +52,29 @@ class Note:
         self.content = NoteContent(content)
         self.tags = []
 
-    def get_tags(self, no_data_message = "NO TAGS"):
+    def get_string_content(self, no_data_message = ""):
+        return self.content.value if self.content else no_data_message
+
+    def get_string_tags(self, no_data_message = "NO TAGS"):
         return " ".join("#" + str(tag) for tag in self.tags) if len(self.tags) > 0 else no_data_message
 
-    def find_tag(self, tag):
-        tags = list(filter(lambda t: t.value.lower() == tag.lower(), self.tags))
-        return len(tags) > 0
+    def is_tag_exists(self, tag):
+        for i in self.tags:
+            if str(i).lower() == tag.lower():
+                return True
+        return False
 
     def remove_tag(self, tag):
-        if self.find_tag(tag):
+        if self.is_tag_exists(tag):
             self.tags = list(filter(lambda t: t.value.lower() != tag.lower(), self.tags))
             print(Fore.GREEN + TEXT["TAG_REMOVED"] + Style.RESET_ALL)
             return True
-        
+
         print(Fore.LIGHTBLACK_EX + TEXT["TAG_NOT_FOUND"] + Style.RESET_ALL)
         return False
 
     def add_tag(self, tag):
-        if self.find_tag(tag):
+        if self.is_tag_exists(tag):
             print(Fore.LIGHTBLACK_EX + TEXT["TAG_EXISTS"] + Style.RESET_ALL)
             return False
 
@@ -77,10 +82,7 @@ class Note:
         print(Fore.GREEN + TEXT["TAG_ADDED"] + Style.RESET_ALL)
         return True
 
-    def get_content(self, no_data_message = ""):
-        return self.content.value if self.content else no_data_message
-
     def __str__(self):
-        return self.get_tags() + "\n" + self.get_content()
+        return self.get_string_tags() + "\n" + self.get_string_content()
 
 __all__ = ["Note"]

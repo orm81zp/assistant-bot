@@ -15,7 +15,7 @@ def add_email(args, book: AddressBook):
 
     if contact:
         if contact.email:
-            if is_yes_prompt("Email already added, update?"):
+            if is_yes_prompt("Email already exists, update?"):
                 old_value = contact.email.value
                 if contact.add_email(email):
                     print_diff(old_value, email)
@@ -40,8 +40,7 @@ def remove_email(args, book: AddressBook):
     name = args[0]
     contact = book.find(name)
     if contact:
-        if is_yes_prompt("Please confirm the removal of the email"):
-            contact.remove_email()
+        contact.remove_email()
     else:
         print(Fore.LIGHTBLACK_EX + TEXT["CONTACT_NOT_FOUND"] + Style.RESET_ALL)
 
