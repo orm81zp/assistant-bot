@@ -1,13 +1,12 @@
 from colorama import Fore, Style
-
+from ..constants import TEXT
+from ..utils import print_diff
+from ..decorators import confirm_prompt
 from .name import Name
 from .phone import Phone
 from .birthday import Birthday
 from .email import Email
 from .address import Address
-from ..constants import TEXT
-
-from goit_assistant_bot.decorators import confirm_prompt
 
 class Record:
     def __init__(self, name):
@@ -30,98 +29,118 @@ class Record:
     def add_phone(self, phone_number):
         phone = self.get_phone(phone_number)
         if phone:
-            print(Fore.LIGHTBLACK_EX + TEXT["PHONE_NUMBER_EXISTS"] + Style.RESET_ALL)
+            print(TEXT["EXISTS"])
         else:
             self.phones.append(Phone(phone_number))
-            print(Fore.GREEN + TEXT["PHONE_NUMBER_ADDED"] + Style.RESET_ALL)
+            print(TEXT["ADDED"])
             return True
 
     def add_birthday(self, birthday: str) -> bool:
-        message = TEXT["BIRTHDAY_UPDATED"] if self.birthday else TEXT["BIRTHDAY_ADDED"]
+        old_birthday= self.birthday
         self.birthday = Birthday(birthday)
-        print(Fore.GREEN + message + Style.RESET_ALL)
+
+        if old_birthday:
+            print(TEXT["UPDATED"])
+            print_diff(str(old_birthday), birthday)
+        else:
+            print(TEXT["ADDED"])
+
         return self.birthday is not None
 
     def add_email(self, email: str) -> bool:
-        email = email.strip()
-        message = TEXT["EMAIL_UPDATED"] if self.email else TEXT["EMAIL_ADDED"]
+        old_email = self.email
         self.email = Email(email)
-        print(Fore.GREEN + message + Style.RESET_ALL)
+
+        if old_email:
+            print(TEXT["UPDATED"])
+            print_diff(str(old_email), email)
+        else:
+            print(TEXT["ADDED"])
+
         return self.email is not None
 
-    def add_address(self, address: str) -> bool:
-        address = address.strip()
-        message = TEXT["ADDRESS_UPDATED"] if self.address else TEXT["ADDRESS_ADDED"]
+    def add_address(self, address: str):
+        old_address = self.address
         self.address = Address(address)
-        print(Fore.GREEN + message + Style.RESET_ALL)
-        return self.address is not None
+
+        if old_address:
+            print(TEXT["UPDATED"])
+            print_diff(str(old_address), address)
+        else:
+            print(TEXT["ADDED"])
+
+        return  self.address is not None
 
     def show_birthday(self):
         if (self.birthday):
             print(self.birthday)
         else:
-            print(TEXT["BIRTHDAY_NOT_FOUND"])
+            print(TEXT["NOT_FOUND"])
 
     def show_email(self):
         if (self.email):
             print(self.email)
         else:
-            print(TEXT["EMAIL_NOT_FOUND"])
+            print(TEXT["NOT_FOUND"])
 
     def show_address(self):
         if self.address:
             print(self.address)
         else:
-            print(TEXT["ADDRESS_NOT_FOUND"])
+            print(TEXT["NOT_FOUND"])
 
     @confirm_prompt()
     def remove_phone(self, phone_number):
         phone = self.get_phone(phone_number)
         if phone:
             self.phones = list(filter((lambda phone: str(phone) != phone_number), self.phones))
-            print(Fore.GREEN + TEXT["PHONE_NUMBER_DELETED"] + Style.RESET_ALL)
+            print(TEXT["DELETED"])
             return True
 
-        print(Fore.LIGHTBLACK_EX + TEXT["PHONE_NUMBER_NOT_FOUND"] + Style.RESET_ALL)
+        print(TEXT["NOT_FOUND"])
 
+    @confirm_prompt("Existing name will be changed, continue?")
     def change_name(self, name, new_name):
         if name != new_name:
             self.name = Name(new_name)
-            print(Fore.GREEN + TEXT["NAME_UPDATED"] + Style.RESET_ALL)
+            print(TEXT["UPDATED"])
+            print_diff(name, new_name)
             return True
 
-        print(Fore.LIGHTBLACK_EX + TEXT["NAMES_THE_SAME"] + Style.RESET_ALL)
+        print(TEXT["EQUAL"])
         return False
 
-    @confirm_prompt()
+    @confirm_prompt("Existing address will be deleted, continue?")
     def remove_address(self):
         self.address = None
-        print(Fore.GREEN + TEXT["ADDRESS_DELETED"] + Style.RESET_ALL)
+        print(TEXT["DELETED"])
 
-    @confirm_prompt()
+    @confirm_prompt("Existing email will be deleted, continue?")
     def remove_email(self):
         self.email = None
-        print(Fore.GREEN + TEXT["EMAIL_DELETED"] + Style.RESET_ALL)
+        print(TEXT["DELETED"])
 
-    @confirm_prompt()
+    @confirm_prompt("Existing birthday will be deleted, continue?")
     def remove_birthday(self):
         self.birthday = None
-        print(Fore.GREEN + TEXT["BIRTHDAY_DELETED"] + Style.RESET_ALL)
+        print(TEXT["DELETED"])
 
+    @confirm_prompt("Existing phone number will be updated, continue?")
     def edit_phone(self, old_phone, new_phone):
         phone = self.get_phone(old_phone)
         if phone:
             phone.value = new_phone
-            print(Fore.GREEN + TEXT["PHONE_NUMBER_UPDATED"] + Style.RESET_ALL)
+            print(TEXT["UPDATED"])
+            print_diff(old_phone, new_phone)
             return True
-        
-        print(Fore.LIGHTBLACK_EX + TEXT["PHONE_NUMBER_NOT_FOUND"] + Style.RESET_ALL)
+
+        print(TEXT["NOT_FOUND"])
 
     def find_phones(self):
         if len(self.phones) > 0:
             print(self.get_string_phones())
         else:
-            print(Fore.LIGHTBLACK_EX + TEXT["NO_DATA_TO_DISPLAY"] + Style.RESET_ALL)
+            print(TEXT["NO_DATA_TO_DISPLAY"])
 
     def __str__(self):
         birthday = f", birthday: {self.birthday}" if self.birthday else ""

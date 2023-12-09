@@ -67,19 +67,19 @@ class Note:
     def remove_tag(self, tag):
         if self.is_tag_exists(tag):
             self.tags = list(filter(lambda t: t.value.lower() != tag.lower(), self.tags))
-            print(Fore.GREEN + TEXT["TAG_REMOVED"] + Style.RESET_ALL)
+            print(TEXT["DELETED"])
             return True
 
-        print(Fore.LIGHTBLACK_EX + TEXT["TAG_NOT_FOUND"] + Style.RESET_ALL)
+        print(TEXT["NOT_FOUND"])
         return False
 
     def add_tag(self, tag):
         if self.is_tag_exists(tag):
-            print(Fore.LIGHTBLACK_EX + TEXT["TAG_EXISTS"] + Style.RESET_ALL)
+            print(TEXT["EXISTS"])
             return False
 
         self.tags.append(Tag(tag))
-        print(Fore.GREEN + TEXT["TAG_ADDED"] + Style.RESET_ALL)
+        print(TEXT["ADDED"])
         return True
 
     def __str__(self):

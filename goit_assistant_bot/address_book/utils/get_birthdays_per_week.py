@@ -101,6 +101,6 @@ def get_birthdays_per_week(users, days_range = None):
             ])
         print(table)
     else:
-        print(Fore.LIGHTBLACK_EX + TEXT["NO_DATA_TO_DISPLAY"] + Style.RESET_ALL)
+        print(TEXT["NO_DATA_TO_DISPLAY"])
 
 __all__ = ["get_birthdays_per_week"]

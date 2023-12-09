@@ -1,29 +1,20 @@
-from colorama import Fore, Style
 from prompt_toolkit import prompt
 from prompt_toolkit.completion import WordCompleter
-
 from ..address_book import AddressBook
 from ..exceptions import InputBotExseption
-from .commands_mapper import COMMANDS, COMMAND_VARIANTS
-
-def show_help(possible_command: str):
-    """Display help information by a command"""
-    for command in COMMANDS:
-        if possible_command in command["commands"]:
-            varians = "|".join(command.get("commands", []))
-            arguments = command.get("arguments", [])
-
-            print(Fore.LIGHTBLACK_EX
-                + varians
-                + Style.RESET_ALL
-                + Fore.BLUE
-                + f" {" ".join(arguments)}"
-                + Style.RESET_ALL
-            )
-            break
+from .commands_mapper import MAPPED_COMMANDS, COMMAND_VARIANTS
 
 def get_prompt_input(message = "Enter a command: ", need_comp = True):
-    """Prompts for user input and helps with auto-substitution of possible command options"""
+    """
+    Prompts for user input and helps with auto-substitution of possible command options
+
+    Parameters:
+        message (str): a welcome message for entering a command
+        need_comp (bool): use or not a completer
+
+    Returns:
+        user_input (str): user input value
+    """
     completer = WordCompleter(COMMAND_VARIANTS, ignore_case=True, sentence=True)
     user_input = None
 
@@ -40,7 +31,18 @@ def get_prompt_input(message = "Enter a command: ", need_comp = True):
 
 
 def parse_input(user_input: str | None):
-    """Parses a user input to get a command and arguments"""
+    """
+    Parses a user input and returns a command, a function and rest of arguments form the user input
+
+    Parameters:
+        user_input (str): user input
+
+    Returns:
+        cmd (str): a command
+        command_func (function): a fcommand function
+        args (list): rest of arguments for the user input
+    
+    """
     if not user_input:
         raise InputBotExseption
 
@@ -48,13 +50,7 @@ def parse_input(user_input: str | None):
     cmd = None
     args = []
 
-    if " --help" in user_input:
-        user_input_list = user_input.split()
-        if "--help" in user_input_list and len(user_input_list) == 2:
-            user_input = user_input.replace(" --help", "")
-            show_help(user_input_list[0])
-
-    for command in COMMANDS:
+    for command in MAPPED_COMMANDS:
         for potential_command in command["commands"]:
             raw_input = user_input.strip().lower()
             command_with_args = potential_command + " "
@@ -71,7 +67,18 @@ def parse_input(user_input: str | None):
     return (cmd, command_func, args)
 
 def commands_handler(book: AddressBook, user_data):
-    """Calls a found command"""
+    """
+    Calls a command function
+
+    Parameters:
+        book (class AddressBook): an instance of AddressBook
+        user_data (list): 
+            command_func (funtion): a command function
+            args (list): rest of arguments form the user input
+
+    Returns:
+        None
+    """
     command_func, args = user_data
 
     if command_func:

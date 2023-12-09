@@ -5,10 +5,10 @@ from prettytable import PrettyTable
 
 from ..utils import get_birthdays_per_week
 from ..constants import TEXT
+from ..decorators import confirm_prompt
 from .record import Record
 from .note import Note
 
-from goit_assistant_bot.decorators import confirm_prompt
 
 TABLE_MAX_WIDTH = 80
 
@@ -28,12 +28,12 @@ class AddressBook(UserDict):
     def add_contact(self, name: str):
         contact = Record(name)
         self.add_record(contact)
-        print(Fore.GREEN + TEXT["CONTACT_ADDED"] + Style.RESET_ALL)
+        print(Fore.GREEN + TEXT["ADDED"] + Style.RESET_ALL)
 
     def add_note(self, content: str):
         note = Note(content)
         self.data["notes"].append(note)
-        print(Fore.GREEN + TEXT["NOTE_ADDED"] + Style.RESET_ALL)
+        print(Fore.GREEN + TEXT["ADDED"] + Style.RESET_ALL)
 
     def add_tag(self, index, tag):
         note = self.get_note_by_index(index)
@@ -45,7 +45,7 @@ class AddressBook(UserDict):
         if note:
             print(note.get_string_tags())
         else:
-            print(Fore.LIGHTBLACK_EX + TEXT["NO_DATA_TO_DISPLAY"] + Style.RESET_ALL)
+            print(TEXT["NO_DATA_TO_DISPLAY"])
 
     @confirm_prompt()
     def remove_tag(self, index, tag):
@@ -54,14 +54,17 @@ class AddressBook(UserDict):
             note.remove_tag(tag)
 
     def find(self, name) -> Record | None:
-        return self.data["contacts"].get(name, None)
+        for contact in self.data["contacts"].values():
+            if contact.name.value == name:
+                return contact
+        return None
 
     def get_note_by_index(self, index) -> Note | None:
         try:
             note = self.data["notes"][index]
             return note
         except IndexError:
-            print(Fore.LIGHTBLACK_EX + TEXT["NOTE_NOT_FOUND"] + Style.RESET_ALL)
+            print(TEXT["NOT_FOUND"])
             return None
 
     def show_all(self, contacts: list[Record]):
@@ -80,16 +83,21 @@ class AddressBook(UserDict):
                 ])
             print(table)
         else:
-            print(Fore.LIGHTBLACK_EX + TEXT["NO_DATA_TO_DISPLAY"] + Style.RESET_ALL)
+            print(TEXT["NO_DATA_TO_DISPLAY"])
 
 
     def find_all(self):
         contacts = self.data["contacts"].values()
         self.show_all(contacts)
 
+    def show_contact(self, name):
+        contact = self.find(name)
 
-    def search_contact(self, search_value: str):
-        found_contacts: list[Record] = []
+        if contact:
+            self.show_all([contact])
+
+    def search_contact(self, search_value):
+        found_contacts = []
         search_value = search_value.lower()
         contacts = self.data["contacts"].values()
 
@@ -126,7 +134,7 @@ class AddressBook(UserDict):
         self.show_all(found_contacts)
 
 
-    def search_note(self, search_value: str):
+    def search_note(self, search_value):
         notes = []
         search_value = search_value.lower()
 
@@ -154,7 +162,7 @@ class AddressBook(UserDict):
                 index += 1
             print(table)
         else:
-            print(Fore.LIGHTBLACK_EX + TEXT["NO_DATA_TO_DISPLAY"] + Style.RESET_ALL)
+            print(TEXT["NO_DATA_TO_DISPLAY"])
 
     def find_all_notes(self):
         self.show_all_notes(self.data["notes"])
@@ -173,7 +181,6 @@ class AddressBook(UserDict):
                     note.get_string_tags("-"),
                 ])
             index += 1
-
         print(table)
 
     def show_all_tags(self):
@@ -198,16 +205,17 @@ class AddressBook(UserDict):
                     ])
                 print(table)
             else:
-                print(Fore.LIGHTBLACK_EX + TEXT["NO_DATA_TO_DISPLAY"] + Style.RESET_ALL)
+                print(TEXT["NO_DATA_TO_DISPLAY"])
         else:
-            print(Fore.LIGHTBLACK_EX + TEXT["NO_DATA_TO_DISPLAY"] + Style.RESET_ALL)
+            print(TEXT["NO_DATA_TO_DISPLAY"])
 
-    def delete(self, name):
+    @confirm_prompt()
+    def remove_contact(self, name):
         removed_contact = self.data["contacts"].pop(name, None)
         if removed_contact:
-            print(Fore.GREEN + TEXT["CONTACT_DELETED"] + Style.RESET_ALL)
+            print(TEXT["DELETED"])
         else:
-            print(Fore.LIGHTBLACK_EX + TEXT["CONTACT_NOT_FOUND"] + Style.RESET_ALL)
+            print(TEXT["NOT_FOUND"])
 
     @confirm_prompt()
     def remove_note(self, index):
@@ -220,11 +228,11 @@ class AddressBook(UserDict):
                     new_notes.append(self.data["notes"][nindex])
 
             self.data["notes"] = new_notes
-            print(Fore.GREEN + TEXT["NOTE_DELETED"] + Style.RESET_ALL)
+            print(TEXT["DELETED"])
 
             return True
 
-        print(Fore.LIGHTBLACK_EX + TEXT["NOTE_NOT_FOUND"] + Style.RESET_ALL)
+        print(TEXT["NOT_FOUND"])
         return False
 
     def show_note(self, index):

@@ -1,14 +1,11 @@
-from colorama import Fore, Style
-
 from ..address_book import Record, AddressBook
 from ..decorators import input_error
 from ..constants import TEXT
 from ..utils import is_yes_prompt
+from .utils import get_validation_message
+from .commands import CMD_ADD_BIRTHDAY, CMD_SHOW_BIRTHDAY, CMD_REMOVE_BIRTHDAY, CMD_BIRTHDAYS
 
-from goit_assistant_bot.utils import print_diff
-
-
-@input_error("Please give me <name> <birthday>")
+@input_error(get_validation_message(CMD_ADD_BIRTHDAY))
 def add_birthday(args, book: AddressBook):
     name, birthday = args
     birthday = birthday.strip()
@@ -16,10 +13,8 @@ def add_birthday(args, book: AddressBook):
     contact = book.find(name)
     if contact:
         if contact.birthday:
-            if is_yes_prompt("Birthday already exists, update?"):
-                old_value = contact.birthday.value
-                if contact.add_birthday(birthday):
-                    print_diff(old_value, birthday)
+            if is_yes_prompt("Existing birthday will be updated, continue?"):
+                contact.add_birthday(birthday)
         else:
             contact.add_birthday(birthday)
     else:
@@ -27,17 +22,17 @@ def add_birthday(args, book: AddressBook):
         if contact.add_birthday(birthday):
             book.add_record(contact)
 
-@input_error("Please give me <name>")
+@input_error(get_validation_message(CMD_SHOW_BIRTHDAY))
 def show_birthday(args, book: AddressBook):
     name = args[0]
-
     contact = book.find(name)
+
     if contact:
         contact.show_birthday()
     else:
-        print(Fore.LIGHTBLACK_EX + TEXT["CONTACT_NOT_FOUND"] + Style.RESET_ALL)
+        print(TEXT["NOT_FOUND"])
 
-@input_error("Please give me <name>")
+@input_error(get_validation_message(CMD_REMOVE_BIRTHDAY))
 def remove_birthday(args, book: AddressBook):
     name = args[0]
 
@@ -45,9 +40,9 @@ def remove_birthday(args, book: AddressBook):
     if contact:
             contact.remove_birthday()
     else:
-        print(Fore.LIGHTBLACK_EX + TEXT["CONTACT_NOT_FOUND"] + Style.RESET_ALL)
+        print(TEXT["NOT_FOUND"])
 
-@input_error("[days range] must be a number, 7 days by default")
+@input_error(get_validation_message(CMD_BIRTHDAYS))
 def birthdays(args, book: AddressBook):
     days_range = int(args[0]) if len(args) > 0 else None
     book.birthdays(days_range)
