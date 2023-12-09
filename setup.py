@@ -26,5 +26,5 @@ setup(
       'Programming Language :: Python :: >=3.12',
     ],
     entry_points={'console_scripts': ['run_bot = goit_assistant_bot.bot:run_bot']},
-    install_requires=['colorama', "prettytable"],
+    install_requires=['colorama', "prettytable", "prompt_toolkit"],
 )
