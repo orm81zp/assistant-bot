@@ -1,7 +1,7 @@
 import re
-from .field import Field
 from ..exceptions import ValidationValueExseption
 from ..constants import TEXT
+from .field import Field
 
 class Email(Field):
     def __init__(self, value = ""):

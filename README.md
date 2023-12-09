@@ -33,7 +33,7 @@ from goit-assistant-bot import run_bot
 run_bot()
 ```
 
-or directly from the terminal `run_bot` after installation from pip.
+or directly from the terminal `run_bot` after installation from pip..
 
 ## Basic functionality
 
@@ -46,7 +46,8 @@ or directly from the terminal `run_bot` after installation from pip.
 - Search by notes.
 - Edit and delete notes.
 
-All data (contacts, notes) are stored on the hard disk in the package folder. Dump file name is `assistant_data.bin`.
+All data (contacts, notes) are stored on the hard disk. Default dump file name is `assistant_data.bin`.
+To specify a dump file send its name as a first argument of `run_bot`, for example `run_bot data.bin`. Acceptable extension is `.bin` or `.data`.
 Data is saved after closing the programm by `exit` or `close` commands and restoring after running next time. The Assistant Bot can be restarted without losing data.
 
 ### Commands

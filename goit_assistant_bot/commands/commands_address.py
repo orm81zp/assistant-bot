@@ -5,7 +5,6 @@ from ..utils import is_yes_prompt
 from .utils import get_validation_message
 from .commands import CMD_ADD_ADDRESS, CMD_SHOW_ADDRESS, CMD_REMOVE_ADDRESS
 
-
 @input_error(get_validation_message(CMD_ADD_ADDRESS))
 def add_address(args, book: AddressBook):
     name, *address = args

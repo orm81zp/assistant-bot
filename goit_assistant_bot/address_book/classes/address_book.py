@@ -1,16 +1,11 @@
 from collections import UserDict, defaultdict
-from datetime import datetime
 from colorama import Fore, Style
 from prettytable import PrettyTable
-
 from ..utils import get_birthdays_per_week
-from ..constants import TEXT
+from ..constants import TEXT, TABLE_MAX_WIDTH
 from ..decorators import confirm_prompt
 from .record import Record
 from .note import Note
-
-
-TABLE_MAX_WIDTH = 80
 
 class AddressBook(UserDict):
     def __init__(self):
@@ -25,31 +20,29 @@ class AddressBook(UserDict):
     def add_record(self, contact: Record):
         self.data["contacts"][contact.name.value] = contact
 
-    def add_contact(self, name: str):
-        contact = Record(name)
-        self.add_record(contact)
+    def add_contact(self, name):
+        self.add_record(Record(name))
         print(Fore.GREEN + TEXT["ADDED"] + Style.RESET_ALL)
 
     def add_note(self, content: str):
-        note = Note(content)
-        self.data["notes"].append(note)
+        self.data["notes"].append(Note(content))
         print(Fore.GREEN + TEXT["ADDED"] + Style.RESET_ALL)
 
     def add_tag(self, index, tag):
-        note = self.get_note_by_index(index)
+        note = self.get_note(index)
         if note:
             note.add_tag(tag)
 
     def show_tag(self, index):
-        note = self.get_note_by_index(index)
+        note = self.get_note(index)
         if note:
-            print(note.get_string_tags())
+            print(note.get_tags())
         else:
             print(TEXT["NO_DATA_TO_DISPLAY"])
 
     @confirm_prompt()
     def remove_tag(self, index, tag):
-        note = self.get_note_by_index(index)
+        note = self.get_note(index)
         if note:
             note.remove_tag(tag)
 
@@ -59,7 +52,7 @@ class AddressBook(UserDict):
                 return contact
         return None
 
-    def get_note_by_index(self, index) -> Note | None:
+    def get_note(self, index) -> Note | None:
         try:
             note = self.data["notes"][index]
             return note
@@ -76,7 +69,7 @@ class AddressBook(UserDict):
             for contact in contacts:
                 table.add_row([
                     contact.name,
-                    contact.get_string_phones(no_data_message="-"),
+                    contact.get_phones(no_data_message="-"),
                     contact.birthday or "-",
                     contact.email or "-",
                     contact.address or "-",
@@ -156,8 +149,8 @@ class AddressBook(UserDict):
             for note in notes:
                 table.add_row([
                     index,
-                    note.get_string_content("-"),
-                    note.get_string_tags("-")
+                    note.get_content("-"),
+                    note.get_tags("-")
                 ])
                 index += 1
             print(table)
@@ -177,8 +170,8 @@ class AddressBook(UserDict):
             if note.is_tag_exists(tag):
                 table.add_row([
                     index,
-                    note.get_string_content("-"),
-                    note.get_string_tags("-"),
+                    note.get_content("-"),
+                    note.get_tags("-"),
                 ])
             index += 1
         print(table)
@@ -219,15 +212,18 @@ class AddressBook(UserDict):
 
     @confirm_prompt()
     def remove_note(self, index):
-        note = self.get_note_by_index(index)
+        note = self.get_note(index)
 
         if note:
-            new_notes = []
-            for nindex in range(len(self.data["notes"])):
-                if nindex != index:
-                    new_notes.append(self.data["notes"][nindex])
+            notes = []
+            iter_index = 0
 
-            self.data["notes"] = new_notes
+            for note in self.data["notes"]:
+                if iter_index != index:
+                    notes.append(note)
+                iter_index += 1
+
+            self.data["notes"] = notes
             print(TEXT["DELETED"])
 
             return True
@@ -236,7 +232,7 @@ class AddressBook(UserDict):
         return False
 
     def show_note(self, index):
-        note = self.get_note_by_index(index)
+        note = self.get_note(index)
 
         if note:
             table = PrettyTable(["Index", "Text", "Tags"])
@@ -244,24 +240,22 @@ class AddressBook(UserDict):
             table.max_width = TABLE_MAX_WIDTH
             table.add_row([
                 index,
-                note.get_string_content("-"),
-                note.get_string_tags("-")
+                note.get_content("-"),
+                note.get_tags("-")
 
             ])
 
             print(table)
 
     def birthdays(self, days_range = None):
-        contacts_with_birthdays = []
-
-        for name in self.data["contacts"]:
-            contact: Record = self.data["contacts"][name]
-
+        contacts = []
+        for contact in self.data["contacts"].values():
             if contact.birthday:
-                d, m, y = list(map(lambda x: int(x), contact.birthday.value.split(".")))
-                contacts_with_birthdays.append({"name": name, "birthday": datetime(y, m, d)})
+                birthday = contact.get_birthday_datetime()
+                print(birthday)
+                contacts.append({"name": str(contact.name), "birthday": birthday})
 
-        get_birthdays_per_week(contacts_with_birthdays, days_range)
+        get_birthdays_per_week(contacts, days_range)
 
 
 __all__ = ["AddressBook"]

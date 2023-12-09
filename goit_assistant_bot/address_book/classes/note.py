@@ -1,5 +1,4 @@
 import re
-from colorama import Fore, Style
 from ..constants import TEXT
 from ..exceptions import ValidationValueExseption
 from .field import Field
@@ -52,15 +51,15 @@ class Note:
         self.content = NoteContent(content)
         self.tags = []
 
-    def get_string_content(self, no_data_message = ""):
+    def get_content(self, no_data_message = ""):
         return self.content.value if self.content else no_data_message
 
-    def get_string_tags(self, no_data_message = "NO TAGS"):
+    def get_tags(self, no_data_message = "NO TAGS"):
         return " ".join("#" + str(tag) for tag in self.tags) if len(self.tags) > 0 else no_data_message
 
     def is_tag_exists(self, tag):
-        for i in self.tags:
-            if str(i).lower() == tag.lower():
+        for itag in self.tags:
+            if str(itag).lower() == tag.lower():
                 return True
         return False
 
@@ -83,6 +82,6 @@ class Note:
         return True
 
     def __str__(self):
-        return self.get_string_tags() + "\n" + self.get_string_content()
+        return self.get_tags() + "\n" + self.get_content()
 
 __all__ = ["Note"]

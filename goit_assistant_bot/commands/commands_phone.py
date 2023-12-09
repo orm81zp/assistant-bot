@@ -20,7 +20,7 @@ def show_phone(args, book: AddressBook):
     contact = book.find(name)
 
     if contact:
-        contact.find_phones()
+        contact.show_phone()
     else:
         print(TEXT["NOT_FOUND"])
 

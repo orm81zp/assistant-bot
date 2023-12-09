@@ -6,7 +6,6 @@ class ValidationValueExseption(Exception):
         self.message = message
         super().__init__(self.message)
 
-
 class UnexpectedException(Exception):
     pass
 
