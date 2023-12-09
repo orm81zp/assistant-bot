@@ -1,35 +1,30 @@
-from colorama import Fore, Style
-
 from ..address_book import Record, AddressBook
 from ..decorators import input_error
 from ..constants import TEXT
-from ..utils import is_yes_prompt
+from .utils import get_validation_message
+from .commands import CMD_CHANGE_PHONE, CMD_SHOW_PHONE, CMD_ADD_PHONE, CMD_REMOVE_PHONE
 
-from goit_assistant_bot.utils import print_diff
-
-@input_error("Please give me <name> <old phone> <new phone>")
+@input_error(get_validation_message(CMD_CHANGE_PHONE))
 def change_phone(args, book: AddressBook):
     name, old_phone, new_phone = args
     contact = book.find(name)
 
     if contact:
-        if is_yes_prompt("Please confirm updating"):
-            if contact.edit_phone(old_phone, new_phone):
-                print_diff(old_phone, new_phone)
+        contact.edit_phone(old_phone, new_phone)
     else:
-        print(Fore.LIGHTBLACK_EX + TEXT["CONTACT_NOT_FOUND"] + Style.RESET_ALL)
+        print(TEXT["NOT_FOUND"])
 
-@input_error("Please give me <name>")
+@input_error(get_validation_message(CMD_SHOW_PHONE))
 def show_phone(args, book: AddressBook):
     name = args[0]
     contact = book.find(name)
 
     if contact:
-        contact.find_phones()
+        contact.show_phone()
     else:
-        print(Fore.LIGHTBLACK_EX + TEXT["CONTACT_NOT_FOUND"] + Style.RESET_ALL)
+        print(TEXT["NOT_FOUND"])
 
-@input_error("Please give me <name> <phone>")
+@input_error(get_validation_message(CMD_ADD_PHONE))
 def add_phone(args, book: AddressBook):
     name, phone = args
     contact = book.find(name)
@@ -38,11 +33,10 @@ def add_phone(args, book: AddressBook):
         contact.add_phone(phone)
     else:
         contact = Record(name)
-        is_added = contact.add_phone(phone)
-        if is_added:
+        if contact.add_phone(phone):
             book.add_record(contact)
 
-@input_error("Please give me <name> <phone>")
+@input_error(get_validation_message(CMD_REMOVE_PHONE))
 def remove_phone(args, book: AddressBook):
     name, phone = args
     contact = book.find(name)
@@ -50,7 +44,7 @@ def remove_phone(args, book: AddressBook):
     if contact:
         contact.remove_phone(phone)
     else:
-        print(Fore.LIGHTBLACK_EX + TEXT["CONTACT_NOT_FOUND"] + Style.RESET_ALL)
+        print(TEXT["NOT_FOUND"])
 
 
 __all__ = [

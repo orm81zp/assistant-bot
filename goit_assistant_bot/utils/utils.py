@@ -1,41 +1,50 @@
+import os
+import sys
 import pickle
 from pathlib import Path
 from colorama import Fore, Style
-import os
-
 from ..address_book import AddressBook
-from ..exceptions import InputBotExseption
 
+DUMP_FILE_NAME = "assistant_data.bin"
 DUMP_FILE: Path | None = None
-address_book: AddressBook | None = None
+ADDRESS_BOOK: AddressBook | None = None
 
 def start_work() -> AddressBook:
-    global DUMP_FILE, address_book
-    DUMP_FILE = Path(__file__).resolve().parent.parent / "assistant_data.bin"
+    global DUMP_FILE, ADDRESS_BOOK, DUMP_FILE_NAME
+    DUMP_FILE = Path(DUMP_FILE_NAME)
+
+    argv = sys.argv[1:]
+    if len(argv) == 1:
+        file_name = Path(argv[0])
+        if file_name.suffix in [".bin", ".data"]:
+            DUMP_FILE = Path(file_name)
+            DUMP_FILE_NAME = file_name
+        else:
+            print(Fore.LIGHTBLACK_EX + f"The file suffix must end with *.bin or *.data \"{DUMP_FILE_NAME}\" file is used by default" + Style.RESET_ALL)
 
     book = AddressBook()
     if DUMP_FILE.exists():
         with open(DUMP_FILE, "rb") as fh:
             book: AddressBook = pickle.load(fh)
-            print(Fore.YELLOW + "Address Book restored!" + Style.RESET_ALL)
-    
-    address_book = book
-    return address_book
+            print(Fore.LIGHTBLACK_EX + "Restored!" + Style.RESET_ALL)
+
+    ADDRESS_BOOK = book
+    return ADDRESS_BOOK
 
 def save_address_book(book: AddressBook):
     global DUMP_FILE
     if book.has_data() and DUMP_FILE:
         with open(str(DUMP_FILE), "wb") as fh:
             pickle.dump(book, fh)
-            print(Fore.YELLOW + "Address Book saved!" + Style.RESET_ALL)
+            print(Fore.LIGHTBLACK_EX + "Saved!" + Style.RESET_ALL)
 
 def stop_work():
-    global address_book
+    global ADDRESS_BOOK
     try:
-        if address_book:
-            save_address_book(address_book)
+        if ADDRESS_BOOK:
+            save_address_book(ADDRESS_BOOK)
     except Exception:
-        print(Fore.RED +"Unfortunately, Address Book could not be saved!" + Style.RESET_ALL)
+        print(Fore.RED + "Oops! Something went wrong, data not be saved!" + Style.RESET_ALL)
     finally:
         os._exit(0)
 

@@ -1,12 +1,10 @@
 from colorama import init
 from colorama import Fore, Style
-
 from .utils import start_work, stop_work
 from .commands import commands_handler, parse_input, get_prompt_input
 from .exceptions import InputBotExseption, UnexpectedException
 from .address_book.exceptions import ValidationValueExseption
-from .constants import EXIT_COMMANDS
-
+from .commands import EXIT_COMMANDS
 
 def run_bot():
     init()

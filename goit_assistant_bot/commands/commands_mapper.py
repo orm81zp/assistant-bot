@@ -1,22 +1,10 @@
-from ..constants import EXIT_COMMANDS
-from .commands import (
-    add_contact,
-    remove_contact,
-    add_phone,
-    remove_phone,
-    change_phone,
-    show_phone,
-    show_all,
-    add_birthday,
-    show_birthday,
-    birthdays,
-    show_hello,
-    show_menu,
-    show_bye,
-    add_email,
-    show_email,
-    add_address,
-    show_address,
+from .commands_address import add_address, show_address, remove_address
+from .commands_birthday import add_birthday, show_birthday, birthdays,remove_birthday
+from .commands_contact import show_all, add_contact, show_contact, remove_contact, search_contact, change_contact_name
+from .commands_email import add_email, show_email, remove_email
+from .commands_general import show_hello, show_help, show_bye
+from .commands_phone import add_phone, remove_phone, change_phone, show_phone
+from .commands_note import (
     add_note,
     show_all_notes,
     remove_note,
@@ -26,203 +14,185 @@ from .commands import (
     show_all_tags,
     show_tag,
     search_note_by_tag,
-    remove_address,
-    remove_birthday,
-    remove_email,
-    search_contact,
     search_note,
-    change_contact_name,
 )
 
-CONTACT_COMMANDS = [
+from .commands import (
+    CMD_ADD_CONTACT,
+    CMD_ADD_ADDRESS,
+    CMD_ADD_BIRTHDAY,
+    CMD_ADD_EMAIL,
+    CMD_ADD_NOTE,
+    CMD_ADD_PHONE,
+    CMD_ADD_TAG,
+    CMD_ALL_CONTACTS,
+    CMD_ALL_NOTES,
+    CMD_ALL_TAGS,
+    CMD_CHANGE_CONTACT_NAME,
+    CMD_CHANGE_PHONE,
+    CMD_HELLO,
+    CMD_HELP,
+    CMD_REMOVE_ADDRESS,
+    CMD_REMOVE_BIRTHDAY,
+    CMD_REMOVE_CONTACT,
+    CMD_REMOVE_EMAIL,
+    CMD_REMOVE_NOTE,
+    CMD_REMOVE_PHONE,
+    CMD_REMOVE_TAG,
+    CMD_SEARCH_CONTACT,
+    CMD_SEARCH_NOTE,
+    CMD_SEARCH_NOTE_BY_TAG,
+    CMD_SHOW_ADDRESS,
+    CMD_SHOW_BIRTHDAY,
+    CMD_BIRTHDAYS,
+    CMD_SHOW_EMAIL,
+    CMD_SHOW_NOTE,
+    CMD_SHOW_PHONE,
+    CMD_SHOW_TAG,
+    CMD_SHOW_CONTACT,
+    EXIT_COMMANDS,
+)
+
+MAPPED_COMMANDS = [
     {
-        "commands":["add-contact"],
-        "arguments": ["<name>"],
+        "commands":[CMD_ADD_CONTACT],
         "func": add_contact,
     },
     {
-        "commands":["search-contact"],
-        "arguments": ["<search value>"],
+        "commands":[CMD_SEARCH_CONTACT],
         "func": search_contact,
     },
     {
-        "commands":["change-contact-name"],
-        "arguments": ["<name> <new name>"],
+        "commands":[CMD_SHOW_CONTACT],
+        "func": show_contact,
+    },
+    {
+        "commands":[CMD_CHANGE_CONTACT_NAME],
         "func": change_contact_name,
     },
     {
-        "commands":["all-contacts", "show-contacts"],
-        "arguments": [],
+        "commands":[CMD_ALL_CONTACTS],
         "func": show_all,
     },
     {
-        "commands": ["remove-contact"],
-        "arguments": ["<name>"],
+        "commands": [CMD_REMOVE_CONTACT],
         "func": remove_contact,
     },
-]
-
-BIRTHDAY_COMMANDS = [
     {
-        "commands": ["add-birthday"],
-        "arguments": ["<name>", "<birthday>"],
+        "commands": [CMD_ADD_BIRTHDAY],
         "func": add_birthday,
     },
     {
-        "commands": ["show-birthday"],
-        "arguments": ["<name>"],
+        "commands": [CMD_SHOW_BIRTHDAY],
         "func": show_birthday,
     },
     {
-        "commands": ["remove-birthday"],
-        "arguments": ["<name>"],
+        "commands": [CMD_REMOVE_BIRTHDAY],
         "func": remove_birthday,
     },
     {
-        "commands":["show-birthdays"],
-        "arguments": [],
+        "commands":[CMD_BIRTHDAYS],
         "func": birthdays,
     },
-]
-
-ADDRESS_COMMANDS = [
     {
-        "commands": ["add-address"],
-        "arguments": ["<name>", "<address>"],
+        "commands": [CMD_ADD_ADDRESS],
         "func": add_address,
     },
     {
-        "commands": ["show-address"],
-        "arguments": ["<name>"],
+        "commands": [CMD_SHOW_ADDRESS],
         "func": show_address,
     },
     {
-        "commands": ["remove-address"],
-        "arguments": ["<name>"],
+        "commands": [CMD_REMOVE_ADDRESS],
+
         "func": remove_address,
     },
-]
-
-NOTE_COMMANDS = [
     {
-        "commands": ["add-note"],
-        "arguments": ["<text>"],
+        "commands": [CMD_ADD_NOTE],
         "func": add_note,
     },
     {
-        "commands": ["show-note"],
-        "arguments": ["<note index>"],
+        "commands": [CMD_SHOW_NOTE],
         "func": show_note,
     },
     {
-        "commands":["search-note"],
-        "arguments": ["<search value>"],
+        "commands":[CMD_SEARCH_NOTE],
         "func": search_note,
     },
     {
-        "commands": ["remove-note"],
-        "arguments": ["<note index>"],
+        "commands": [CMD_REMOVE_NOTE],
         "func": remove_note,
     },
     {
-        "commands": ["all-notes", "show-notes"],
-        "arguments": [],
+        "commands": [CMD_ALL_NOTES],
         "func": show_all_notes,
     },
     {
-        "commands": ["search-note-by-tag"],
-        "arguments": ["<tag>"],
+        "commands": [CMD_SEARCH_NOTE_BY_TAG],
         "func": search_note_by_tag,
     },
-]
-
-TAG_COMMANDS = [
     {
-        "commands": ["add-tag"],
-        "arguments": ["<note index>", "<tag>"],
+        "commands": [CMD_ADD_TAG],
         "func": add_tag,
     },
     {
-        "commands": ["remove-tag"],
-        "arguments": ["<note index>", "<tag>"],
+        "commands": [CMD_REMOVE_TAG],
         "func": remove_tag,
     },
     {
-        "commands": ["all-tags", "show-tags"],
-        "arguments": [],
+        "commands": [CMD_ALL_TAGS],
         "func": show_all_tags,
     },
     {
-        "commands": ["show-tag"],
-        "arguments": ["<note index>"],
+        "commands": [CMD_SHOW_TAG],
         "func": show_tag,
     },
-]
-
-EMAIL_COMMANDS = [
     {
-        "commands": ["add-email"],
-        "arguments": ["<name>", "<email>"],
+        "commands": [CMD_ADD_EMAIL],
         "func": add_email,
     },
     {
-        "commands": ["show-email"],
-        "arguments": ["<name>"],
+        "commands": [CMD_SHOW_EMAIL],
         "func": show_email,
     },
     {
-        "commands": ["remove-email"],
-        "arguments": ["<name>"],
+        "commands": [CMD_REMOVE_EMAIL],
         "func": remove_email,
     },
-]
-
-PHONE_COMMANDS = [
     {
-        "commands": ["add-phone"],
-        "arguments": ["<name>", "<phone>"],
+        "commands": [CMD_ADD_PHONE],
         "func": add_phone,
     },
     {
-        "commands": ["show-phone"],
-        "arguments": ["<name>"],
+        "commands": [CMD_SHOW_PHONE],
         "func": show_phone,
     },
     {
-        "commands": ["change-phone"],
-        "arguments": ["<name>", "<old phone>", "<new phone>"],
+        "commands": [CMD_CHANGE_PHONE],
         "func": change_phone,
     },
     {
-        "commands": ["remove-phone"],
-        "arguments": ["<name>", "<phone>"],
+        "commands": [CMD_REMOVE_PHONE],
         "func": remove_phone,
     },
-]
-
-GENERAL_COMMANDS = [
     {
-        "commands": ["hello", "start"],
-        "arguments": [],
+        "commands": [CMD_HELLO],
         "func": show_hello,
     },
     {
-        "commands": ["help"],
-        "arguments": [],
-        "func": show_menu,
+        "commands": [CMD_HELP],
+        "func": show_help,
     },
     {
         "commands": EXIT_COMMANDS,
-        "arguments": [],
         "func": show_bye,
     },
 ]
 
-COMMANDS = GENERAL_COMMANDS + CONTACT_COMMANDS + BIRTHDAY_COMMANDS + ADDRESS_COMMANDS + NOTE_COMMANDS + TAG_COMMANDS + EMAIL_COMMANDS + PHONE_COMMANDS 
-
+# create variants commands only from mapped commands with functions
 COMMAND_VARIANTS = set()
 
-for i in COMMANDS:
+for i in MAPPED_COMMANDS:
     for command in i["commands"]:
         COMMAND_VARIANTS.add(command)
 
@@ -230,5 +200,5 @@ COMMAND_VARIANTS = list(COMMAND_VARIANTS)
 
 __all__ = [
     "COMMAND_VARIANTS",
-    "COMMANDS",
+    "MAPPED_COMMANDS",
 ]

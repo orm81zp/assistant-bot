@@ -46,81 +46,85 @@ or directly from the terminal `run_bot` after installation from pip.
 - Search by notes.
 - Edit and delete notes.
 
-All data (contacts, notes) are stored on the hard disk in the package folder. Dump file name is `assistant_data.bin`.
+All data (contacts, notes) are stored on the hard disk. Default dump file name is `assistant_data.bin`.
+To specify a dump file send its name as a first argument of `run_bot`, for example `run_bot work_contacts.bin`. Acceptable extension is `.bin` or `.data`.
 Data is saved after closing the programm by `exit` or `close` commands and restoring after running next time. The Assistant Bot can be restarted without losing data.
 
 ### Commands
 
 ```
-[Contact commands]
-add-contact                     - used to add a new contact: "add-contact <name>"
-search-contact                  - used to search contacts by name, birthday, email, phone, address (case-insensitive): "search_contact <search value>"
-all-contacts | show-contacts    - used to display all contacts: "all-contacts"
-change-contact-name             - used to change a contact name: "change-contact-name <name> <new name>"
-remove-contact                  - used to remove a contact: "remove-contact <name>"
-
-[Birthday commands]
-add-birthday                    - used to add a birthday: "add-birthday <name> <birthday>"
-show-birthday                   - used to display a birthday: "show-birthday <name>"
-remove-birthday                 - used to remove a birthday: "remove-birthday <name>"
-show-birthdays                  - used to display birthdays that will happen in coming days: "show-birthdays [days range]"
-
-[Address commands]
-add-address                     - used to add an address: "add-address <name> <address>"
-show-address                    - used to display an address: "show-address <name>"
-remove-address                  - used to remove an address: "remove-address <name>"
-
-[Note commands]
-add-note                        - used to add a note: "add-note <text>"
-show-note                       - used to display a note: "show-note <note index>"
-remove-note                     - used to remove a note: "remove-note <note index>"
-all-notes | show-notes          - used to display all notes: "all-notes"
-search-note                     - used to search notes by content (case-insensitive): "search-note <search value>"
-search-note-by-tag              - used to display all notes found by a tag (case-insensitive, strict match): "search-note-by-tag <tag>"
-
-[Tag commands]
-add-tag                         - used to add a tag: "add-tag <note index> <tag>"
-show-tag                        - used to display a tag: "show-tag <note index>"
-remove-tag                      - used to remove a tag: "remove-tag <note index> <tag>"
-all-tags | show-tags            - used to display all tags: "all-tags"
-
-[Email commands]
-add-email                       - used to add an email: "add-email <name> <email>"
-show-email                      - used to display an email: "show-email <name>"
-remove-email                    - used to remove an email: "remove-email <name>"
-
-[Phone commands]
-add-phone                       - used to add a phone: "add-phone <name> <phone>"
-show-phone                      - used to display a phone: "show-phone <name>"
-remove-phone                    - used to remove a phone: "remove-phone <name> <phone>"
-change-phone                    - used to change a change: "change-phone <name> <old phone> <new phone>"
-
-[Others commands]
-hello | start                   - used to display a welcome message: "hello"
-close | exit                    - used to close the program: "exit"
-help                            - used to display all command: "help"
+add-contact                    - used to add a new contact: add-contact <name>
+search-contact                 - used to search contacts by name, birthday, email, phone, address (case-insensitive): search-contact <search value>
+show-contact                   - used to display a contact: show-contact <name>
+change-contact-name            - used to change a contact name: change-contact-name <name> <new name>
+all-contacts                   - used to display all contacts: all-contacts
+remove-contact                 - used to remove a contact: remove-contact <name>
+add-birthday                   - used to add a birthday: add-birthday <name> <birthday>
+show-birthday                  - used to display a birthday: show-birthday <name>
+remove-birthday                - used to remove a birthday: remove-birthday <name>
+birthdays                      - used to display birthdays that will happen in coming days (7 days by default): birthdays [days range]
+add-address                    - used to add an address: add-address <name> <address>
+show-address                   - used to display an address: show-address <name>
+remove-address                 - used to remove an address: remove-address <name>
+add-email                      - used to add an email: add-email <name> <email>
+show-email                     - used to display an email: show-email <name>
+remove-email                   - used to remove an email: remove-email <name>
+add-phone                      - used to add a phone: add-phone <name> <phone>
+show-phone                     - used to display a phone: show-phone <name>
+change-phone                   - used to change a phone: change-phone <name> <old phone> <new phone>
+remove-phone                   - used to remove a phone: remove-phone <name> <phone>
+add-note                       - used to add a note: add-note <text>
+show-note                      - used to display a note: show-note <note index>
+search-note                    - used to search notes by content (case-insensitive): search-note <search value>
+remove-note                    - used to remove a note: remove-note <note index>
+all-notes                      - used to display all notes: all-notes
+search-note-by-tag             - used to display all notes found by a tag (case-insensitive, strict match): search-note-by-tag <tag>
+add-tag                        - used to add a tag: add-tag <note index> <tag>
+remove-tag                     - used to remove a tag (strict match): remove-tag <note index> <tag>
+all-tags                       - used to display all tags: all-tags
+show-tag                       - used to display tags in a note: show-tag <note index>
+hello                          - used to display a welcome message: hello
+help                           - used to display information about all commands or a particular one: help [command name]
+close | exit                   - used to close the program: close
 
 Types of argumets:
-<required>       - required argument
-[optional]       - optional argument
+<required>                     - required argument
+[optional]                     - optional argument
 
 Validation rules:
-<name>             - Contains from 1 to 30 characters. Example: Max
-<address>          - Contains from 10 to 50 characters. Example: 3944 D Street
-<email>            - Must be a valid email address. Example: max101@gmail.com
-<phone>            - begins with + and consist of 12 digits. Example: +380630000001
-<note index>       - Must be a number, starts from 0
-<tag>              - Contains from 1 to 15 characters
-<text>             - Contains from 10 to 500 characters
-<birthday>         - Contains numbers separated by a dot in the following format DD.MM.YYYY. Example: 24.06.2001
-[days range]       - must be number. Example: 14
+<name>                         - contains from 1 to 30 characters. Example: Max
+<new name>                     - Same as for <name>
+<phone>                        - begins with + and consist of 12 digits. Example: +380630000001
+<old phone>                    - Same as for <phone>
+<new phone>                    - Same as for <phone>
+<address>                      - contains from 10 to 100 characters. Example: 3944 D Street
+<email>                        - must be a valid email address. Example: max101@gmail.com
+<note index>                   - must be a number, starts from 0
+<tag>                          - contains from 1 to 15 characters
+<text>                         - contains from 10 to 500 characters
+<birthday>                     - contains numbers separated by a dot in the following format DD.MM.YYYY. Example: 24.06.2001
+<search value>                 - case-insensitive characters. Example: hello world
+[days range]                   - (optional) must be number. Example: 14
+[command name]                 - (optional) an existing command name. Example: add-phone
 ```
 
 ### Examples of the use some commands
 
 ### help
 
-Used to display all commands : `help`
+Used to display all commands: `help`.
+
+To display information about a specific command and usage rules type `help [command name]`.
+
+```
+Enter a command: help add-birthday
+add-birthday
+- used to add a birthday: add-birthday <name> <birthday>
+
+Validation rules:
+<name>               - contains from 1 to 30 characters. Example: Max
+<birthday>           - contains numbers separated by a dot in the following format DD.MM.YYYY. Example: 24.06.2001
+```
 
 ### add-phone
 
@@ -133,12 +137,20 @@ Phone number added.
 
 ### add-birthday
 
-Used to add a birthday: `add-birthday <name> <birthday>`
+Used to add a birthday: `add-birthday <name> <birthday>`. Will be replaced if already exists.
 
 ```
 Enter a command: add-birthday John 28.11.2001
-Birthday added.
+Added.
 ```
+
+### add-email
+
+Used to add an email: `add-email <name> <email>`. Will be replaced if already exists.
+
+### add-address
+
+Used to add an address: `add-address <name> <address>`. Will be replaced if already exists.
 
 ### all-contacts
 
@@ -157,22 +169,22 @@ Enter a command: all-contacts
 ### remove-contact
 
 Used to remove a contact: `remove-contact <name>`
-You need to confirm your intention to delete with "yes" or "y".
+You need to confirm with "yes" or "y".
 
 ```
 Enter a command: remove-contact John
-Please confirm the removal of the contact (y or n) y
-Contact deleted.
+Existing contact will be deleted, continue? (yes/no) yes
+Deleted.
 ```
 
-### show-birthdays
+### birthdays
 
-Used to display birthdays that will happen in days range (7 days by default): `show-birthdays [days range]`
+Used to display birthdays that will happen in days range (7 days by default): `birthdays [days range]`
 
 The example of the output with default days range:
 
 ```
-Enter a command: show-birthdays
+Enter a command: birthdays
 +-----------+----------+
 | Weekday   | Contacts |
 +-----------+----------+
@@ -183,7 +195,7 @@ Enter a command: show-birthdays
 The example of the output with a particular days range:
 
 ```
-Enter a command: show-birthdays 14
+Enter a command: birthdays 14
 +-----------+----------+
 | Weekday   | Contacts |
 +-----------+----------+
@@ -198,7 +210,7 @@ Used to add a note: `add-note <text>`
 
 ```
 Enter a command: add-note Hello world! Let's study something!
-Note added.
+Added.
 ```
 
 ### all-notes
@@ -221,5 +233,5 @@ use `close` or `exit` to close the program.
 ```
 Enter a command: exit
 Good bye!
-Address Book saved!
+Saved!
 ```
