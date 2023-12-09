@@ -99,7 +99,7 @@ Validation rules:
 <new phone>                    - Same as for <phone>
 <address>                      - contains from 10 to 100 characters. Example: 3944 D Street
 <email>                        - must be a valid email address. Example: max101@gmail.com
-<note index>                   - must be a number, starts from 0
+<note index>                   - must be a number, starts from 1
 <tag>                          - contains from 1 to 15 characters
 <text>                         - contains from 10 to 500 characters
 <birthday>                     - contains numbers separated by a dot in the following format DD.MM.YYYY. Example: 24.06.2001
@@ -219,11 +219,11 @@ Used to display all notes: `all-notes`
 
 ```
 Enter a command: all-notes
-+----+-------------------------------------+------+
-| Id | Text                                | Tags |
-+----+-------------------------------------+------+
-| 0  | Hello world! Let's study something! | -    |
-+----+-------------------------------------+------+
++------------+-------------------------------------+------------+
+| Index      | Text                                | Tags       |
++------------+-------------------------------------+------------+
+| 1          | Hello world! Let's study something! | -          |
++------------+-------------------------------------+------------+
 ```
 
 ### close or exit

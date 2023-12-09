@@ -58,7 +58,7 @@ VALIDATION_RULES = {
     ARG_NEW_PHONE: f"Same as for {ARG_PHONE}",
     ARG_ADDRESS: "contains from 10 to 100 characters. Example: 3944 D Street",
     ARG_EMAIL: "must be a valid email address. Example: max101@gmail.com",
-    ARG_NOTE_INDEX: "must be a number, starts from 0",
+    ARG_NOTE_INDEX: "must be a number, starts from 1",
     ARG_TAG: "contains from 1 to 15 characters",
     ARG_TEXT: "contains from 10 to 500 characters",
     ARG_BIRTHDAY: "contains numbers separated by a dot in the following format DD.MM.YYYY. Example: 24.06.2001",
