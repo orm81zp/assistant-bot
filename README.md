@@ -4,9 +4,13 @@
 
 A personal console bot assistant that helps you manage your contacts and notes.
 
+## Development Status
+
+Alpha
+
 ## Requirements
 
-Python >= 3.12
+Python 3
 
 ## Installation
 
@@ -19,8 +23,18 @@ Python >= 3.12
 
 ### By pip
 
+Currently available only on [test.pypi.org](https://test.pypi.org) for testing.
+
+Alpha version
+
 ```
-pip install goit-assistant-bot
+pip install --index-url https://test.pypi.org/simple/ --no-deps goit-assistant-bot==0.0.1
+```
+
+The latests version
+
+```
+pip install --index-url https://test.pypi.org/simple/ --no-deps goit-assistant-bot
 ```
 
 ## How to run

@@ -3,7 +3,7 @@ from setuptools import setup, find_namespace_packages
 
 def get_long_description():
     """
-    Return the README.
+    Returns string of the README.md file
     """
     with open("README.md", encoding="utf8") as fh:
         return fh.read()
@@ -22,7 +22,10 @@ setup(
     packages=find_namespace_packages(),
     include_package_data=True,
     classifiers=[
+      'Intended Audience :: Education',
       'Intended Audience :: Developers',
+      'Development Status :: 3 - Alpha',
+      'Environment :: Console',
       'Programming Language :: Python :: 3',
     ],
     entry_points={'console_scripts': ['run_bot = goit_assistant_bot.bot:run_bot']},
