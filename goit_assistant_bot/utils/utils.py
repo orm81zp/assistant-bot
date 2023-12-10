@@ -33,7 +33,7 @@ def start_work() -> AddressBook:
 
 def save_address_book(book: AddressBook):
     global DUMP_FILE
-    if book.has_data() and DUMP_FILE:
+    if book and DUMP_FILE:
         with open(str(DUMP_FILE), "wb") as fh:
             pickle.dump(book, fh)
             print(Fore.LIGHTBLACK_EX + "Saved!" + Style.RESET_ALL)
