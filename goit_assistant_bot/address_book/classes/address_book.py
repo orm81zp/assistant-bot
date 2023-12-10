@@ -35,6 +35,13 @@ class AddressBook(UserDict):
         AddressBook.note_uuid += 1
         print(TEXT["ADDED"])
 
+    def change_note(self, index, content):
+        note = self.get_note(index)
+        if note:
+            note.content.value = content
+            print(TEXT["UPDATED"])
+        else:
+            print(TEXT["NOT_FOUND"])
 
     def add_tag(self, index, tag):
         note = self.get_note(index)
