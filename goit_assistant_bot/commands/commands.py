@@ -51,7 +51,7 @@ ARG_DAYS_RANGE = "[days range]"
 ARG_COMMAND_NAME = "[command name]"
 
 VALIDATION_RULES = {
-    ARG_NAME: "contains from 1 to 30 characters. Example: Max",
+    ARG_NAME: "contains from 1 to 30 characters and should be in \"a-zA-Z0-9_.-\" format. Example: Max, J.Brain, Tom-1",
     ARG_NEW_NAME: f"Same as for {ARG_NAME}",
     ARG_PHONE: "begins with + and consist of 12 digits. Example: +380630000001",
     ARG_OLD_PHONE: f"Same as for {ARG_PHONE}",

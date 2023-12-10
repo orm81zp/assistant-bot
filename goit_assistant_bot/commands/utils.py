@@ -2,7 +2,15 @@ from colorama import Fore, Style
 from .commands import COMMANDS
 
 def get_validation_message(cmd):
-    """Returns a validation message with the expected arguments by a command. Prints an example of the use"""
+    """
+    Returns a validation message with the expected arguments for a command.
+
+    Parameters:
+        cmd (str): a command
+
+    Returns: 
+        output (str): validation message
+    """
     output = Fore.RED + "Validation Error" + Style.RESET_ALL
 
     for command in COMMANDS:
@@ -15,6 +23,7 @@ def get_validation_message(cmd):
             output += Fore.LIGHTBLACK_EX + f"How to use: {commands_string} {arguments_string}" + Style.RESET_ALL
 
     return output
+
 
 __all__ = [
     "get_validation_message",

@@ -4,9 +4,9 @@ from ..address_book import AddressBook
 from ..exceptions import InputBotExseption
 from .commands_mapper import MAPPED_COMMANDS, COMMAND_VARIANTS
 
-def get_prompt_input(message = "Enter a command: ", need_comp = True):
+def get_prompt_input(message = ">>> ", with_completer = True):
     """
-    Prompts for user input and helps with auto-substitution of possible command options
+    Gets user value from a terminal with completer
 
     Parameters:
         message (str): a welcome message for entering a command
@@ -19,7 +19,7 @@ def get_prompt_input(message = "Enter a command: ", need_comp = True):
     user_input = None
 
     while True:
-        if need_comp:
+        if with_completer:
             user_input = prompt(message, completer=completer)
         else:
             user_input = prompt(message)
@@ -41,7 +41,6 @@ def parse_input(user_input: str | None):
         cmd (str): a command
         command_func (function): a fcommand function
         args (list): rest of arguments for the user input
-    
     """
     if not user_input:
         raise InputBotExseption
@@ -83,7 +82,6 @@ def commands_handler(book: AddressBook, user_data):
 
     if command_func:
         command_func(args, book)
-
 
 __all__ = [
     "commands_handler",
