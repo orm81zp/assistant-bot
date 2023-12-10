@@ -3,6 +3,14 @@ from ..constants import TEXT
 from .commands import COMMANDS, ARGUMET_TYPES, VALIDATION_RULES
 
 def print_rules(rules=None):
+    """
+    Shows validation rules information.
+
+    Parameters:
+        rules (list[dict]): list of rules
+
+    Returns: None
+    """
     if not rules:
         rules = VALIDATION_RULES
 
@@ -11,6 +19,14 @@ def print_rules(rules=None):
         print(f"{k:<30} - {v}")
 
 def print_argument_types(types=None):
+    """
+    Shows argument types information.
+
+    Parameters:
+        types (list[dict]): list of types
+
+    Returns: None
+    """
     if not types:
         types = ARGUMET_TYPES
 
@@ -19,10 +35,18 @@ def print_argument_types(types=None):
         print(f"{k:<30} - {v}")
 
 def show_help(args, *_):
-    """Displays help information"""
+    """
+    Shows information about all commands or a specific one if it was passed as an argument.
+
+    Parameters:
+        args (list): list of arguments
+        book (AddressBook class): an AddressBook instance
+
+    Returns: None
+    """
     cmd = str(args[0]).strip().lower() if len(args) > 0 else None
     output = ""
-    
+
     cmd_found = False
     for command in COMMANDS:
         commands = command["commands"]
@@ -54,11 +78,28 @@ def show_help(args, *_):
         print_rules(VALIDATION_RULES)
 
 def show_bye(*_):
+    """
+    Shows bye message.
+
+    Parameters:
+        args (list): list of arguments
+        book (AddressBook class): an AddressBook instance
+
+    Returns: None
+    """
     print(TEXT["BYE"])
 
 def show_hello(*_):
-    print(TEXT["GREETING"])
+    """
+    Shows greeting message.
 
+    Parameters:
+        args (list): list of arguments
+        book (AddressBook class): an AddressBook instance
+
+    Returns: None
+    """
+    print(TEXT["GREETING"])
 
 __all__ = [
     "show_hello",
