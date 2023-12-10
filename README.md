@@ -12,14 +12,20 @@ Alpha
 
 Python 3
 
+All required dependencies are listed in the requirements.txt file.
+
+-   colorama
+-   prettytable
+-   prompt-toolkit
+
 ## Installation
 
 ### By GitHub
 
 1. [Download ZIP](https://github.com/orm81zp/goit-assistant-bot) from GitHub
 2. Extract
-3. Install requirements
-4. Run `test_run_bot.py`
+3. Install dependencies
+4. Run `python test_run_bot.py`
 
 ### By pip
 
@@ -37,7 +43,7 @@ The latests version
 pip install --index-url https://test.pypi.org/simple/ goit-assistant-bot
 ```
 
-_Add `--no-deps` option if you don't want to install the package dependencies._
+_Add `--no-deps` option if you don't want to install all package dependencies._
 
 ```
 pip install --index-url https://test.pypi.org/simple/ --no-deps goit-assistant-bot
@@ -57,20 +63,22 @@ or directly from the terminal `run_bot` after installation from pip.
 
 ## Basic functionality
 
-- Save contacts with names, addresses, phone numbers, email and birthdays to the contact book.
-- Display a list of contacts whose birthday is a specified number of days from the current date.
-- Check the correctness of the entered phone number and email when creating or editing a record and notify the user in case of incorrect entry.
-- Search for contacts among contacts in the book.
-- Edit and delete entries from the contact book.
-- Keep notes with text information.
-- Search by notes.
-- Edit and delete notes.
+-   Save contacts with names, addresses, phone numbers, email and birthdays to the contact book.
+-   Display a list of contacts whose birthday is a specified number of days from the current date.
+-   Check the correctness of the entered phone number and email when creating or editing a record and notify the user in case of incorrect entry.
+-   Search by contacts.
+-   Edit and delete entries from the contact book.
+-   Keep notes with text information.
+-   Add tags.
+-   Search by notes or tags.
+-   Delete notes and tags.
 
-All data (contacts, notes) are stored on the hard disk. Default dump file name is `assistant_data.bin`.
-To specify a dump file send its name as a first argument of `run_bot`, for example `run_bot work_contacts.bin`. Acceptable extension is `.bin` or `.data`.
-Data is saved after closing the programm by `exit` or `close` commands and restoring after running next time. The Assistant Bot can be restarted without losing data.
+The Assistant Bot can be restarted without losing data. All data (contacts, notes) are stored on the hard disk.
+Default dump file name is `assistant_data.bin`. To specify a dump file send its name as a first argument of `run_bot`, for example `run_bot work_contacts.bin`. Acceptable extension is `.bin` or `.data`. Data is saved only after closing the programm by `exit` or `close` commands and restoring after running next time.
 
 ### Commands
+
+Type `help` to see all the commands. The example of the output is below:
 
 ```
 add-contact                    - used to add a new contact: add-contact <name>
@@ -112,19 +120,19 @@ Types of argumets:
 [optional]                     - optional argument
 
 Validation rules:
-<name>                         - contains from 1 to 30 characters. Example: Max
-<new name>                     - Same as for <name>
+<name>                         - contains from 1 to 30 any word character equivalent to "a-zA-Z0-9_.-", no spaces acceptable. Example: Max, J.Brain, Tom-1
+<new name>                     - same as for <name>
 <phone>                        - begins with + and consist of 12 digits. Example: +380630000001
-<old phone>                    - Same as for <phone>
-<new phone>                    - Same as for <phone>
+<old phone>                    - same as for <phone>
+<new phone>                    - same as for <phone>
 <address>                      - contains from 10 to 100 characters. Example: 3944 D Street
 <email>                        - must be a valid email address. Example: max101@gmail.com
-<note index>                   - must be a number, starts from 1
-<tag>                          - contains from 1 to 15 characters
+<note index>                   - must be an existing number of a note index, starts from 1
+<tag>                          - contains from 1 to 15 any word character equivalent to "a-zA-Z0-9_", no spaces acceptable. Example: shopping, todo_list1
 <text>                         - contains from 10 to 500 characters
-<birthday>                     - contains numbers separated by a dot in the following format DD.MM.YYYY. Example: 24.06.2001
+<birthday>                     - must be a valid birthday in the following DD.MM.YYYY format. The future's date of birth is not accepted. Example: 24.06.2001
 <search value>                 - case-insensitive characters. Example: hello world
-[days range]                   - (optional) must be number. Example: 14
+[days range]                   - (optional) must be a number (7 by default). Example: 14
 [command name]                 - (optional) an existing command name. Example: add-phone
 ```
 
