@@ -4,6 +4,17 @@
 
 A personal console bot assistant that helps you manage your contacts and notes.
 
+## Table of Contents
+
+-   [Development Status](#development-status)
+-   [Requirements](#requirements)
+-   [Installation](#installation)
+    -   [By GitHub](#by-github)
+    -   [By pip](#by-pip)
+-   [How to run](#how-to-run)
+-   [Basic functionality](#basic-functionality)
+    -   [Commands](#commands)
+
 ## Development Status
 
 Alpha
@@ -31,13 +42,7 @@ All required dependencies are listed in the requirements.txt file.
 
 Available on [test.pypi.org](https://test.pypi.org/project/goit-assistant-bot/) only for academic purposes.
 
-Alpha version
-
-```
-pip install --index-url https://test.pypi.org/simple/ goit-assistant-bot==0.0.1
-```
-
-The latests version
+The latests Alpha version
 
 ```
 pip install --index-url https://test.pypi.org/simple/ goit-assistant-bot
@@ -135,8 +140,6 @@ Validation rules:
 [days range]                   - (optional) must be a number (7 by default). Example: 14
 [command name]                 - (optional) an existing command name. Example: add-phone
 ```
-
-### Examples of the use some commands
 
 ### help
 

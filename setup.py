@@ -11,7 +11,7 @@ def get_long_description():
 
 setup(
     name='goit-assistant-bot',
-    version='0.0.1',
+    version='0.0.2',
     description='A personal console bot assistant that helps you manage your contacts and notes.',
     long_description=get_long_description(),
     long_description_content_type='text/markdown',
