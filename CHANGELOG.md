@@ -2,16 +2,13 @@
 
 ## 0.0.2
 
-### Added
+### Miscellaneous
 
--   change log
-
-### Updated
-
--   README
+-   added CHANGELOG
+-   updated README
 
 ## 0.0.1
 
-### Added
+### Miscellaneous
 
--   basic functionality
+-   added initial code
