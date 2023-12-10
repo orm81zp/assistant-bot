@@ -23,15 +23,21 @@ Python 3
 
 ### By pip
 
-Currently available only on [test.pypi.org](https://test.pypi.org) for testing.
+Available on [test.pypi.org](https://test.pypi.org/project/goit-assistant-bot/) only for academic purposes.
 
 Alpha version
 
 ```
-pip install --index-url https://test.pypi.org/simple/ --no-deps goit-assistant-bot==0.0.1
+pip install --index-url https://test.pypi.org/simple/ goit-assistant-bot==0.0.1
 ```
 
 The latests version
+
+```
+pip install --index-url https://test.pypi.org/simple/ goit-assistant-bot
+```
+
+_Add `--no-deps` option if you don't want to install the package dependencies._
 
 ```
 pip install --index-url https://test.pypi.org/simple/ --no-deps goit-assistant-bot
