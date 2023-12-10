@@ -16,7 +16,7 @@ def print_rules(rules=None):
 
     print(Fore.YELLOW + "Validation rules:" + Style.RESET_ALL)
     for k, v in rules.items():
-        print(f"{k:<30} - {v}")
+        print(f"{k:<25} - {v}")
 
 def print_argument_types(types=None):
     """
@@ -32,7 +32,7 @@ def print_argument_types(types=None):
 
     print(Fore.YELLOW + "Types of argumets:" + Style.RESET_ALL)
     for k, v in types.items():
-        print(f"{k:<30} - {v}")
+        print(f"{k:<25} - {v}")
 
 def show_help(args, *_):
     """
@@ -66,7 +66,7 @@ def show_help(args, *_):
                     break
         else:
             description += f": {commands[0]}{arguments_string}"
-            output += f"{commands_string:<30} - {description}\n"
+            output += f"{commands_string:<25} - {description}\n"
 
     if cmd:
         if not cmd_found:

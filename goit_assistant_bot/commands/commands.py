@@ -52,19 +52,19 @@ ARG_DAYS_RANGE = "[days range]"
 ARG_COMMAND_NAME = "[command name]"
 
 VALIDATION_RULES = {
-    ARG_NAME: "contains from 1 to 30 any word character equivalent to \"a-zA-Z0-9_.-\", no spaces acceptable. Example: Max, J.Brain, Tom-1",
+    ARG_NAME: "equivalent to \"a-zA-Z0-9_.-\", no spaces. Example: Max, J.Brain, Tom-1",
     ARG_NEW_NAME: f"same as for {ARG_NAME}",
     ARG_PHONE: "begins with + and consist of 12 digits. Example: +380630000001",
     ARG_OLD_PHONE: f"same as for {ARG_PHONE}",
     ARG_NEW_PHONE: f"same as for {ARG_PHONE}",
-    ARG_ADDRESS: "contains from 10 to 100 characters. Example: 3944 D Street",
-    ARG_EMAIL: "must be a valid email address. Example: max101@gmail.com",
-    ARG_NOTE_INDEX: "must be an existing number of a note index, starts from 1",
-    ARG_TAG: "contains from 1 to 15 any word character equivalent to \"a-zA-Z0-9_\", no spaces acceptable. Example: shopping, todo_list1",
-    ARG_TEXT: "contains from 10 to 500 characters",
-    ARG_BIRTHDAY: "must be a valid birthday in the following DD.MM.YYYY format. The future's date of birth is not accepted. Example: 24.06.2001",
-    ARG_SEARCH_VALUE: "case-insensitive characters. Example: hello world",
-    ARG_DAYS_RANGE: "(optional) must be a number (7 by default). Example: 14",
+    ARG_ADDRESS: "from 10 to 100 characters. Example: 3944 D Street",
+    ARG_EMAIL: "a valid email address. Example: max101@gmail.com",
+    ARG_NOTE_INDEX: "an existing index of a note, starts from 1",
+    ARG_TAG: "from 1 to 15 word characters, equivalent to \"a-zA-Z0-9_\", no spaces. Example: shopping",
+    ARG_TEXT: "from 10 to 500 characters",
+    ARG_BIRTHDAY: "a valid date, equivalent to \"DD.MM.YYYY\", no future's date of birth. Example: 24.06.2001",
+    ARG_SEARCH_VALUE: "case-insensitive world characters. Example: hello world",
+    ARG_DAYS_RANGE: "(optional) a number of days (7 by default). Example: 14",
     ARG_COMMAND_NAME: "(optional) an existing command name. Example: add-phone",
 }
 
