@@ -9,7 +9,8 @@ from .commands import (
     CMD_SEARCH_NOTE_BY_TAG,
     CMD_SHOW_NOTE,
     CMD_REMOVE_NOTE,
-    CMD_SEARCH_NOTE
+    CMD_SEARCH_NOTE,
+    CMD_CHANGE_NOTE,
 )
 
 @input_error(get_validation_message(CMD_REMOVE_TAG))
@@ -81,6 +82,22 @@ def add_note(args, book: AddressBook):
     """
     content = " ".join(args)
     book.add_note(content)
+
+@input_error(get_validation_message(CMD_CHANGE_NOTE))
+def change_note(args, book: AddressBook):
+    """
+    Changes a specific note found by index.
+
+    Parameters:
+        args (list): list of arguments
+        book (AddressBook class): an AddressBook instance
+
+    Returns: None
+    """
+    index, *content = args
+    index = int(index)
+    content = " ".join(content).strip()
+    book.change_note(index, content)
 
 def show_all_notes(_, book: AddressBook):
     """
@@ -161,4 +178,5 @@ __all__ = [
     "show_tag",
     "search_note_by_tag",
     "search_note",
+    "change_note",
 ]

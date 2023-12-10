@@ -20,6 +20,7 @@ CMD_CHANGE_PHONE = "change-phone"
 CMD_REMOVE_PHONE = "remove-phone"
 CMD_ADD_NOTE = "add-note"
 CMD_SHOW_NOTE = "show-note"
+CMD_CHANGE_NOTE = "change-note"
 CMD_SEARCH_NOTE = "search-note"
 CMD_REMOVE_NOTE = "remove-note"
 CMD_ALL_NOTES = "all-notes"
@@ -253,6 +254,15 @@ COMMANDS = [
         "description": "used to display a note",
         "rules": {
             ARG_NOTE_INDEX: VALIDATION_RULES.get(ARG_NOTE_INDEX),
+        }
+    },
+    {
+        "commands": [CMD_CHANGE_NOTE],
+        "arguments": [ARG_NOTE_INDEX, ARG_TEXT],
+        "description": "used to change a note",
+        "rules": {
+            ARG_NOTE_INDEX: VALIDATION_RULES.get(ARG_NOTE_INDEX),
+            ARG_TEXT: VALIDATION_RULES.get(ARG_TEXT),
         }
     },
     {

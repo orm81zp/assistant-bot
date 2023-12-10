@@ -74,9 +74,9 @@ or directly from the terminal `run_bot` after installation from pip.
 -   Search by contacts.
 -   Edit and delete entries from the contact book.
 -   Keep notes with text information.
--   Add tags.
+-   Edit and delete notes.
+-   Add and delete tags.
 -   Search by notes or tags.
--   Delete notes and tags.
 
 The Assistant Bot can be restarted without losing data. All data (contacts, notes) are stored on the hard disk.
 Default dump file name is `assistant_data.bin`. To specify a dump file send its name as a first argument of `run_bot`, for example `run_bot work_contacts.bin`. Acceptable extension is `.bin` or `.data`. Data is saved only after closing the programm by `exit` or `close` commands and restoring after running next time.
@@ -108,6 +108,7 @@ change-phone                   - used to change a phone: change-phone <name> <ol
 remove-phone                   - used to remove a phone: remove-phone <name> <phone>
 add-note                       - used to add a note: add-note <text>
 show-note                      - used to display a note: show-note <note index>
+change-note                    - used to change a note: change-note <note index> <text>
 search-note                    - used to search notes by content (case-insensitive): search-note <search value>
 remove-note                    - used to remove a note: remove-note <note index>
 all-notes                      - used to display all notes: all-notes
