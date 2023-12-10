@@ -23,7 +23,7 @@ setup(
     include_package_data=True,
     classifiers=[
       'Intended Audience :: Developers',
-      'Programming Language :: Python :: >=3.12',
+      'Programming Language :: Python :: 3',
     ],
     entry_points={'console_scripts': ['run_bot = goit_assistant_bot.bot:run_bot']},
     install_requires=['colorama', "prettytable", "prompt_toolkit"],
