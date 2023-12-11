@@ -173,7 +173,7 @@ Enter a command: save
 ✓ Contact book saved!
 ```
 
-With no changes in the contact book, notes, tags:
+Output with no changes:
 
 ```
 Enter a command: save
@@ -182,7 +182,7 @@ No updates to save.
 
 ### add-phone
 
-Used to add a phone: `add-phone <name> <phone>`
+Used to add a phone: `add-phone <name> <phone>`.
 
 ```
 Enter a command: add-phone John +380731112211
@@ -191,7 +191,7 @@ Phone added.
 
 ### change-phone
 
-used to change a phone: `change-phone <name> <old phone> <new phone>`
+used to change a phone: `change-phone <name> <old phone> <new phone>`.
 
 ```
 Enter a command: change-phone Max +380631110001 +380637770007
@@ -219,7 +219,7 @@ Used to add an address: `add-address <name> <address>`. Will be replaced if alre
 
 ### all-contacts
 
-Used to display all contacts: `all-contacts`
+Used to display all contacts: `all-contacts`.
 
 ```
 Enter a command: all-contacts
@@ -233,7 +233,7 @@ Enter a command: all-contacts
 
 ### remove-contact
 
-Used to remove a contact: `remove-contact <name>`
+Used to remove a contact: `remove-contact <name>`.
 You need to confirm with "yes" or "y".
 
 ```
@@ -244,7 +244,7 @@ Contact deleted.
 
 ### birthdays
 
-Used to display birthdays that will happen in days range (7 days by default): `birthdays [days range]`
+Used to display birthdays that will happen in days range (7 days by default): `birthdays [days range]`.
 
 The example of the output with default days range:
 
@@ -271,7 +271,7 @@ Enter a command: birthdays 14
 
 ### add-note
 
-Used to add a note: `add-note <text>`
+Used to add a note: `add-note <text>`.
 
 ```
 Enter a command: add-note Hello world! Let's study something!
