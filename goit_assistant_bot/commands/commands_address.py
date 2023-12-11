@@ -5,6 +5,7 @@ from ..utils import is_yes_prompt
 from .utils import get_validation_message
 from .commands import CMD_ADD_ADDRESS, CMD_SHOW_ADDRESS, CMD_REMOVE_ADDRESS
 
+
 @input_error(get_validation_message(CMD_ADD_ADDRESS))
 def add_address(args, book: AddressBook):
     """
@@ -16,6 +17,7 @@ def add_address(args, book: AddressBook):
 
     Returns: None
     """
+
     name, *address = args
     address = " ".join(address).strip()
 
@@ -31,6 +33,7 @@ def add_address(args, book: AddressBook):
         if contact.add_address(address):
             book.add_record(contact)
 
+
 @input_error(get_validation_message(CMD_SHOW_ADDRESS))
 def show_address(args, book: AddressBook):
     """
@@ -42,6 +45,7 @@ def show_address(args, book: AddressBook):
 
     Returns: None
     """
+
     name = args[0]
 
     contact = book.find(name)
@@ -49,6 +53,7 @@ def show_address(args, book: AddressBook):
         contact.show_address()
     else:
         print(TEXT["NOT_FOUND"])
+
 
 @input_error(get_validation_message(CMD_REMOVE_ADDRESS))
 def remove_address(args, book: AddressBook):
@@ -61,12 +66,14 @@ def remove_address(args, book: AddressBook):
 
     Returns: None
     """
+
     name = args[0]
     contact = book.find(name)
     if contact:
         contact.remove_address()
     else:
         print(TEXT["NOT_FOUND"])
+
 
 __all__ = [
     "add_address",

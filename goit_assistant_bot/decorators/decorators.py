@@ -1,5 +1,6 @@
 from colorama import Fore, Style
 
+
 def input_error(error, use_colored_message=False):
     """
     This is a Decorator
@@ -8,9 +9,10 @@ def input_error(error, use_colored_message=False):
     Parameters:
         cmd (str): a command
 
-    Returns: 
-        error_handler (function): hendler of decorated function 
+    Returns:
+        error_handler (function): hendler of decorated function
     """
+
     def error_handler(func):
         def inner(*args, **kwargs):
             try:
@@ -20,7 +22,10 @@ def input_error(error, use_colored_message=False):
                     print(Fore.RED + error + Style.RESET_ALL)
                 else:
                     print(error)
+
         return inner
+
     return error_handler
+
 
 __all__ = ["input_error"]

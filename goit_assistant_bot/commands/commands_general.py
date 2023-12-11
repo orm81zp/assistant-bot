@@ -2,6 +2,7 @@ from colorama import Fore, Style
 from ..constants import TEXT
 from .commands import COMMANDS, ARGUMET_TYPES, VALIDATION_RULES
 
+
 def print_rules(rules=None):
     """
     Shows validation rules information.
@@ -11,12 +12,14 @@ def print_rules(rules=None):
 
     Returns: None
     """
+
     if not rules:
         rules = VALIDATION_RULES
 
     print(Fore.YELLOW + "Validation rules:" + Style.RESET_ALL)
     for k, v in rules.items():
         print(f"{k:<25} - {v}")
+
 
 def print_argument_types(types=None):
     """
@@ -27,12 +30,14 @@ def print_argument_types(types=None):
 
     Returns: None
     """
+
     if not types:
         types = ARGUMET_TYPES
 
     print(Fore.YELLOW + "Types of argumets:" + Style.RESET_ALL)
     for k, v in types.items():
         print(f"{k:<25} - {v}")
+
 
 def show_help(args, *_):
     """
@@ -44,6 +49,7 @@ def show_help(args, *_):
 
     Returns: None
     """
+
     cmd = str(args[0]).strip().lower() if len(args) > 0 else None
     output = ""
 
@@ -77,6 +83,7 @@ def show_help(args, *_):
         print()
         print_rules(VALIDATION_RULES)
 
+
 def show_bye(*_):
     """
     Shows bye message.
@@ -87,7 +94,9 @@ def show_bye(*_):
 
     Returns: None
     """
+
     print(TEXT["BYE"])
+
 
 def show_hello(*_):
     """
@@ -99,7 +108,9 @@ def show_hello(*_):
 
     Returns: None
     """
+
     print(TEXT["GREETING"])
+
 
 __all__ = [
     "show_hello",

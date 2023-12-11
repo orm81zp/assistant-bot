@@ -3,8 +3,9 @@ from ..exceptions import ValidationValueExseption
 from ..constants import TEXT
 from .field import Field
 
+
 class Phone(Field):
-    def __init__(self, value = ""):
+    def __init__(self, value=""):
         self.value = value
 
     @property
@@ -19,10 +20,10 @@ class Phone(Field):
             raise ValidationValueExseption(TEXT["PHONE_VALIDATION"])
 
     def __str__(self):
-        return f'{self._value}'
+        return f"{self._value}"
 
     def __repr__(self):
-        return f'Phone: {self._value}'
+        return f"Phone: {self._value}"
 
 
 __all__ = ["Phone"]

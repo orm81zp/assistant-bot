@@ -6,10 +6,12 @@ from .exceptions import InputBotExseption, UnexpectedException
 from .address_book.exceptions import ValidationValueExseption
 from .commands import EXIT_COMMANDS
 
+
 def run_bot():
     """
     Entry point for running the program. Prompts the user for a command and executes it.
     """
+
     init()
     print(TEXT["WELCOME"])
     book = start_work()

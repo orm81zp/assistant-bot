@@ -8,7 +8,9 @@ from .birthday import Birthday
 from .email import Email
 from .address import Address
 
+
 class Record:
+
     def __init__(self, name):
         self.name = Name(name)
         self.phones = []
@@ -16,7 +18,7 @@ class Record:
         self.email = None
         self.address = None
 
-    def get_phones(self, delimeter = ', ', no_data_message = "") -> str:
+    def get_phones(self, delimeter=", ", no_data_message="") -> str:
         return delimeter.join([phone.value for phone in self.phones]) if len(self.phones) > 0 else no_data_message
 
     def get_phone(self, phone_number) -> Phone | None:

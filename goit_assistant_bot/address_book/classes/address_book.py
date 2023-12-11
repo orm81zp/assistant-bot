@@ -6,28 +6,23 @@ from ..decorators import confirm_prompt
 from .record import Record
 from .note import Note
 
+
 class AddressBook(UserDict):
     note_uuid = 1
-    def __init__(self):
-        self.data = {
-            "contacts": {},
-            "notes": []
-        }
 
+    def __init__(self):
+        self.data = {"contacts": {}, "notes": []}
 
     def has_data(self) -> bool:
         return len(self.data["contacts"]) > 0 or len(self.data["notes"]) > 0
-
 
     def add_record(self, contact: Record):
         uuid = generate_uuid()
         self.data["contacts"][uuid] = contact
 
-
     def add_contact(self, name):
         self.add_record(Record(name))
         print(TEXT["ADDED"])
-
 
     def add_note(self, content: str):
         note = Note(content, AddressBook.note_uuid)
@@ -48,7 +43,6 @@ class AddressBook(UserDict):
         if note:
             note.add_tag(tag)
 
-
     def show_tag(self, index):
         note = self.get_note(index)
         if note:
@@ -56,13 +50,11 @@ class AddressBook(UserDict):
         else:
             print(TEXT["NO_DATA_TO_DISPLAY"])
 
-
     @confirm_prompt("Existing tag will be deleted, continue?")
     def remove_tag(self, index, tag):
         note = self.get_note(index)
         if note:
             note.remove_tag(tag)
-
 
     def find(self, name) -> Record | None:
         for contact in self.data["contacts"].values():
@@ -70,13 +62,11 @@ class AddressBook(UserDict):
                 return contact
         return None
 
-
     def get_note(self, index) -> Note | None:
         for note in self.data["notes"]:
             if note.uuid == index:
                 return note
         return None
-
 
     def show_all(self, contacts: list[Record]):
         if len(contacts) > 0:
@@ -86,29 +76,28 @@ class AddressBook(UserDict):
             table.min_width = TABLE_MIN_WIDTH
 
             for contact in contacts:
-                table.add_row([
-                    contact.name,
-                    contact.get_phones(no_data_message="-"),
-                    contact.birthday or "-",
-                    contact.email or "-",
-                    contact.address or "-",
-                ])
+                table.add_row(
+                    [
+                        contact.name,
+                        contact.get_phones(no_data_message="-"),
+                        contact.birthday or "-",
+                        contact.email or "-",
+                        contact.address or "-",
+                    ]
+                )
             print(table)
         else:
             print(TEXT["NO_DATA_TO_DISPLAY"])
 
-
     def find_all(self):
         contacts = self.data["contacts"].values()
         self.show_all(contacts)
-
 
     def show_contact(self, name):
         contact = self.find(name)
 
         if contact:
             self.show_all([contact])
-
 
     def search_contact(self, search_value):
         found_contacts = []
@@ -147,7 +136,6 @@ class AddressBook(UserDict):
 
         self.show_all(found_contacts)
 
-
     def search_note(self, search_value):
         search_value = search_value.lower()
         notes = []
@@ -157,7 +145,6 @@ class AddressBook(UserDict):
                 notes.append(note)
 
         self.show_all_notes(notes)
-
 
     def show_all_notes(self, notes: list[Note]):
         if len(notes) > 0:
@@ -169,21 +156,15 @@ class AddressBook(UserDict):
 
             index = 0
             for note in notes:
-                table.add_row([
-                    note.uuid,
-                    note.get_content("-"),
-                    note.get_tags("-")
-                ])
+                table.add_row([note.uuid, note.get_content("-"), note.get_tags("-")])
                 index += 1
 
             print(table)
         else:
             print(TEXT["NO_DATA_TO_DISPLAY"])
 
-
     def find_all_notes(self):
         self.show_all_notes(self.data["notes"])
-
 
     def show_notes_by_tag(self, tag):
         table = PrettyTable(["Index", "Text", "Tags"])
@@ -194,17 +175,18 @@ class AddressBook(UserDict):
 
         for note in self.data["notes"]:
             if note.tag_exists(tag):
-                table.add_row([
-                    note.uuid,
-                    note.get_content("-"),
-                    note.get_tags("-"),
-                ])
+                table.add_row(
+                    [
+                        note.uuid,
+                        note.get_content("-"),
+                        note.get_tags("-"),
+                    ]
+                )
 
         if len(table.rows) > 0:
             print(table)
         else:
             print(TEXT["NO_DATA_TO_DISPLAY"])
-
 
     def show_all_tags(self):
         if len(self.data["notes"]) > 0:
@@ -222,16 +204,17 @@ class AddressBook(UserDict):
                 table.min_width = TABLE_MIN_WIDTH
 
                 for k, v in notes.items():
-                    table.add_row([
-                        k,
-                        ", ".join(v),
-                    ])
+                    table.add_row(
+                        [
+                            k,
+                            ", ".join(v),
+                        ]
+                    )
                 print(table)
             else:
                 print(TEXT["NO_DATA_TO_DISPLAY"])
         else:
             print(TEXT["NO_DATA_TO_DISPLAY"])
-
 
     @confirm_prompt("Existing contact will be deleted, continue?")
     def remove_contact(self, name):
@@ -248,19 +231,19 @@ class AddressBook(UserDict):
         else:
             print(TEXT["NOT_FOUND"])
 
-
     @confirm_prompt("Existing note will be deleted, continue?")
     def remove_note(self, index):
         note = self.get_note(index)
 
         if note:
-            self.data["notes"] = list(filter((lambda x: x.uuid != index), self.data["notes"]))
+            self.data["notes"] = list(
+                filter((lambda x: x.uuid != index), self.data["notes"])
+            )
             print(TEXT["DELETED"])
             return True
 
         print(TEXT["NOT_FOUND"])
         return False
-
 
     def show_note(self, index):
         note = self.get_note(index)
@@ -270,18 +253,13 @@ class AddressBook(UserDict):
             table.align = "l"
             table.max_width = TABLE_MAX_WIDTH
             table.min_width = TABLE_MIN_WIDTH
-            table.add_row([
-                note.uuid,
-                note.get_content("-"),
-                note.get_tags("-")
-            ])
+            table.add_row([note.uuid, note.get_content("-"), note.get_tags("-")])
 
             print(table)
         else:
             print(TEXT["NOT_FOUND"])
 
-
-    def birthdays(self, days_range = None):
+    def birthdays(self, days_range=None):
         contacts = []
         for contact in self.data["contacts"].values():
             if contact.birthday:

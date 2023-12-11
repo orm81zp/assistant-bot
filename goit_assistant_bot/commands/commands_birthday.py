@@ -3,7 +3,13 @@ from ..decorators import input_error
 from ..constants import TEXT
 from ..utils import is_yes_prompt
 from .utils import get_validation_message
-from .commands import CMD_ADD_BIRTHDAY, CMD_SHOW_BIRTHDAY, CMD_REMOVE_BIRTHDAY, CMD_BIRTHDAYS
+from .commands import (
+    CMD_ADD_BIRTHDAY,
+    CMD_SHOW_BIRTHDAY,
+    CMD_REMOVE_BIRTHDAY,
+    CMD_BIRTHDAYS,
+)
+
 
 @input_error(get_validation_message(CMD_ADD_BIRTHDAY))
 def add_birthday(args, book: AddressBook):
@@ -16,6 +22,7 @@ def add_birthday(args, book: AddressBook):
 
     Returns: None
     """
+
     name, birthday = args
     birthday = birthday.strip()
 
@@ -31,6 +38,7 @@ def add_birthday(args, book: AddressBook):
         if contact.add_birthday(birthday):
             book.add_record(contact)
 
+
 @input_error(get_validation_message(CMD_SHOW_BIRTHDAY))
 def show_birthday(args, book: AddressBook):
     """
@@ -42,6 +50,7 @@ def show_birthday(args, book: AddressBook):
 
     Returns: None
     """
+
     name = args[0]
     contact = book.find(name)
 
@@ -49,6 +58,7 @@ def show_birthday(args, book: AddressBook):
         contact.show_birthday()
     else:
         print(TEXT["NOT_FOUND"])
+
 
 @input_error(get_validation_message(CMD_REMOVE_BIRTHDAY))
 def remove_birthday(args, book: AddressBook):
@@ -61,6 +71,7 @@ def remove_birthday(args, book: AddressBook):
 
     Returns: None
     """
+
     name = args[0]
 
     contact = book.find(name)
@@ -68,6 +79,7 @@ def remove_birthday(args, book: AddressBook):
         contact.remove_birthday()
     else:
         print(TEXT["NOT_FOUND"])
+
 
 @input_error(get_validation_message(CMD_BIRTHDAYS))
 def birthdays(args, book: AddressBook):
@@ -80,8 +92,10 @@ def birthdays(args, book: AddressBook):
 
     Returns: None
     """
+
     days_range = int(args[0]) if len(args) > 0 else None
     book.birthdays(days_range)
+
 
 __all__ = [
     "add_birthday",

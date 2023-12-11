@@ -5,6 +5,7 @@ from ..utils import is_yes_prompt
 from .utils import get_validation_message
 from .commands import CMD_ADD_EMAIL, CMD_REMOVE_EMAIL, CMD_SHOW_EMAIL
 
+
 @input_error(get_validation_message(CMD_ADD_EMAIL))
 def add_email(args, book: AddressBook):
     """
@@ -16,6 +17,7 @@ def add_email(args, book: AddressBook):
 
     Returns: None
     """
+
     name, email = args
     email = email.strip()
     contact = book.find(name)
@@ -31,6 +33,7 @@ def add_email(args, book: AddressBook):
         if contact.add_email(email):
             book.add_record(contact)
 
+
 @input_error(get_validation_message(CMD_SHOW_EMAIL))
 def show_email(args, book: AddressBook):
     """
@@ -42,12 +45,14 @@ def show_email(args, book: AddressBook):
 
     Returns: None
     """
+
     name = args[0]
     contact = book.find(name)
     if contact:
         contact.show_email()
     else:
         print(TEXT["NOT_FOUND"])
+
 
 @input_error(get_validation_message(CMD_REMOVE_EMAIL))
 def remove_email(args, book: AddressBook):
@@ -60,12 +65,14 @@ def remove_email(args, book: AddressBook):
 
     Returns: None
     """
+
     name = args[0]
     contact = book.find(name)
     if contact:
         contact.remove_email()
     else:
         print(TEXT["NOT_FOUND"])
+
 
 __all__ = [
     "add_email",
