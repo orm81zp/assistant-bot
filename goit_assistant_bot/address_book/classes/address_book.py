@@ -20,7 +20,7 @@ class AddressBook(UserDict):
 
 
     def add_record(self, contact: Record):
-        uuid = generate_uuid(contact.name.value)
+        uuid = generate_uuid()
         self.data["contacts"][uuid] = contact
 
 
