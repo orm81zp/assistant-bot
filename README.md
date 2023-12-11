@@ -124,7 +124,8 @@ all-tags                  - used to display all tags: all-tags
 show-tag                  - used to display tags in a note: show-tag <note index>
 hello                     - used to display a welcome message: hello
 help                      - used to display information about all commands or a particular one: help [command name]
-close | exit              - used to close the program: close
+save                      - used to save the current data: save
+close | exit              - used to close the program, data will be saved: close
 
 Types of argumets:
 <required>                - required argument
@@ -163,13 +164,40 @@ Validation rules:
 <birthday>                - a valid date, equivalent to "DD.MM.YYYY", no future's date of birth. Example: 24.06.2001
 ```
 
+### save
+
+Used to save the data: `save`.
+
+```
+Enter a command: save
+✓ Contact book saved!
+```
+
+With no changes in the contact book, notes, tags:
+
+```
+Enter a command: save
+No updates to save.
+```
+
 ### add-phone
 
 Used to add a phone: `add-phone <name> <phone>`
 
 ```
 Enter a command: add-phone John +380731112211
-Phone number added.
+Phone added.
+```
+
+### change-phone
+
+used to change a phone: `change-phone <name> <old phone> <new phone>`
+
+```
+Enter a command: change-phone Max +380631110001 +380637770007
+Existing phone number will be updated, continue? (y/no) y
++380631110001 => +380637770007
+Phone updated.
 ```
 
 ### add-birthday
@@ -178,7 +206,7 @@ Used to add a birthday: `add-birthday <name> <birthday>`. Will be replaced if al
 
 ```
 Enter a command: add-birthday John 28.11.2001
-Added.
+Birthday added.
 ```
 
 ### add-email
@@ -210,8 +238,8 @@ You need to confirm with "yes" or "y".
 
 ```
 Enter a command: remove-contact John
-Existing contact will be deleted, continue? (yes/no) yes
-Deleted.
+Existing contact will be deleted, continue? (y/no) y
+Contact deleted.
 ```
 
 ### birthdays
@@ -247,7 +275,7 @@ Used to add a note: `add-note <text>`
 
 ```
 Enter a command: add-note Hello world! Let's study something!
-Added.
+Note added.
 ```
 
 ### all-notes
@@ -265,10 +293,10 @@ Enter a command: all-notes
 
 ### close or exit
 
-use `close` or `exit` to close the program.
+use `close` or `exit` to close the program. The current data will be saved.
 
 ```
 Enter a command: exit
 Good bye!
-Saved!
+✓ Contact book saved!
 ```

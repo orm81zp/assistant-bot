@@ -12,7 +12,7 @@ def confirm_prompt(message="Please confirm"):
 
     def handler(func):
         def inner(*args, **kwargs):
-            user_input = input(f"{message} (yes/no) ")
+            user_input = input(f"{message} (y/no) ")
             user_input = user_input.strip().lower()
 
             if user_input in ["yes", "y"]:

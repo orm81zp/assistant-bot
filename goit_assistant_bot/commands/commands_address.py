@@ -1,7 +1,5 @@
-from ..address_book import Record, AddressBook
-from ..decorators import input_error
-from ..constants import TEXT
-from ..utils import is_yes_prompt
+from ..address_book import AddressBook
+from .decorators import input_error
 from .utils import get_validation_message
 from .commands import CMD_ADD_ADDRESS, CMD_SHOW_ADDRESS, CMD_REMOVE_ADDRESS
 
@@ -19,19 +17,7 @@ def add_address(args, book: AddressBook):
     """
 
     name, *address = args
-    address = " ".join(address).strip()
-
-    contact = book.find(name)
-    if contact:
-        if contact.address:
-            if is_yes_prompt("Existing address will be updated, continue?"):
-                contact.add_address(address)
-        else:
-            contact.add_address(address)
-    else:
-        contact = Record(name)
-        if contact.add_address(address):
-            book.add_record(contact)
+    book.add_address(name, " ".join(address).strip())
 
 
 @input_error(get_validation_message(CMD_SHOW_ADDRESS))
@@ -47,12 +33,7 @@ def show_address(args, book: AddressBook):
     """
 
     name = args[0]
-
-    contact = book.find(name)
-    if contact:
-        contact.show_address()
-    else:
-        print(TEXT["NOT_FOUND"])
+    book.show_address(name)
 
 
 @input_error(get_validation_message(CMD_REMOVE_ADDRESS))
@@ -68,11 +49,7 @@ def remove_address(args, book: AddressBook):
     """
 
     name = args[0]
-    contact = book.find(name)
-    if contact:
-        contact.remove_address()
-    else:
-        print(TEXT["NOT_FOUND"])
+    book.remove_address(name)
 
 
 __all__ = [

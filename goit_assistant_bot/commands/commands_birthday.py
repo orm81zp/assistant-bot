@@ -1,7 +1,5 @@
-from ..address_book import Record, AddressBook
-from ..decorators import input_error
-from ..constants import TEXT
-from ..utils import is_yes_prompt
+from ..address_book import AddressBook
+from .decorators import input_error
 from .utils import get_validation_message
 from .commands import (
     CMD_ADD_BIRTHDAY,
@@ -24,19 +22,7 @@ def add_birthday(args, book: AddressBook):
     """
 
     name, birthday = args
-    birthday = birthday.strip()
-
-    contact = book.find(name)
-    if contact:
-        if contact.birthday:
-            if is_yes_prompt("Existing birthday will be updated, continue?"):
-                contact.add_birthday(birthday)
-        else:
-            contact.add_birthday(birthday)
-    else:
-        contact = Record(name)
-        if contact.add_birthday(birthday):
-            book.add_record(contact)
+    book.add_birthday(name, birthday.strip())
 
 
 @input_error(get_validation_message(CMD_SHOW_BIRTHDAY))
@@ -52,12 +38,7 @@ def show_birthday(args, book: AddressBook):
     """
 
     name = args[0]
-    contact = book.find(name)
-
-    if contact:
-        contact.show_birthday()
-    else:
-        print(TEXT["NOT_FOUND"])
+    book.show_birthday(name)
 
 
 @input_error(get_validation_message(CMD_REMOVE_BIRTHDAY))
@@ -73,12 +54,7 @@ def remove_birthday(args, book: AddressBook):
     """
 
     name = args[0]
-
-    contact = book.find(name)
-    if contact:
-        contact.remove_birthday()
-    else:
-        print(TEXT["NOT_FOUND"])
+    book.remove_birthday(name)
 
 
 @input_error(get_validation_message(CMD_BIRTHDAYS))

@@ -1,6 +1,6 @@
 import string
 import random
-from datetime import datetime
+from time import time
 
 
 def generate_uuid():
@@ -13,7 +13,7 @@ def generate_uuid():
     """
 
     choices = random.choices(string.ascii_letters + string.digits, k=15)
-    return "".join(choices) + str(datetime.now())
+    return "".join(choices) + ":" + str(time())
 
 
 __all__ = [

@@ -1,12 +1,20 @@
 from colorama import Fore, Style
 
+DELETED = "Deleted."
+ADDED = "Added."
+UPDATED = "Updated."
+NOT_FOUND = "Not found."
+EXISTS = "Already exists."
+EQUAL = "Are the same."
+
+
 TEXT = {
-    "DELETED": Fore.GREEN + "Deleted." + Style.RESET_ALL,
-    "ADDED": Fore.GREEN + "Added." + Style.RESET_ALL,
-    "UPDATED": Fore.GREEN + "Updated." + Style.RESET_ALL,
-    "EXISTS": Fore.LIGHTBLACK_EX + "Already exists." + Style.RESET_ALL,
-    "EQUAL": Fore.LIGHTBLACK_EX + "Are the same." + Style.RESET_ALL,
-    "NOT_FOUND": Fore.LIGHTBLACK_EX + "Not found." + Style.RESET_ALL,
+    "DELETED": Fore.GREEN + DELETED + Style.RESET_ALL,
+    "ADDED": Fore.GREEN + ADDED + Style.RESET_ALL,
+    "UPDATED": Fore.GREEN + UPDATED + Style.RESET_ALL,
+    "EXISTS": Fore.LIGHTBLACK_EX + EXISTS + Style.RESET_ALL,
+    "EQUAL": Fore.LIGHTBLACK_EX + EQUAL + Style.RESET_ALL,
+    "NOT_FOUND": Fore.LIGHTBLACK_EX + NOT_FOUND + Style.RESET_ALL,
     "NO_DATA_TO_DISPLAY": Fore.LIGHTBLACK_EX + "No data to display." + Style.RESET_ALL,
     "PHONE_VALIDATION": Fore.RED
     + "Phone number failed validation."
@@ -51,4 +59,4 @@ TEXT = {
 }
 
 
-__all__ = ["TEXT"]
+__all__ = ["TEXT", "DELETED", "ADDED", "UPDATED", "NOT_FOUND", "EXISTS", "EQUAL"]

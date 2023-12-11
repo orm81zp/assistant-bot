@@ -7,6 +7,7 @@ from .commands_contact import (
     remove_contact,
     search_contact,
     change_contact_name,
+    save_data,
 )
 from .commands_email import add_email, show_email, remove_email
 from .commands_general import show_hello, show_help, show_bye
@@ -58,6 +59,7 @@ from .commands import (
     CMD_ALL_TAGS,
     CMD_HELLO,
     CMD_HELP,
+    CMD_SAVE,
     EXIT_COMMANDS,
 )
 
@@ -196,6 +198,10 @@ MAPPED_COMMANDS = [
         "func": show_help,
     },
     {
+        "commands": [CMD_SAVE],
+        "func": save_data,
+    },
+    {
         "commands": EXIT_COMMANDS,
         "func": show_bye,
     },
@@ -209,6 +215,13 @@ for i in MAPPED_COMMANDS:
         COMMAND_VARIANTS.add(command)
 
 COMMAND_VARIANTS = list(COMMAND_VARIANTS)
+
+# MAPPED_COMMANDS.append(
+#     {
+#         "commands": ["is-dev"],
+#         "func": is_dev,
+#     }
+# )
 
 
 __all__ = [

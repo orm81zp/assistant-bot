@@ -33,6 +33,7 @@ CMD_HELLO = "hello"
 CMD_HELP = "help"
 CMD_CLOSE = "close"
 CMD_EXIT = "exit"
+CMD_SAVE = "save"
 
 EXIT_COMMANDS = [CMD_CLOSE, CMD_EXIT]
 
@@ -336,8 +337,13 @@ COMMANDS = [
         "description": "used to display information about all commands or a particular one",
     },
     {
+        "commands": [CMD_SAVE],
+        "arguments": [],
+        "description": "used to save the current data",
+    },
+    {
         "commands": EXIT_COMMANDS,
         "arguments": [],
-        "description": "used to close the program",
+        "description": "used to close the program, data will be saved",
     },
 ]

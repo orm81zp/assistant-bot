@@ -1,6 +1,5 @@
-from ..address_book import Record, AddressBook
-from ..decorators import input_error
-from ..constants import TEXT
+from ..address_book import AddressBook
+from .decorators import input_error
 from .utils import get_validation_message
 from .commands import CMD_CHANGE_PHONE, CMD_SHOW_PHONE, CMD_ADD_PHONE, CMD_REMOVE_PHONE
 
@@ -17,13 +16,8 @@ def change_phone(args, book: AddressBook):
     Returns: None
     """
 
-    name, old_phone, new_phone = args
-    contact = book.find(name)
-
-    if contact:
-        contact.edit_phone(old_phone, new_phone)
-    else:
-        print(TEXT["NOT_FOUND"])
+    name, phone, new_phone = args
+    book.change_phone(name, phone, new_phone)
 
 
 @input_error(get_validation_message(CMD_SHOW_PHONE))
@@ -39,12 +33,7 @@ def show_phone(args, book: AddressBook):
     """
 
     name = args[0]
-    contact = book.find(name)
-
-    if contact:
-        contact.show_phone()
-    else:
-        print(TEXT["NOT_FOUND"])
+    book.show_phone(name)
 
 
 @input_error(get_validation_message(CMD_ADD_PHONE))
@@ -60,14 +49,7 @@ def add_phone(args, book: AddressBook):
     """
 
     name, phone = args
-    contact = book.find(name)
-
-    if contact:
-        contact.add_phone(phone)
-    else:
-        contact = Record(name)
-        if contact.add_phone(phone):
-            book.add_record(contact)
+    book.add_phone(name, phone)
 
 
 @input_error(get_validation_message(CMD_REMOVE_PHONE))
@@ -83,12 +65,7 @@ def remove_phone(args, book: AddressBook):
     """
 
     name, phone = args
-    contact = book.find(name)
-
-    if contact:
-        contact.remove_phone(phone)
-    else:
-        print(TEXT["NOT_FOUND"])
+    book.remove_phone(name, phone)
 
 
 __all__ = [
