@@ -1,6 +1,6 @@
 from prompt_toolkit import prompt
 from prompt_toolkit.completion import WordCompleter
-from ..address_book import AddressBook
+from ..address_book.classes import AddressBook
 from ..exceptions import InputBotExseption
 from .commands_mapper import MAPPED_COMMANDS, COMMAND_VARIANTS
 

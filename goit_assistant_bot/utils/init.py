@@ -3,7 +3,7 @@ import sys
 import pickle
 from pathlib import Path
 from colorama import Fore, Style
-from ..address_book import AddressBook
+from ..address_book.classes import AddressBook
 from ..address_book.utils import save_address_book
 
 ADDRESS_BOOK: AddressBook | None = None

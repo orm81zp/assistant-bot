@@ -1,4 +1,4 @@
-from ..address_book import AddressBook
+from ..address_book.classes import AddressBook
 from .decorators import input_error
 from .utils import get_validation_message
 from .commands import CMD_CHANGE_PHONE, CMD_SHOW_PHONE, CMD_ADD_PHONE, CMD_REMOVE_PHONE

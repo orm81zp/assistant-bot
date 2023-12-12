@@ -1,4 +1,4 @@
-from ..address_book import AddressBook
+from ..address_book.classes import AddressBook
 from .decorators import input_error
 from .utils import get_validation_message
 from .commands import CMD_ADD_ADDRESS, CMD_SHOW_ADDRESS, CMD_REMOVE_ADDRESS

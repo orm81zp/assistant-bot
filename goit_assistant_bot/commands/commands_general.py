@@ -1,5 +1,5 @@
 from colorama import Fore, Style
-from ..address_book import AddressBook
+from ..address_book.classes import AddressBook
 from ..constants import TEXT
 from .commands import COMMANDS, ARGUMET_TYPES, VALIDATION_RULES
 

@@ -1,4 +1,4 @@
-from goit_assistant_bot import run_bot
+from goit_assistant_bot.bot import run_bot
 
 
 def main():
