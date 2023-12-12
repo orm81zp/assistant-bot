@@ -2,8 +2,8 @@ import pickle
 from colorama import Fore, Style
 
 
-def save_address_book(book):
-    if book.is_dirty:
+def save_address_book(book, force_save=False):
+    if book.is_dirty or force_save:
         dump_file = book.get_dump_file()
         if dump_file:
             with open(dump_file, "wb") as fh:

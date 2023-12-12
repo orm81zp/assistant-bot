@@ -42,7 +42,8 @@ def stop_work():
     global ADDRESS_BOOK
     try:
         if ADDRESS_BOOK:
-            save_address_book(ADDRESS_BOOK)
+            # force save for exit even if there are no updates
+            save_address_book(ADDRESS_BOOK, True)
     except Exception:
         print(
             Fore.RED

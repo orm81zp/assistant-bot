@@ -5,6 +5,7 @@
 ### Features
 
 -   added `save` command
+-   added `help` by a command
 
 ### Miscellaneous
 
