@@ -9,6 +9,7 @@
 ### Miscellaneous
 
 -   updated output of commands
+-   added tests and github workflows for development
 
 ## 0.0.4
 

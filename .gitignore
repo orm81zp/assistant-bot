@@ -170,8 +170,7 @@ cython_debug/
 
 # dump file
 assistant_data.bin
-
-pre-commit
+tests_assistant_data.bin
 
 # files for working
 tasks.txt

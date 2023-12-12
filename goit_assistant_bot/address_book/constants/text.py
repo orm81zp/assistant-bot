@@ -7,7 +7,6 @@ NOT_FOUND = "Not found."
 EXISTS = "Already exists."
 EQUAL = "Are the same."
 
-
 TEXT = {
     "DELETED": Fore.GREEN + DELETED + Style.RESET_ALL,
     "ADDED": Fore.GREEN + ADDED + Style.RESET_ALL,
@@ -16,6 +15,9 @@ TEXT = {
     "EQUAL": Fore.LIGHTBLACK_EX + EQUAL + Style.RESET_ALL,
     "NOT_FOUND": Fore.LIGHTBLACK_EX + NOT_FOUND + Style.RESET_ALL,
     "NO_DATA_TO_DISPLAY": Fore.LIGHTBLACK_EX + "No data to display." + Style.RESET_ALL,
+    "ERROR_SAVE_DATA": Fore.RED
+    + "Oh! Something went wrong, the data was not saved!"
+    + Style.RESET_ALL,
     "PHONE_VALIDATION": Fore.RED
     + "Phone number failed validation."
     + Fore.LIGHTBLACK_EX
@@ -59,4 +61,12 @@ TEXT = {
 }
 
 
-__all__ = ["TEXT", "DELETED", "ADDED", "UPDATED", "NOT_FOUND", "EXISTS", "EQUAL"]
+__all__ = [
+    "TEXT",
+    "DELETED",
+    "ADDED",
+    "UPDATED",
+    "NOT_FOUND",
+    "EXISTS",
+    "EQUAL",
+]

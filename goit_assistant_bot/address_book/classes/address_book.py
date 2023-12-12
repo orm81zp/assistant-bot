@@ -1,5 +1,4 @@
 from collections import UserDict, defaultdict
-from colorama import Fore, Style
 from prettytable import PrettyTable, ALL
 from ..utils import (
     get_birthdays_per_week,
@@ -8,6 +7,7 @@ from ..utils import (
     is_yes_prompt,
     print_message,
 )
+from ..constants import TEXT
 from ..constants import (
     NOT_FOUND,
     EXISTS,
@@ -52,15 +52,17 @@ class AddressBook(UserDict):
     def get_dump_file(self):
         return self.__dump_file
 
+    def set_dump_file(self, new_value):
+        self.__dump_file = new_value
+
+    def get_last_note_uuid(self):
+        return None if self.__note_uuid == 1 else self.__note_uuid - 1
+
     def save(self):
         try:
             save_address_book(self)
         except Exception:
-            print(
-                Fore.RED
-                + "Oh! Something went wrong, the data was not saved!"
-                + Style.RESET_ALL
-            )
+            print(TEXT["ERROR_SAVE_DATA"])
 
     def add_record(self, contact: Record):
         uuid = generate_uuid()
@@ -79,9 +81,9 @@ class AddressBook(UserDict):
         note = self.get_note_by_content(content)
 
         if not note:
-            new_note = Note(content, AddressBook.__note_uuid)
+            new_note = Note(content, self.__note_uuid)
             self.data["notes"].append(new_note)
-            AddressBook.__note_uuid += 1
+            self.__note_uuid += 1
             self.is_dirty = True
             added_message("Note")
         else:
