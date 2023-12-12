@@ -1,5 +1,4 @@
 from colorama import Fore, Style
-from ..address_book.classes import AddressBook
 from ..constants import TEXT
 from .commands import COMMANDS, ARGUMET_TYPES, VALIDATION_RULES
 
@@ -112,37 +111,9 @@ def show_hello(*_):
 
     print(TEXT["GREETING"])
 
-def is_dev(_, book: AddressBook):
-    """
-    Prints debug information
-    """
-    print("########## Output in debug mode ##########")
-    print("is_dirty:", book.is_dirty)
-    print("dump_file:", book.get_dump_file())
-    print()
-
-    contacts = book.data["contacts"]
-    print("contacts:", len(contacts))
-    print("notes:", len(book.data["notes"]))
-    print()
-
-    for key, contact in contacts.items():
-        print("key:", key)
-        print(contact)
-        print()
-
-    print()
-
-    for note in book.data["notes"]:
-        print(note)
-        print()
-
-    print()
-
 
 __all__ = [
     "show_hello",
     "show_help",
     "show_bye",
-    "is_dev",
 ]

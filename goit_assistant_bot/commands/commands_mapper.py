@@ -216,13 +216,6 @@ for i in MAPPED_COMMANDS:
 
 COMMAND_VARIANTS = list(COMMAND_VARIANTS)
 
-# MAPPED_COMMANDS.append(
-#     {
-#         "commands": ["is-dev"],
-#         "func": is_dev,
-#     }
-# )
-
 
 __all__ = [
     "COMMAND_VARIANTS",
