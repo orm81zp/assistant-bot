@@ -15,7 +15,7 @@ jobs:
         strategy:
             matrix:
                 # Run in all Python versions
-                python-version: [3.5, 3.6, 3.9, 3.10]
+                python-version: [3.8.10, 3.10.12]
 
         steps:
             # Checkout the latest code from the repo
