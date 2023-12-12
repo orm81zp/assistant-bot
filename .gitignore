@@ -1,3 +1,12 @@
+# adds .vscode folder to ignored files
+.vscode/**/*
+
+# exclude these files from being ignored
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/tasks.json
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -161,6 +170,7 @@ cython_debug/
 
 # dump file
 assistant_data.bin
+tests_assistant_data.bin
 
 # files for working
 tasks.txt

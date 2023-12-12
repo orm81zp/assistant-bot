@@ -4,8 +4,9 @@ from ..exceptions import ValidationValueExseption
 from ..constants import TEXT
 from .field import Field
 
+
 class Birthday(Field):
-    def __init__(self, value = ""):
+    def __init__(self, value=""):
         self.value = value
 
     @property
@@ -21,7 +22,9 @@ class Birthday(Field):
         # check validation on correct day, month, year arguments
         try:
             day, month, year = new_value.split(".")
-            birthday_date = datetime.date(year=int(year), month=int(month), day=int(day))
+            birthday_date = datetime.date(
+                year=int(year), month=int(month), day=int(day)
+            )
         except Exception:
             raise ValidationValueExseption(TEXT["BIRTHDAY_VALIDATION"])
 
@@ -32,9 +35,10 @@ class Birthday(Field):
         self._value = new_value
 
     def __str__(self):
-        return f'{self._value}'
+        return f"{self._value}"
 
     def __repr__(self):
-        return f'Birthday: {self._value}'
+        return f"Birthday: {self._value}"
+
 
 __all__ = ["Birthday"]

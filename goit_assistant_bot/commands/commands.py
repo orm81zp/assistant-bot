@@ -33,6 +33,7 @@ CMD_HELLO = "hello"
 CMD_HELP = "help"
 CMD_CLOSE = "close"
 CMD_EXIT = "exit"
+CMD_SAVE = "save"
 
 EXIT_COMMANDS = [CMD_CLOSE, CMD_EXIT]
 
@@ -52,7 +53,7 @@ ARG_DAYS_RANGE = "[days range]"
 ARG_COMMAND_NAME = "[command name]"
 
 VALIDATION_RULES = {
-    ARG_NAME: "equivalent to \"a-zA-Z0-9_.-\", no spaces. Example: Max, J.Brain, Tom-1",
+    ARG_NAME: 'equivalent to "a-zA-Z0-9_.-", no spaces. Example: Max, J.Brain, Tom-1',
     ARG_NEW_NAME: f"same as for {ARG_NAME}",
     ARG_PHONE: "begins with + and consist of 12 digits. Example: +380630000001",
     ARG_OLD_PHONE: f"same as for {ARG_PHONE}",
@@ -60,9 +61,9 @@ VALIDATION_RULES = {
     ARG_ADDRESS: "from 10 to 100 characters. Example: 3944 D Street",
     ARG_EMAIL: "a valid email address. Example: max101@gmail.com",
     ARG_NOTE_INDEX: "an existing index of a note, starts from 1",
-    ARG_TAG: "from 1 to 15 word characters, equivalent to \"a-zA-Z0-9_\", no spaces. Example: shopping",
+    ARG_TAG: 'from 1 to 15 word characters, equivalent to "a-zA-Z0-9_", no spaces. Example: shopping',
     ARG_TEXT: "from 10 to 500 characters",
-    ARG_BIRTHDAY: "a valid date, equivalent to \"DD.MM.YYYY\", no future's date of birth. Example: 24.06.2001",
+    ARG_BIRTHDAY: 'a valid date, equivalent to "DD.MM.YYYY", no future\'s date of birth. Example: 24.06.2001',
     ARG_SEARCH_VALUE: "case-insensitive world characters. Example: hello world",
     ARG_DAYS_RANGE: "(optional) a number of days (7 by default). Example: 14",
     ARG_COMMAND_NAME: "(optional) an existing command name. Example: add-phone",
@@ -75,40 +76,40 @@ ARGUMET_TYPES = {
 
 COMMANDS = [
     {
-        "commands":[CMD_ADD_CONTACT],
+        "commands": [CMD_ADD_CONTACT],
         "arguments": [ARG_NAME],
         "description": "used to add a new contact",
         "rules": {
             ARG_NAME: VALIDATION_RULES.get(ARG_NAME),
-        }
+        },
     },
     {
-        "commands":[CMD_SEARCH_CONTACT],
+        "commands": [CMD_SEARCH_CONTACT],
         "arguments": [ARG_SEARCH_VALUE],
         "description": "used to search contacts by name, birthday, email, phone, address (case-insensitive)",
         "rules": {
             ARG_SEARCH_VALUE: VALIDATION_RULES.get(ARG_SEARCH_VALUE),
-        }
+        },
     },
     {
-        "commands":[CMD_SHOW_CONTACT],
+        "commands": [CMD_SHOW_CONTACT],
         "arguments": [ARG_NAME],
         "description": "used to display a contact",
         "rules": {
             ARG_NAME: VALIDATION_RULES.get(ARG_NAME),
-        }
+        },
     },
     {
-        "commands":[CMD_CHANGE_CONTACT_NAME],
+        "commands": [CMD_CHANGE_CONTACT_NAME],
         "arguments": [ARG_NAME, ARG_NEW_NAME],
         "description": "used to change a contact name",
         "rules": {
             ARG_NAME: VALIDATION_RULES.get(ARG_NAME),
             ARG_NEW_NAME: VALIDATION_RULES.get(ARG_NEW_NAME),
-        }
+        },
     },
     {
-        "commands":[CMD_ALL_CONTACTS],
+        "commands": [CMD_ALL_CONTACTS],
         "arguments": [],
         "description": "used to display all contacts",
     },
@@ -118,7 +119,7 @@ COMMANDS = [
         "description": "used to remove a contact",
         "rules": {
             ARG_NAME: VALIDATION_RULES.get(ARG_NAME),
-        }
+        },
     },
     {
         "commands": [CMD_ADD_BIRTHDAY],
@@ -127,7 +128,7 @@ COMMANDS = [
         "rules": {
             ARG_NAME: VALIDATION_RULES.get(ARG_NAME),
             ARG_BIRTHDAY: VALIDATION_RULES.get(ARG_BIRTHDAY),
-        }
+        },
     },
     {
         "commands": [CMD_SHOW_BIRTHDAY],
@@ -135,7 +136,7 @@ COMMANDS = [
         "description": "used to display a birthday",
         "rules": {
             ARG_NAME: VALIDATION_RULES.get(ARG_NAME),
-        }
+        },
     },
     {
         "commands": [CMD_REMOVE_BIRTHDAY],
@@ -143,15 +144,15 @@ COMMANDS = [
         "description": "used to remove a birthday",
         "rules": {
             ARG_NAME: VALIDATION_RULES.get(ARG_NAME),
-        }
+        },
     },
     {
-        "commands":[CMD_BIRTHDAYS],
+        "commands": [CMD_BIRTHDAYS],
         "arguments": [ARG_DAYS_RANGE],
         "description": "used to display birthdays that will happen in coming days (7 days by default)",
         "rules": {
             ARG_DAYS_RANGE: VALIDATION_RULES.get(ARG_DAYS_RANGE),
-        }
+        },
     },
     {
         "commands": [CMD_ADD_ADDRESS],
@@ -160,7 +161,7 @@ COMMANDS = [
         "rules": {
             ARG_NAME: VALIDATION_RULES.get(ARG_NAME),
             ARG_ADDRESS: VALIDATION_RULES.get(ARG_ADDRESS),
-        }
+        },
     },
     {
         "commands": [CMD_SHOW_ADDRESS],
@@ -168,7 +169,7 @@ COMMANDS = [
         "description": "used to display an address",
         "rules": {
             ARG_NAME: VALIDATION_RULES.get(ARG_NAME),
-        }
+        },
     },
     {
         "commands": [CMD_REMOVE_ADDRESS],
@@ -176,7 +177,7 @@ COMMANDS = [
         "description": "used to remove an address",
         "rules": {
             ARG_NAME: VALIDATION_RULES.get(ARG_NAME),
-        }
+        },
     },
     {
         "commands": [CMD_ADD_EMAIL],
@@ -185,7 +186,7 @@ COMMANDS = [
         "rules": {
             ARG_NAME: VALIDATION_RULES.get(ARG_NAME),
             ARG_EMAIL: VALIDATION_RULES.get(ARG_EMAIL),
-        }
+        },
     },
     {
         "commands": [CMD_SHOW_EMAIL],
@@ -193,7 +194,7 @@ COMMANDS = [
         "description": "used to display an email",
         "rules": {
             ARG_NAME: VALIDATION_RULES.get(ARG_NAME),
-        }
+        },
     },
     {
         "commands": [CMD_REMOVE_EMAIL],
@@ -201,7 +202,7 @@ COMMANDS = [
         "description": "used to remove an email",
         "rules": {
             ARG_NAME: VALIDATION_RULES.get(ARG_NAME),
-        }
+        },
     },
     {
         "commands": [CMD_ADD_PHONE],
@@ -210,7 +211,7 @@ COMMANDS = [
         "rules": {
             ARG_NAME: VALIDATION_RULES.get(ARG_NAME),
             ARG_PHONE: VALIDATION_RULES.get(ARG_PHONE),
-        }
+        },
     },
     {
         "commands": [CMD_SHOW_PHONE],
@@ -218,7 +219,7 @@ COMMANDS = [
         "description": "used to display a phone",
         "rules": {
             ARG_NAME: VALIDATION_RULES.get(ARG_NAME),
-        }
+        },
     },
     {
         "commands": [CMD_CHANGE_PHONE],
@@ -229,7 +230,7 @@ COMMANDS = [
             ARG_PHONE: VALIDATION_RULES.get(ARG_PHONE),
             ARG_OLD_PHONE: VALIDATION_RULES.get(ARG_OLD_PHONE),
             ARG_NEW_PHONE: VALIDATION_RULES.get(ARG_NEW_PHONE),
-        }
+        },
     },
     {
         "commands": [CMD_REMOVE_PHONE],
@@ -238,15 +239,15 @@ COMMANDS = [
         "rules": {
             ARG_NAME: VALIDATION_RULES.get(ARG_NAME),
             ARG_PHONE: VALIDATION_RULES.get(ARG_PHONE),
-        }
+        },
     },
-     {
+    {
         "commands": [CMD_ADD_NOTE],
         "arguments": [ARG_TEXT],
         "description": "used to add a note",
         "rules": {
             ARG_TEXT: VALIDATION_RULES.get(ARG_TEXT),
-        }
+        },
     },
     {
         "commands": [CMD_SHOW_NOTE],
@@ -254,7 +255,7 @@ COMMANDS = [
         "description": "used to display a note",
         "rules": {
             ARG_NOTE_INDEX: VALIDATION_RULES.get(ARG_NOTE_INDEX),
-        }
+        },
     },
     {
         "commands": [CMD_CHANGE_NOTE],
@@ -263,15 +264,15 @@ COMMANDS = [
         "rules": {
             ARG_NOTE_INDEX: VALIDATION_RULES.get(ARG_NOTE_INDEX),
             ARG_TEXT: VALIDATION_RULES.get(ARG_TEXT),
-        }
+        },
     },
     {
-        "commands":[CMD_SEARCH_NOTE],
+        "commands": [CMD_SEARCH_NOTE],
         "arguments": [ARG_SEARCH_VALUE],
         "description": "used to search notes by content (case-insensitive)",
         "rules": {
             ARG_SEARCH_VALUE: VALIDATION_RULES.get(ARG_SEARCH_VALUE),
-        }
+        },
     },
     {
         "commands": [CMD_REMOVE_NOTE],
@@ -279,7 +280,7 @@ COMMANDS = [
         "description": "used to remove a note",
         "rules": {
             ARG_NOTE_INDEX: VALIDATION_RULES.get(ARG_NOTE_INDEX),
-        }
+        },
     },
     {
         "commands": [CMD_ALL_NOTES],
@@ -292,16 +293,16 @@ COMMANDS = [
         "description": "used to display all notes found by a tag (case-insensitive, strict match)",
         "rules": {
             ARG_TAG: VALIDATION_RULES.get(ARG_TAG),
-        }
+        },
     },
-        {
+    {
         "commands": [CMD_ADD_TAG],
         "arguments": [ARG_NOTE_INDEX, ARG_TAG],
         "description": "used to add a tag",
         "rules": {
             ARG_NOTE_INDEX: VALIDATION_RULES.get(ARG_NOTE_INDEX),
             ARG_TAG: VALIDATION_RULES.get(ARG_TAG),
-        }
+        },
     },
     {
         "commands": [CMD_REMOVE_TAG],
@@ -310,7 +311,7 @@ COMMANDS = [
         "rules": {
             ARG_NOTE_INDEX: VALIDATION_RULES.get(ARG_NOTE_INDEX),
             ARG_TAG: VALIDATION_RULES.get(ARG_TAG),
-        }
+        },
     },
     {
         "commands": [CMD_ALL_TAGS],
@@ -323,7 +324,7 @@ COMMANDS = [
         "description": "used to display tags in a note",
         "rules": {
             ARG_NOTE_INDEX: VALIDATION_RULES.get(ARG_NOTE_INDEX),
-        }
+        },
     },
     {
         "commands": [CMD_HELLO],
@@ -336,8 +337,13 @@ COMMANDS = [
         "description": "used to display information about all commands or a particular one",
     },
     {
+        "commands": [CMD_SAVE],
+        "arguments": [],
+        "description": "used to save the current data",
+    },
+    {
         "commands": EXIT_COMMANDS,
         "arguments": [],
-        "description": "used to close the program",
+        "description": "used to close the program, data will be saved",
     },
 ]

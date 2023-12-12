@@ -1,5 +1,5 @@
-from ..address_book import AddressBook
-from ..decorators import input_error
+from ..address_book.classes import AddressBook
+from .decorators import input_error
 from .utils import get_validation_message
 from .commands import (
     CMD_REMOVE_TAG,
@@ -13,6 +13,7 @@ from .commands import (
     CMD_CHANGE_NOTE,
 )
 
+
 @input_error(get_validation_message(CMD_REMOVE_TAG))
 def remove_tag(args, book: AddressBook):
     """
@@ -24,9 +25,10 @@ def remove_tag(args, book: AddressBook):
 
     Returns: None
     """
+
     index, tag = args
-    index = int(index)
-    book.remove_tag(index, tag)
+    book.remove_tag(int(index), tag)
+
 
 @input_error(get_validation_message(CMD_ADD_TAG))
 def add_tag(args, book: AddressBook):
@@ -39,9 +41,10 @@ def add_tag(args, book: AddressBook):
 
     Returns: None
     """
+
     index, tag = args
-    index = int(index)
-    book.add_tag(index, tag)
+    book.add_tag(int(index), tag)
+
 
 def show_all_tags(_, book: AddressBook):
     """
@@ -53,7 +56,9 @@ def show_all_tags(_, book: AddressBook):
 
     Returns: None
     """
+
     book.show_all_tags()
+
 
 @input_error(get_validation_message(CMD_SHOW_TAG))
 def show_tag(args, book: AddressBook):
@@ -66,8 +71,10 @@ def show_tag(args, book: AddressBook):
 
     Returns: None
     """
-    index = int(args[0])
-    book.show_tag(index)
+
+    index = args[0]
+    book.show_tag(int(index))
+
 
 @input_error(get_validation_message(CMD_ADD_NOTE))
 def add_note(args, book: AddressBook):
@@ -83,6 +90,7 @@ def add_note(args, book: AddressBook):
     content = " ".join(args)
     book.add_note(content)
 
+
 @input_error(get_validation_message(CMD_CHANGE_NOTE))
 def change_note(args, book: AddressBook):
     """
@@ -94,10 +102,11 @@ def change_note(args, book: AddressBook):
 
     Returns: None
     """
+
     index, *content = args
-    index = int(index)
-    content = " ".join(content).strip()
-    book.change_note(index, content)
+    content = " ".join(content)
+    book.change_note(int(index), content.strip())
+
 
 def show_all_notes(_, book: AddressBook):
     """
@@ -109,7 +118,9 @@ def show_all_notes(_, book: AddressBook):
 
     Returns: None
     """
+
     book.find_all_notes()
+
 
 @input_error(get_validation_message(CMD_SEARCH_NOTE_BY_TAG))
 def search_note_by_tag(args, book: AddressBook):
@@ -122,8 +133,10 @@ def search_note_by_tag(args, book: AddressBook):
 
     Returns: None
     """
+
     tag = args[0]
     book.show_notes_by_tag(tag)
+
 
 @input_error(get_validation_message(CMD_SHOW_NOTE))
 def show_note(args, book: AddressBook):
@@ -136,8 +149,10 @@ def show_note(args, book: AddressBook):
 
     Returns: None
     """
-    index = int(args[0])
-    book.show_note(index)
+
+    index = args[0]
+    book.show_note(int(index))
+
 
 @input_error(get_validation_message(CMD_REMOVE_NOTE))
 def remove_note(args, book: AddressBook):
@@ -150,8 +165,10 @@ def remove_note(args, book: AddressBook):
 
     Returns: None
     """
-    index = int(args[0])
-    book.remove_note(index)
+
+    index = args[0]
+    book.remove_note(int(index))
+
 
 @input_error(get_validation_message(CMD_SEARCH_NOTE))
 def search_note(args, book: AddressBook):
@@ -164,8 +181,10 @@ def search_note(args, book: AddressBook):
 
     Returns: None
     """
+
     search_value = " ".join(args)
-    book.search_note(search_value)
+    book.search_note(search_value.strip())
+
 
 __all__ = [
     "show_all_notes",

@@ -1,5 +1,5 @@
 class Field:
-    def __init__(self, new_value = ''):
+    def __init__(self, new_value=""):
         self._value = new_value
 
     def __eq__(self, other):

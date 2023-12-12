@@ -1,10 +1,23 @@
 import re
-from ..constants import TEXT
+from ..constants import (
+    TEXT,
+    NOT_FOUND,
+    EXISTS,
+    DELETED,
+    ADDED,
+)
+from ..utils import print_message
 from ..exceptions import ValidationValueExseption
 from .field import Field
 
+not_found_message = print_message(NOT_FOUND)
+exists_message = print_message(EXISTS)
+deleted_message = print_message(DELETED)
+added_message = print_message(ADDED)
+
+
 class NoteContent(Field):
-    def __init__(self, value = ""):
+    def __init__(self, value=""):
         self.value = value
 
     @property
@@ -19,14 +32,14 @@ class NoteContent(Field):
             raise ValidationValueExseption(TEXT["NOTE_VALIDATION"])
 
     def __str__(self):
-        return f'{self._value}'
+        return f"{self._value}"
 
     def __repr__(self):
-        return f'Note: {self._value}'
+        return f"Note: {self._value}"
 
 
 class Tag(Field):
-    def __init__(self, value = ""):
+    def __init__(self, value=""):
         self.value = value
 
     @property
@@ -41,10 +54,11 @@ class Tag(Field):
             raise ValidationValueExseption(TEXT["TAG_VALIDATION"])
 
     def __str__(self):
-        return f'{self._value}'
+        return f"{self._value}"
 
     def __repr__(self):
-        return f'Tag: {self._value}'
+        return f"Tag: {self._value}"
+
 
 class Note:
     def __init__(self, content, uuid):
@@ -52,11 +66,15 @@ class Note:
         self.uuid = uuid
         self.tags = []
 
-    def get_content(self, no_data_message = ""):
+    def get_content(self, no_data_message=""):
         return self.content.value if self.content else no_data_message
 
-    def get_tags(self, no_data_message = "no tags"):
-        return " ".join(str(tag) for tag in self.tags) if len(self.tags) > 0 else no_data_message
+    def get_tags(self, no_data_message="no tags"):
+        return (
+            " ".join(str(tag) for tag in self.tags)
+            if len(self.tags) > 0
+            else no_data_message
+        )
 
     def tag_exists(self, tag):
         for itag in self.tags:
@@ -67,22 +85,23 @@ class Note:
     def remove_tag(self, tag):
         if self.tag_exists(tag):
             self.tags = list(filter(lambda t: str(t).lower() != tag.lower(), self.tags))
-            print(TEXT["DELETED"])
+            deleted_message("Tag")
             return True
 
-        print(TEXT["NOT_FOUND"])
+        not_found_message("Tag")
         return False
 
     def add_tag(self, tag):
         if self.tag_exists(tag):
-            print(TEXT["EXISTS"])
+            exists_message("The same tag")
             return False
 
         self.tags.append(Tag(tag))
-        print(TEXT["ADDED"])
+        added_message("Tag")
         return True
 
     def __str__(self):
-        return self.get_tags() + "\n" + self.get_content()
+        return self.get_tags() + "\n[" + str(self.uuid) + "] " + self.get_content()
+
 
 __all__ = ["Note"]

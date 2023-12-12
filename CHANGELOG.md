@@ -1,5 +1,17 @@
 # Change Log
 
+## 0.0.5
+
+### Features
+
+-   added `save` command
+-   added `help` by a command
+
+### Miscellaneous
+
+-   updated output of commands
+-   added tests and github workflows for development
+
 ## 0.0.4
 
 ### Features

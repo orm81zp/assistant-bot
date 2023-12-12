@@ -1,8 +1,14 @@
-from ..address_book import AddressBook
-from ..decorators import input_error
-from ..constants import TEXT
+from ..address_book.classes import AddressBook
+from .decorators import input_error
 from .utils import get_validation_message
-from .commands import CMD_REMOVE_CONTACT, CMD_CHANGE_CONTACT_NAME, CMD_ADD_CONTACT, CMD_SEARCH_CONTACT, CMD_SHOW_CONTACT
+from .commands import (
+    CMD_REMOVE_CONTACT,
+    CMD_CHANGE_CONTACT_NAME,
+    CMD_ADD_CONTACT,
+    CMD_SEARCH_CONTACT,
+    CMD_SHOW_CONTACT,
+)
+
 
 def show_all(_, book: AddressBook):
     """
@@ -16,6 +22,7 @@ def show_all(_, book: AddressBook):
     """
     book.find_all()
 
+
 @input_error(get_validation_message(CMD_REMOVE_CONTACT))
 def remove_contact(args, book: AddressBook):
     """
@@ -28,12 +35,8 @@ def remove_contact(args, book: AddressBook):
     Returns: None
     """
     name = args[0]
-    contact = book.find(name)
+    book.remove_contact(name)
 
-    if contact:
-        book.remove_contact(name)
-    else:
-        print(TEXT["NOT_FOUND"])
 
 @input_error(get_validation_message(CMD_CHANGE_CONTACT_NAME))
 def change_contact_name(args, book: AddressBook):
@@ -47,16 +50,8 @@ def change_contact_name(args, book: AddressBook):
     Returns: None
     """
     name, new_name = args
-    contact = book.find(name)
+    book.change_name(name, new_name)
 
-    if contact:
-        new_contact = book.find(new_name)
-        if new_contact:
-            print(TEXT["EXISTS"])
-        else:
-            contact.change_name(name, new_name)
-    else:
-        print(TEXT["NOT_FOUND"])
 
 @input_error(get_validation_message(CMD_ADD_CONTACT))
 def add_contact(args, book: AddressBook):
@@ -70,12 +65,8 @@ def add_contact(args, book: AddressBook):
     Returns: None
     """
     name = args[0]
-    contact = book.find(name)
+    book.add_contact(name)
 
-    if contact:
-        print(TEXT["EXISTS"])
-    else:
-        book.add_contact(name)
 
 @input_error(get_validation_message(CMD_SEARCH_CONTACT))
 def search_contact(args, book: AddressBook):
@@ -91,6 +82,7 @@ def search_contact(args, book: AddressBook):
     search_value = " ".join(args)
     book.search_contact(search_value)
 
+
 @input_error(get_validation_message(CMD_SHOW_CONTACT))
 def show_contact(args, book: AddressBook):
     """
@@ -103,12 +95,21 @@ def show_contact(args, book: AddressBook):
     Returns: None
     """
     name = args[0]
-    contact = book.find(name)
+    book.show_contact(name)
 
-    if contact:
-        book.show_contact(name)
-    else:
-        print(TEXT["NOT_FOUND"])
+
+def save_data(_, book: AddressBook):
+    """
+    Saves the current data.
+
+    Parameters:
+        args (list): list of arguments
+        book (AddressBook class): an AddressBook instance
+
+    Returns: None
+    """
+    book.save()
+
 
 __all__ = [
     "show_all",
@@ -117,4 +118,5 @@ __all__ = [
     "search_contact",
     "change_contact_name",
     "show_contact",
+    "save_data",
 ]

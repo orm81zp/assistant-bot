@@ -3,8 +3,9 @@ from ..exceptions import ValidationValueExseption
 from ..constants import TEXT
 from .field import Field
 
+
 class Name(Field):
-    def __init__(self, value = ""):
+    def __init__(self, value=""):
         self.value = value
 
     @property
@@ -24,5 +25,6 @@ class Name(Field):
 
     def __repr__(self):
         return f"Name: {self._value}"
+
 
 __all__ = ["Name"]

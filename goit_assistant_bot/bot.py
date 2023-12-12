@@ -1,15 +1,17 @@
 from colorama import init
 from .constants import TEXT
 from .utils import start_work, stop_work
+from .address_book.exceptions import ValidationValueExseption
 from .commands import commands_handler, parse_input, get_prompt_input
 from .exceptions import InputBotExseption, UnexpectedException
-from .address_book.exceptions import ValidationValueExseption
 from .commands import EXIT_COMMANDS
+
 
 def run_bot():
     """
     Entry point for running the program. Prompts the user for a command and executes it.
     """
+
     init()
     print(TEXT["WELCOME"])
     book = start_work()

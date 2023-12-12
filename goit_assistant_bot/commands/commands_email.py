@@ -1,9 +1,8 @@
-from ..address_book import Record, AddressBook
-from ..decorators import input_error
-from ..constants import TEXT
-from ..utils import is_yes_prompt
+from ..address_book.classes import AddressBook
+from .decorators import input_error
 from .utils import get_validation_message
 from .commands import CMD_ADD_EMAIL, CMD_REMOVE_EMAIL, CMD_SHOW_EMAIL
+
 
 @input_error(get_validation_message(CMD_ADD_EMAIL))
 def add_email(args, book: AddressBook):
@@ -16,20 +15,10 @@ def add_email(args, book: AddressBook):
 
     Returns: None
     """
-    name, email = args
-    email = email.strip()
-    contact = book.find(name)
 
-    if contact:
-        if contact.email:
-            if is_yes_prompt("Existing email will be updated, continue?"):
-                contact.add_email(email)
-        else:
-            contact.add_email(email)
-    else:
-        contact = Record(name)
-        if contact.add_email(email):
-            book.add_record(contact)
+    name, email = args
+    book.add_email(name, email.strip())
+
 
 @input_error(get_validation_message(CMD_SHOW_EMAIL))
 def show_email(args, book: AddressBook):
@@ -42,12 +31,10 @@ def show_email(args, book: AddressBook):
 
     Returns: None
     """
+
     name = args[0]
-    contact = book.find(name)
-    if contact:
-        contact.show_email()
-    else:
-        print(TEXT["NOT_FOUND"])
+    book.show_email(name)
+
 
 @input_error(get_validation_message(CMD_REMOVE_EMAIL))
 def remove_email(args, book: AddressBook):
@@ -60,12 +47,10 @@ def remove_email(args, book: AddressBook):
 
     Returns: None
     """
+
     name = args[0]
-    contact = book.find(name)
-    if contact:
-        contact.remove_email()
-    else:
-        print(TEXT["NOT_FOUND"])
+    book.remove_email(name)
+
 
 __all__ = [
     "add_email",

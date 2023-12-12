@@ -2,6 +2,7 @@ from ..exceptions import ValidationValueExseption
 from ..constants import TEXT
 from .field import Field
 
+
 class Address(Field):
     def __init__(self, value=""):
         self.value = value
