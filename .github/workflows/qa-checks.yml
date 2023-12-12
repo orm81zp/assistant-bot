@@ -26,9 +26,14 @@ jobs:
               uses: actions/setup-python@v2
               with:
                   python-version: ${{ matrix.python-version }}
-              # Display used the Python version
+            # Display used the Python version
             - name: Display Python version
               run: python -c "import sys; print(sys.version)"
+            # Install setuptools
+            - name: Install setuptools
+              run: |
+                  python -m pip install --upgrade pip
+                  python -m pip install setuptools
             # Install the package using the setup.py
             - name: Install package
               run: python setup.py install
