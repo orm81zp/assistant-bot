@@ -6,7 +6,7 @@ from ..constants import (
     UPDATED,
     ADDED,
     EQUAL,
-    DATE_OUTPUT_FORMAT
+    DATE_OUTPUT_FORMAT,
 )
 from ..utils import print_diff, print_message
 from ..decorators import confirm_prompt
@@ -34,7 +34,11 @@ class Record:
         self.address = None
 
     def get_phones(self, delimeter=", ", no_data_message="") -> str:
-        return delimeter.join([phone.value for phone in self.phones]) if len(self.phones) > 0 else no_data_message
+        return (
+            delimeter.join([phone.value for phone in self.phones])
+            if len(self.phones) > 0
+            else no_data_message
+        )
 
     def get_phone(self, phone_number) -> Phone | None:
         for phone in self.phones:
@@ -100,7 +104,7 @@ class Record:
             self.address = Address(address)
             added_message("Address")
 
-        return  self.address is not None
+        return self.address is not None
 
     def show_birthday(self):
         if self.birthday:
@@ -109,7 +113,7 @@ class Record:
             not_found_message("Birthday")
 
     def show_email(self):
-        if (self.email):
+        if self.email:
             print(self.email)
         else:
             not_found_message("Email")
@@ -148,7 +152,9 @@ class Record:
     def remove_phone(self, phone_number):
         phone = self.get_phone(phone_number)
         if phone:
-            self.phones = list(filter((lambda phone: str(phone) != phone_number), self.phones))
+            self.phones = list(
+                filter((lambda phone: str(phone) != phone_number), self.phones)
+            )
             deleted_message("Phone")
             return True
 
@@ -179,10 +185,10 @@ class Record:
         return False
 
     def __str__(self):
-        birthday = f", birthday: {self.birthday}" if self.birthday else "-"
-        email = f", email: {self.email}" if self.email else "-"
-        address = f", address: {self.address}" if self.address else "-"
-        phones = f", phones: {self.get_phones("; ", "-")}"
+        birthday = f", birthday: {self.birthday.value}" if self.birthday else "-"
+        email = f", email: {self.email.value}" if self.email else "-"
+        address = f", address: {self.address.value}" if self.address else "-"
+        phones = f", phones: {self.get_phones('; ', '-')}"
         return f"Contact name: {self.name}{phones}{birthday}{email}{address}"
 
 
