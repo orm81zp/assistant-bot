@@ -37,13 +37,10 @@ class TestAddressBook(unittest.TestCase):
         """
         content = "Lorem Ipsum is simply dummy text."
         first_note_uuid = self.book.get_last_note_uuid()
+        self.assertIsNone(first_note_uuid)
+
         self.book.add_note(content)
         second_note_uuid = self.book.get_last_note_uuid()
-
-        # Asserts
-        # check before adding note
-        self.assertIsNone(first_note_uuid)
-        # check after adding note
         self.assertEqual(1, second_note_uuid)
 
     @patch("goit_assistant_bot.address_book.classes.address_book.save_address_book")
@@ -82,14 +79,11 @@ class TestAddressBook(unittest.TestCase):
         """
         name = "John"
         number_of_contacts = len(self.book.data["contacts"])
-        self.book.add_record(Record(name))
-
-        # Asserts
-        # check the number of contacts before adding
         self.assertEqual(0, number_of_contacts)
-        # check the number of contacts after adding
+
+        self.book.add_record(Record(name))
         self.assertEqual(number_of_contacts + 1, len(self.book.data["contacts"]))
-        # find contact and check name
+        # find contact, check name
         contact = self.book.find(name)
         self.assertEqual(name, str(contact.name))
 
@@ -102,15 +96,13 @@ class TestAddressBook(unittest.TestCase):
         """
         name = "Eva"
         number_of_contacts = len(self.book.data["contacts"])
+        self.assertEqual(0, number_of_contacts)
+
         self.book.add_contact(name)
 
-        # Asserts
-        # check the number of contacts before adding
-        self.assertEqual(0, number_of_contacts)
         self.assertIn("Contact added", mocked_stdout.getvalue())
-        # check the number of contacts after adding
         self.assertEqual(number_of_contacts + 1, len(self.book.data["contacts"]))
-        # find contact and check name
+        # find contact, check name
         contact = self.book.find(name)
         self.assertEqual(name, str(contact.name))
 
@@ -123,16 +115,13 @@ class TestAddressBook(unittest.TestCase):
         """
         content = "Lorem Ipsum is simply dummy text."
         number_of_notes = len(self.book.data["notes"])
+        self.assertEqual(0, number_of_notes)
+
         self.book.add_note(content)
 
-        # Asserts
-        # check the number of notes before adding
-        self.assertEqual(0, number_of_notes)
-        # check printed message
         self.assertIn("Note added", mocked_stdout.getvalue())
-        # check the number of notes after adding
         self.assertEqual(number_of_notes + 1, len(self.book.data["notes"]))
-        # find note and check content
+        # find note, check content
         note = self.book.get_note(self.book.get_last_note_uuid())
         self.assertEqual(content, note.get_content())
 
@@ -146,11 +135,8 @@ class TestAddressBook(unittest.TestCase):
         name = "Eva"
         birthday = "12.12.2001"
         self.book.add_birthday(name, birthday)
-
-        # Asserts
-        # check printed message
         self.assertIn("Birthday added", mocked_stdout.getvalue())
-        # find contact and check birthday
+        # find contact, check birthday
         contact = self.book.find(name)
         self.assertEqual(birthday, str(contact.birthday))
 
@@ -159,17 +145,15 @@ class TestAddressBook(unittest.TestCase):
         """
         Tests add_birthday method
 
-        Should add birthday
+        Should add birthday for existing contact
         """
         name = "Erica"
         birthday = "28.10.1984"
         self.book.add_contact(name)
-        self.book.add_birthday(name, birthday)
 
-        # Asserts
-        # check printed message
+        self.book.add_birthday(name, birthday)
         self.assertIn("Birthday added", mocked_stdout.getvalue())
-        # find contact and check birthday
+        # find contact, check birthday
         contact = self.book.find(name)
         self.assertEqual(birthday, str(contact.birthday))
 
@@ -186,21 +170,362 @@ class TestAddressBook(unittest.TestCase):
         """
         name = "Maxima"
         birthday = "12.12.2001"
-        # create contact and add birthday
+        # create contact, add birthday
         self.book.add_birthday(name, birthday)
 
         # update birthday
         new_birthday = "12.10.1982"
         self.book.add_birthday(name, new_birthday)
 
-        # Asserts
-        # check if prompted "yes/no" called
+        # check if prompt "yes/no" called
         mocked_yes_prompt.assert_called_once()
-        # check message
         self.assertIn("Birthday updated", mock_stdout.getvalue())
-        # find contact and check updated birthday
+        # find contact, check updated birthday
         contact = self.book.find(name)
         self.assertEqual(new_birthday, str(contact.birthday))
+
+    @patch("builtins.input", side_effect=["y"])
+    @patch("sys.stdout", new_callable=io.StringIO)
+    def test_remove_birthday(self, mock_stdout, mocked_prompt_decorator):
+        """
+        Tests remove_birthday method
+
+        Should remove birthday of existing contact
+        """
+        name = "Maxima"
+        birthday = "12.12.2001"
+        # create contact, add birthday
+        self.book.add_birthday(name, birthday)
+
+        # remove birthday
+        self.book.remove_birthday(name)
+
+        # check if prompt "yes/no" called
+        mocked_prompt_decorator.assert_called_once()
+        self.assertIn("Birthday deleted", mock_stdout.getvalue())
+        # find contact, check if birthday is None
+        contact = self.book.find(name)
+        self.assertIsNone(contact.birthday)
+
+    @patch("sys.stdout", new_callable=io.StringIO)
+    def test_remove_birthday_not_found_contact(self, mock_stdout):
+        """
+        Tests remove_birthday method
+
+        Should remove birthday of existing contact
+        """
+        name = "Maxima"
+        # remove birthday, not existing contact
+        self.book.remove_birthday(name)
+        # check message
+        self.assertIn("Contact not found", mock_stdout.getvalue())
+
+    @patch("sys.stdout", new_callable=io.StringIO)
+    def test_add_contact_and_email(self, mocked_stdout):
+        """
+        Tests add_email method
+
+        Should add contact and email
+        """
+        name = "Eva"
+        email = "eva19@gmail.com"
+        self.book.add_email(name, email)
+        self.assertIn("Email added", mocked_stdout.getvalue())
+        # find contact, check email
+        contact = self.book.find(name)
+        self.assertEqual(email, str(contact.email))
+
+    @patch("sys.stdout", new_callable=io.StringIO)
+    def test_add_email(self, mocked_stdout):
+        """
+        Tests add_email method
+
+        Should add email for existing contact
+        """
+        name = "Erica"
+        email = "erica-new@gmail.com"
+        self.book.add_contact(name)
+
+        self.book.add_email(name, email)
+        self.assertIn("Email added", mocked_stdout.getvalue())
+        # find contact, check email
+        contact = self.book.find(name)
+        self.assertEqual(email, str(contact.email))
+
+    @patch(
+        "goit_assistant_bot.address_book.classes.address_book.is_yes_prompt",
+        return_value=True,
+    )
+    @patch("sys.stdout", new_callable=io.StringIO)
+    def test_update_email(self, mock_stdout, mocked_yes_prompt):
+        """
+        Tests add_email method
+
+        Should update email
+        """
+        name = "Maxima"
+        email = "maxxi21@gmail.com"
+        # create contact, add email
+        self.book.add_email(name, email)
+
+        # update email
+        new_email = "max21xi@gmail.com"
+        self.book.add_email(name, new_email)
+
+        # check if prompt "yes/no" called
+        mocked_yes_prompt.assert_called_once()
+        self.assertIn("Email updated", mock_stdout.getvalue())
+        # find contact, check updated email
+        contact = self.book.find(name)
+        self.assertEqual(new_email, str(contact.email))
+
+    @patch("builtins.input", side_effect=["y"])
+    @patch("sys.stdout", new_callable=io.StringIO)
+    def test_remove_email(self, mock_stdout, mocked_prompt_decorator):
+        """
+        Tests remove_email method
+
+        Should remove email, existing contact
+        """
+        name = "Maxima"
+        email = "maxima21@gmail.com"
+        # create contact, add email
+        self.book.add_email(name, email)
+
+        # remove email
+        self.book.remove_email(name)
+
+        # check if prompt "yes/no" called
+        mocked_prompt_decorator.assert_called_once()
+        self.assertIn("Email deleted", mock_stdout.getvalue())
+        # find contact, check if email is None
+        contact = self.book.find(name)
+        self.assertIsNone(contact.email)
+
+    @patch("sys.stdout", new_callable=io.StringIO)
+    def test_remove_email_not_found_contact(self, mock_stdout):
+        """
+        Tests remove_email method
+
+        Should remove email, existing contact
+        """
+        name = "Maxima"
+        # remove email, not existing contact
+        self.book.remove_email(name)
+        # check message
+        self.assertIn("Contact not found", mock_stdout.getvalue())
+
+    @patch("sys.stdout", new_callable=io.StringIO)
+    def test_add_contact_and_address(self, mocked_stdout):
+        """
+        Tests add_address method
+
+        Should add contact and address
+        """
+        name = "Eva"
+        address = "USA, D18 street 69118"
+        self.book.add_address(name, address)
+        self.assertIn("Address added", mocked_stdout.getvalue())
+        # find contact, check address
+        contact = self.book.find(name)
+        self.assertEqual(address, str(contact.address))
+
+    @patch("sys.stdout", new_callable=io.StringIO)
+    def test_add_address(self, mocked_stdout):
+        """
+        Tests add_address method
+
+        Should add address for existing contact
+        """
+        name = "Erica"
+        address = "USA, C18 street Ride"
+        self.book.add_contact(name)
+
+        self.book.add_address(name, address)
+        self.assertIn("Address added", mocked_stdout.getvalue())
+        # find contact, check address
+        contact = self.book.find(name)
+        self.assertEqual(address, str(contact.address))
+
+    @patch(
+        "goit_assistant_bot.address_book.classes.address_book.is_yes_prompt",
+        return_value=True,
+    )
+    @patch("sys.stdout", new_callable=io.StringIO)
+    def test_update_address(self, mock_stdout, mocked_yes_prompt):
+        """
+        Tests add_address method
+
+        Should update address
+        """
+        name = "Maxima"
+        address = "Dalas, W18 street Wide"
+        # create contact, add address
+        self.book.add_address(name, address)
+
+        # update address
+        new_address = "Dalas 12, S18 street Harry"
+        self.book.add_address(name, new_address)
+
+        # check if prompt "yes/no" called
+        mocked_yes_prompt.assert_called_once()
+        self.assertIn("Address updated", mock_stdout.getvalue())
+        # find contact, check updated address
+        contact = self.book.find(name)
+        self.assertEqual(new_address, str(contact.address))
+
+    @patch("builtins.input", side_effect=["y"])
+    @patch("sys.stdout", new_callable=io.StringIO)
+    def test_remove_address(self, mock_stdout, mocked_prompt_decorator):
+        """
+        Tests remove_address method
+
+        Should remove address, existing contact
+        """
+        name = "Maxima"
+        address = "USA D19, street Red Stone"
+        # create contact, add address
+        self.book.add_address(name, address)
+
+        # remove address
+        self.book.remove_address(name)
+
+        # check if prompt "yes/no" called
+        mocked_prompt_decorator.assert_called_once()
+        self.assertIn("Address deleted", mock_stdout.getvalue())
+        # find contact, check if address is None
+        contact = self.book.find(name)
+        self.assertIsNone(contact.address)
+
+    @patch("sys.stdout", new_callable=io.StringIO)
+    def test_remove_address_not_found_contact(self, mock_stdout):
+        """
+        Tests remove_address method
+
+        Should remove address, not existing contact
+        """
+        name = "Maxima"
+        # remove address, not existing contact
+        self.book.remove_address(name)
+        # check message
+        self.assertIn("Contact not found", mock_stdout.getvalue())
+
+    @patch("sys.stdout", new_callable=io.StringIO)
+    def test_add_phone_and_contact(self, mock_stdout):
+        """
+        Tests add_phone method
+
+        Should add phone and create contact
+        """
+        name = "Maxima"
+        phone = "+380631112233"
+        # create contact, add phone
+        self.book.add_phone(name, phone)
+
+        self.assertIn("Phone added", mock_stdout.getvalue())
+        # find contact, check phone
+        contact = self.book.find(name)
+        self.assertEqual(phone, str(contact.get_phone(phone)))
+
+    @patch("sys.stdout", new_callable=io.StringIO)
+    def test_add_phone(self, mock_stdout):
+        """
+        Tests add_phone method
+
+        Should add phone for existing contact
+        """
+        name = "Eva"
+        # create contact
+        self.book.add_contact(name)
+
+        # add phone
+        phone = "+380631112200"
+        self.book.add_phone(name, phone)
+
+        self.assertIn("Phone added", mock_stdout.getvalue())
+        # find contact, check phone
+        contact = self.book.find(name)
+        self.assertEqual(phone, str(contact.get_phone(phone)))
+
+    @patch("sys.stdout", new_callable=io.StringIO)
+    def test_add_phone_exists(self, mock_stdout):
+        """
+        Tests add_phone method
+
+        Should check if phone already exists
+        """
+        name = "Eva"
+        phone = "+380631112299"
+        self.book.add_phone(name, phone)
+
+        # add the same phone
+        self.book.add_phone(name, phone)
+        self.assertIn("Phone already exists", mock_stdout.getvalue())
+
+    @patch("builtins.input", side_effect=["y"])
+    @patch("sys.stdout", new_callable=io.StringIO)
+    def test_remove_phone(self, mock_stdout, mocked_prompt_decorator):
+        """
+        Tests remove_phone method
+
+        Should remove phone of existing contact and phone
+        """
+        name = "Maxima"
+        phone = "+380631112211"
+        # create contact, add phone
+        self.book.add_phone(name, phone)
+
+        # remove phone
+        self.book.remove_phone(name, phone)
+
+        # check if prompt "yes/no" called
+        mocked_prompt_decorator.assert_called_once()
+        self.assertIn("Phone deleted", mock_stdout.getvalue())
+        # find contact, check if phone is None
+        contact = self.book.find(name)
+        self.assertIsNone(contact.get_phone(phone))
+        # check if contact has no phones
+        self.assertEqual(0, len(contact.phones))
+
+    @patch("builtins.input", side_effect=["y"])
+    @patch("sys.stdout", new_callable=io.StringIO)
+    def test_remove_not_found_phone(self, mock_stdout, mocked_prompt_decorator):
+        """
+        Tests remove_phone method
+
+        Should remove not existing phone of existing contact
+        """
+        name = "Maxima"
+        phone = "+380631112211"
+        # create contact, add phone
+        self.book.add_phone(name, phone)
+
+        # remove phone
+        wrong_phone = "+380991112211"
+        self.book.remove_phone(name, wrong_phone)
+
+        # check if prompt "yes/no" called
+        mocked_prompt_decorator.assert_called_once()
+        self.assertIn("hone not found", mock_stdout.getvalue())
+        # find contact, check if phone was not deleted
+        contact = self.book.find(name)
+        self.assertEqual(phone, str(contact.get_phone(phone)))
+        # check if contact still has a phone
+        self.assertEqual(1, len(contact.phones))
+
+    @patch("sys.stdout", new_callable=io.StringIO)
+    def test_remove_phone_not_found_contact(self, mock_stdout):
+        """
+        Tests remove_phone method
+
+        Should remove phone of not existing contact
+        """
+        name = "Maxima"
+        phone = "+380631112211"
+        # remove birthday, not existing contact
+        self.book.remove_phone(name, phone)
+        # check message
+        self.assertIn("Contact not found", mock_stdout.getvalue())
 
 
 if __name__ == "__main__":
