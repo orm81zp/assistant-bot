@@ -4,7 +4,9 @@ from unittest.mock import patch
 from goit_assistant_bot.address_book.classes import AddressBook, Record
 
 
-class TestAddressBookPhone(unittest.TestCase):
+class TestPhoneCommands(unittest.TestCase):
+    """Tests AddressBook class commands related to phone"""
+
     book: AddressBook
 
     def setUp(self):

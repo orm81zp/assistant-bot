@@ -5,6 +5,8 @@ from goit_assistant_bot.address_book.classes import AddressBook, Record, Note
 
 
 class TestAddressBook(unittest.TestCase):
+    """Tests AddressBook methods, not related to commands"""
+
     book: AddressBook
 
     def setUp(self):
@@ -70,7 +72,7 @@ class TestAddressBook(unittest.TestCase):
     )
     @patch("sys.stdout", new_callable=io.StringIO)
     def test_add_record(self, mock_stdout, mock_generate_uuid):
-        """add_record method. Adds a new Record instance to contacts."""
+        """add_record method. Adds only Record instance to contacts."""
         # should not add a new contact if it's not an instacne of Record
         self.book.add_record("Eva")
         self.assertIn("Must be Record instance.", mock_stdout.getvalue())

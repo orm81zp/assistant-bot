@@ -32,7 +32,7 @@ def run_bot():
         except InputBotExseption:
             print(TEXT["NO_COMMAND"])
         except ValidationValueExseption as err:
-            print(err.message)
+            print(err)
         except UnexpectedException as err:
             print(err)
             print(TEXT["UNEXPECTED_EXCEPTION"])
