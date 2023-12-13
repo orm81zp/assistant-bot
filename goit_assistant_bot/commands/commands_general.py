@@ -1,4 +1,5 @@
 from colorama import Fore, Style
+import os
 from ..constants import TEXT
 from .commands import COMMANDS, ARGUMET_TYPES, VALIDATION_RULES
 
@@ -111,9 +112,20 @@ def show_hello(*_):
 
     print(TEXT["GREETING"])
 
+def save(*_):
+    """
+    Does nothing, the command is processed by a bot.
+    """
+
+def clear(*_):
+    """Сlearі screen output."""
+    os.system('clear')
+
 
 __all__ = [
     "show_hello",
     "show_help",
     "show_bye",
+    "save",
+    "clear",
 ]

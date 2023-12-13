@@ -3,7 +3,6 @@ from prettytable import PrettyTable, ALL
 from ..utils import (
     get_birthdays_per_week,
     generate_uuid,
-    save_address_book,
     is_yes_prompt,
     print_message,
 )
@@ -33,41 +32,16 @@ equal_message = print_message(EQUAL)
 
 class AddressBook(UserDict):
     __note_uuid = 1
-    __is_dirty = False
 
-    def __init__(self, dump_file: str):
+    def __init__(self):
         super().__init__({"contacts": {}, "notes": []})
-        self.__dump_file = dump_file
-        self.is_dirty = False
 
-    @property
-    def is_dirty(self):
-        return self.__is_dirty
-
-    @is_dirty.setter
-    def is_dirty(self, new_value):
-        if isinstance(new_value, bool):
-            self.__is_dirty = new_value
-
-    def get_dump_file(self):
-        return self.__dump_file
-
-    def set_dump_file(self, new_value):
-        self.__dump_file = new_value
-
-    def get_last_note_uuid(self):
-        return None if self.__note_uuid == 1 else self.__note_uuid - 1
-
-    def save(self):
-        try:
-            save_address_book(self)
-        except Exception:
-            print(TEXT["ERROR_SAVE_DATA"])
+    def get_note_uuid(self):
+        return self.__note_uuid
 
     def add_record(self, contact: Record):
         uuid = generate_uuid()
         self.data["contacts"][uuid] = contact
-        self.is_dirty = True
 
     def add_contact(self, name):
         contact = self.find(name)
@@ -79,27 +53,23 @@ class AddressBook(UserDict):
 
     def add_note(self, content):
         note = self.get_note_by_content(content)
-
-        if not note:
+        if note:
+            exists_message("A note with the same content")
+            print("The note index is", note.uuid)
+        else:
             new_note = Note(content, self.__note_uuid)
             self.data["notes"].append(new_note)
             self.__note_uuid += 1
-            self.is_dirty = True
             added_message("Note")
-        else:
-            exists_message("A note with the same content")
-            print("The note index is", note.uuid)
 
     def add_birthday(self, name, birthday):
         contact = self.find(name)
         if contact:
             if contact.birthday:
                 if is_yes_prompt("Existing birthday will be updated, continue?"):
-                    if contact.add_birthday(birthday):
-                        self.is_dirty = True
+                    contact.add_birthday(birthday)
             else:
-                if contact.add_birthday(birthday):
-                    self.is_dirty = True
+                contact.add_birthday(birthday)
         else:
             contact = Record(name)
             if contact.add_birthday(birthday):
@@ -110,11 +80,9 @@ class AddressBook(UserDict):
         if contact:
             if contact.email:
                 if is_yes_prompt("Existing email will be updated, continue?"):
-                    if contact.add_email(email):
-                        self.is_dirty = True
+                    contact.add_email(email)
             else:
-                if contact.add_email(email):
-                    self.is_dirty = True
+                contact.add_email(email)
         else:
             contact = Record(name)
             if contact.add_email(email):
@@ -125,11 +93,9 @@ class AddressBook(UserDict):
         if contact:
             if contact.address:
                 if is_yes_prompt("Existing address will be updated, continue?"):
-                    if contact.add_address(address):
-                        self.is_dirty = True
+                    contact.add_address(address)
             else:
-                if contact.add_address(address):
-                    self.is_dirty = True
+                contact.add_address(address)
         else:
             contact = Record(name)
             if contact.add_address(address):
@@ -138,8 +104,7 @@ class AddressBook(UserDict):
     def add_phone(self, name, phone):
         contact = self.find(name)
         if contact:
-            if contact.add_phone(phone):
-                self.is_dirty = True
+            contact.add_phone(phone)
         else:
             contact = Record(name)
             if contact.add_phone(phone):
@@ -148,32 +113,28 @@ class AddressBook(UserDict):
     def remove_birthday(self, name):
         contact = self.find(name)
         if contact:
-            if contact.remove_birthday():
-                self.is_dirty = True
+            contact.remove_birthday()
         else:
             not_found_message("Contact")
 
     def remove_phone(self, name, phone):
         contact = self.find(name)
         if contact:
-            if contact.remove_phone(phone):
-                self.is_dirty = True
+            contact.remove_phone(phone)
         else:
             not_found_message("Contact")
 
     def remove_email(self, name):
         contact = self.find(name)
         if contact:
-            if contact.remove_email():
-                self.is_dirty = True
+            contact.remove_email()
         else:
             not_found_message("Contact")
 
     def remove_address(self, name):
         contact = self.find(name)
         if contact:
-            if contact.remove_address():
-                self.is_dirty = True
+            contact.remove_address()
         else:
             not_found_message("Contact")
 
@@ -183,16 +144,14 @@ class AddressBook(UserDict):
             if self.find(new_name):
                 exists_message("Contact")
             else:
-                if contact.change_name(name, new_name):
-                    self.is_dirty = True
+                contact.change_name(name, new_name)
         else:
             not_found_message("Contact")
 
     def change_phone(self, name, phone, new_phone):
         contact = self.find(name)
         if contact:
-            if contact.change_phone(phone, new_phone):
-                self.is_dirty = True
+            contact.change_phone(phone, new_phone)
         else:
             not_found_message("Contact")
 
@@ -233,7 +192,6 @@ class AddressBook(UserDict):
                 print("The note index is", note_exists.uuid)
             else:
                 note.content.value = content
-                self.is_dirty = True
                 updated_message("Note")
         else:
             not_found_message("Note")
@@ -241,8 +199,7 @@ class AddressBook(UserDict):
     def add_tag(self, index, tag):
         note = self.get_note(index)
         if note:
-            if note.add_tag(tag):
-                self.is_dirty = True
+            note.add_tag(tag)
         else:
             not_found_message("Note")
 
@@ -257,8 +214,7 @@ class AddressBook(UserDict):
     def remove_tag(self, index, tag):
         note = self.get_note(index)
         if note:
-            if note.remove_tag(tag):
-                self.is_dirty = True
+            note.remove_tag(tag)
         else:
             not_found_message("Note")
 
@@ -314,7 +270,7 @@ class AddressBook(UserDict):
     def show_contact(self, name):
         contact = self.find(name)
         if contact:
-            self.show_all([contact])
+            print(contact)
         else:
             not_found_message("Contact")
 
@@ -451,7 +407,6 @@ class AddressBook(UserDict):
         if contact:
             is_removed = self.data["contacts"].pop(key, None)
             if is_removed is not None:
-                self.is_dirty = True
                 deleted_message("Contact")
         else:
             not_found_message("Contact")
@@ -464,7 +419,6 @@ class AddressBook(UserDict):
             self.data["notes"] = list(
                 filter((lambda x: x.uuid != index), self.data["notes"])
             )
-            self.is_dirty = True
             deleted_message("Note")
         else:
             not_found_message("Note")

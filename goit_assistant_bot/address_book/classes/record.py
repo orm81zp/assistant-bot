@@ -44,8 +44,13 @@ class Record:
         for phone in self.phones:
             if str(phone) == phone_number:
                 return phone
-
         return None
+
+    def phone_exists(self, phone_number):
+        for phone in self.phones:
+            if str(phone) == phone_number:
+                return True
+        return False
 
     def get_birthday_datetime(self) -> datetime | None:
         if self.birthday:
@@ -185,10 +190,10 @@ class Record:
         return False
 
     def __str__(self):
-        birthday = f", birthday: {self.birthday.value}" if self.birthday else "-"
-        email = f", email: {self.email.value}" if self.email else "-"
-        address = f", address: {self.address.value}" if self.address else "-"
-        phones = f", phones: {self.get_phones('; ', '-')}"
+        birthday = f", birthday: {str(self.birthday) if self.birthday else '-'}"
+        email = f", email: {str(self.email) if self.email else '-'}"
+        address = f", address: {str(self.address) if self.address else '-'}"
+        phones = f", phone: {self.get_phones('; ', '-')}"
         return f"Contact name: {self.name}{phones}{birthday}{email}{address}"
 
 

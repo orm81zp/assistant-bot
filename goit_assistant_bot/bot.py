@@ -1,10 +1,10 @@
 from colorama import init
 from .constants import TEXT
-from .utils import start_work, stop_work
+from .utils import start_work, stop_work, save
 from .address_book.exceptions import ValidationValueExseption
 from .commands import commands_handler, parse_input, get_prompt_input
 from .exceptions import InputBotExseption, UnexpectedException
-from .commands import EXIT_COMMANDS
+from .commands import EXIT_COMMANDS, CMD_SAVE
 
 
 def run_bot():
@@ -23,7 +23,9 @@ def run_bot():
 
             if command:
                 commands_handler(book, user_data)
-                if command in EXIT_COMMANDS:
+                if command == CMD_SAVE:
+                    save()
+                elif command in EXIT_COMMANDS:
                     break
             else:
                 print(TEXT["INVALID_COMMAND"])

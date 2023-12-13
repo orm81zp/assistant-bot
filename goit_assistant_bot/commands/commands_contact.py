@@ -98,19 +98,6 @@ def show_contact(args, book: AddressBook):
     book.show_contact(name)
 
 
-def save_data(_, book: AddressBook):
-    """
-    Saves the current data.
-
-    Parameters:
-        args (list): list of arguments
-        book (AddressBook class): an AddressBook instance
-
-    Returns: None
-    """
-    book.save()
-
-
 __all__ = [
     "show_all",
     "remove_contact",
@@ -118,5 +105,4 @@ __all__ = [
     "search_contact",
     "change_contact_name",
     "show_contact",
-    "save_data",
 ]
