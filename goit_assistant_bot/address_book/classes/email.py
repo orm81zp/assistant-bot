@@ -1,5 +1,5 @@
 import re
-from ..exceptions import ValidationValueExseption
+from ..exceptions import ValidationValueException
 from ..constants import TEXT
 from .field import Field
 
@@ -19,7 +19,7 @@ class Email(Field):
         ):
             self._value = new_value
         else:
-            raise ValidationValueExseption(TEXT["EMAIL_VALIDATION"])
+            raise ValidationValueException(TEXT["EMAIL_VALIDATION"])
 
     def __str__(self):
         return f"{self._value}"

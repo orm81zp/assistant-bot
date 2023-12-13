@@ -1,4 +1,4 @@
-from ..exceptions import ValidationValueExseption
+from ..exceptions import ValidationValueException
 from ..constants import TEXT
 from .field import Field
 
@@ -16,7 +16,7 @@ class Address(Field):
         if 10 <= len(value) <= 100:
             self._value = value
         else:
-            raise ValidationValueExseption(TEXT["ADDRESS_VALIDATION"])
+            raise ValidationValueException(TEXT["ADDRESS_VALIDATION"])
 
     def __str__(self):
         return f"{self._value}"

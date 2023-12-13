@@ -1,6 +1,6 @@
 import re
 import datetime
-from ..exceptions import ValidationValueExseption
+from ..exceptions import ValidationValueException
 from ..constants import TEXT
 from .field import Field
 
@@ -17,7 +17,7 @@ class Birthday(Field):
     def value(self, new_value):
         # check format DD.MM.YYYY
         if not re.search(r"^\d{2}\.\d{2}\.\d{4}$", new_value):
-            raise ValidationValueExseption(TEXT["BIRTHDAY_VALIDATION"])
+            raise ValidationValueException(TEXT["BIRTHDAY_VALIDATION"])
 
         # check validation on correct day, month, year arguments
         try:
@@ -26,11 +26,11 @@ class Birthday(Field):
                 year=int(year), month=int(month), day=int(day)
             )
         except Exception:
-            raise ValidationValueExseption(TEXT["BIRTHDAY_VALIDATION"])
+            raise ValidationValueException(TEXT["BIRTHDAY_VALIDATION"])
 
         # check that the birthday is not in the future
         if birthday_date > datetime.date.today():
-            raise ValidationValueExseption(TEXT["BIRTHDAY_IN_THE_FUTURE"])
+            raise ValidationValueException(TEXT["BIRTHDAY_IN_THE_FUTURE"])
 
         self._value = new_value
 

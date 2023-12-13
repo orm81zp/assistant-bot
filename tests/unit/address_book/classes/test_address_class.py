@@ -1,6 +1,6 @@
 import unittest
 from goit_assistant_bot.address_book.classes import Address
-from goit_assistant_bot.address_book.exceptions import ValidationValueExseption
+from goit_assistant_bot.address_book.exceptions import ValidationValueException
 
 
 class TestAddressClass(unittest.TestCase):
@@ -19,16 +19,16 @@ class TestAddressClass(unittest.TestCase):
 
     def test_value_setter(self):
         """value attribute setter. Must raise Exseptions."""
-        with self.assertRaises(ValidationValueExseption) as rule1:
+        with self.assertRaises(ValidationValueException) as less_exception:
             # less 10 characters
             Address("AaaAAaaAA")
-        self.assertIn("Address failed validation", str(rule1.exception))
+        self.assertIn("Address failed validation", str(less_exception.exception))
 
-        with self.assertRaises(ValidationValueExseption) as rule2:
+        with self.assertRaises(ValidationValueException) as more_exception:
             # more 100 characters
             address = "".join([str("A") for _ in range(101)])
             Address(address)
-        self.assertIn("Address failed validation", str(rule2.exception))
+        self.assertIn("Address failed validation", str(more_exception.exception))
 
     def test___str__(self):
         address = Address("USA, West street D 98112")

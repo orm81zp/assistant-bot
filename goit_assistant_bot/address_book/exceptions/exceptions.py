@@ -1,5 +1,5 @@
-class ValidationValueExseption(Exception):
+class ValidationValueException(Exception):
     pass
 
 
-__all__ = ["ValidationValueExseption"]
+__all__ = ["ValidationValueException"]

@@ -7,7 +7,7 @@ from ..constants import (
     ADDED,
 )
 from ..utils import print_message
-from ..exceptions import ValidationValueExseption
+from ..exceptions import ValidationValueException
 from .field import Field
 
 not_found_message = print_message(NOT_FOUND)
@@ -29,7 +29,7 @@ class NoteContent(Field):
         if len(new_value) > 10 and len(new_value) <= 500:
             self._value = new_value
         else:
-            raise ValidationValueExseption(TEXT["NOTE_VALIDATION"])
+            raise ValidationValueException(TEXT["NOTE_VALIDATION"])
 
     def __str__(self):
         return f"{self._value}"
@@ -51,7 +51,7 @@ class Tag(Field):
         if re.search(r"\w{1,15}", new_value):
             self._value = new_value
         else:
-            raise ValidationValueExseption(TEXT["TAG_VALIDATION"])
+            raise ValidationValueException(TEXT["TAG_VALIDATION"])
 
     def __str__(self):
         return f"{self._value}"
