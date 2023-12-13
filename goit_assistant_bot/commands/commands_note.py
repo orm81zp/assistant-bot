@@ -119,7 +119,7 @@ def show_all_notes(_, book: AddressBook):
     Returns: None
     """
 
-    book.find_all_notes()
+    book.show_all_notes()
 
 
 @input_error(get_validation_message(CMD_SEARCH_NOTE_BY_TAG))

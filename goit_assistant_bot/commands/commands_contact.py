@@ -20,7 +20,7 @@ def show_all(_, book: AddressBook):
 
     Returns: None
     """
-    book.find_all()
+    book.show_all()
 
 
 @input_error(get_validation_message(CMD_REMOVE_CONTACT))
