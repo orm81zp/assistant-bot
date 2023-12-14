@@ -16,7 +16,7 @@ class Birthday(Field):
     @value.setter
     def value(self, new_value):
         # check format DD.MM.YYYY
-        if not re.search(r"^\d{2}\.\d{2}\.\d{4}$", new_value):
+        if not new_value or not re.search(r"^\d{2}\.\d{2}\.\d{4}$", new_value):
             raise ValidationValueException(TEXT["BIRTHDAY_VALIDATION"])
 
         # check validation on correct day, month, year arguments

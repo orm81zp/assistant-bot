@@ -12,9 +12,9 @@ class Address(Field):
         return self._value
 
     @value.setter
-    def value(self, value):
-        if 10 <= len(value) <= 100:
-            self._value = value
+    def value(self, new_value):
+        if new_value and (10 <= len(new_value) <= 100):
+            self._value = new_value
         else:
             raise ValidationValueException(TEXT["ADDRESS_VALIDATION"])
 

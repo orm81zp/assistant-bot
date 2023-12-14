@@ -44,6 +44,8 @@ def parse_input(user_input: str | None):
         command_func (function): a fcommand function
         args (list): rest of arguments for the user input
     """
+    if user_input:
+        user_input = user_input.strip()
 
     if not user_input:
         raise InputBotExseption
@@ -54,7 +56,7 @@ def parse_input(user_input: str | None):
 
     for command in MAPPED_COMMANDS:
         for potential_command in command["commands"]:
-            raw_input = user_input.strip().lower()
+            raw_input = user_input.lower()
             command_with_args = potential_command + " "
             found_with_args = raw_input.startswith(command_with_args)
 
@@ -85,7 +87,7 @@ def commands_handler(book: AddressBook, user_data):
 
     command_func, args = user_data
 
-    if command_func:
+    if isinstance(book, AddressBook) and callable(command_func):
         command_func(args, book)
 
 
