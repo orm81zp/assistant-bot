@@ -1,7 +1,8 @@
 import unittest
 import io
 from unittest.mock import patch
-from goit_assistant_bot.address_book.classes import AddressBook, Record
+from goit_assistant_bot.address_book.classes import AddressBook
+from goit_assistant_bot.address_book.exceptions import ValidationValueException
 
 
 class TestBirthdayCommands(unittest.TestCase):
@@ -22,6 +23,16 @@ class TestBirthdayCommands(unittest.TestCase):
         self.assertIn("Birthday added", mock_stdout.getvalue())
         contact = self.book.find("Eva")
         self.assertEqual("12.12.2001", str(contact.birthday))
+
+    def test_add_birthday_exception(self):
+        """add_birthday method. Should raise ValidationValueException"""
+        with self.assertRaises(ValidationValueException) as validation_exception:
+            self.book.add_birthday("Eva", "12/12/2001")
+
+        self.assertIn(
+            "Birthday failed validation",
+            str(validation_exception.exception),
+        )
 
     @patch("sys.stdout", new_callable=io.StringIO)
     def test_add_birthday(self, mock_stdout):

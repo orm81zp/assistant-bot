@@ -1,5 +1,5 @@
 import unittest
-from goit_assistant_bot.address_book.classes.address import Address
+from goit_assistant_bot.address_book.classes.name import Name
 from goit_assistant_bot.address_book.exceptions import ValidationValueException
 
 
@@ -8,25 +8,25 @@ class TestAddressClass(unittest.TestCase):
 
     def test_value(self):
         """value attribute getter. Should return value."""
-        address = Address("USA, West street D 98112")
-        self.assertEqual(address.value, "USA, West street D 98112")
+        name = Name("Dock")
+        self.assertEqual(name.value, "Dock")
 
     def test_setter_exceptions(self):
         """value attribute. Must raise ValidationValueException."""
-        addresses = ["AaaAAaaAA", None, "", "".join([str("A") for _ in range(101)])]
-        for address in addresses:
+        names = ["", None, "".join([str("A") for _ in range(31)])]
+        for name in names:
             with self.assertRaises(ValidationValueException):
-                Address(address)
+                Name(name)
 
     def test___str__(self):
         """Tests magical __str__ method"""
-        address = Address("USA, West street D 98112")
-        self.assertEqual(str(address), "USA, West street D 98112")
+        name = Name("Maxima")
+        self.assertEqual(str(name), "Maxima")
 
     def test___repr__(self):
         """Tests magical __repr__ method"""
-        address = Address("USA, West street D 98112")
-        self.assertEqual(repr(address), "Address: USA, West street D 98112")
+        name = Name("Maxima")
+        self.assertEqual(repr(name), "Name: Maxima")
 
 
 if __name__ == "__main__":

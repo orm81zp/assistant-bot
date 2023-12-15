@@ -1,7 +1,8 @@
 import unittest
 import io
 from unittest.mock import patch
-from goit_assistant_bot.address_book.classes import AddressBook, Record
+from goit_assistant_bot.address_book.classes import AddressBook
+from goit_assistant_bot.address_book.exceptions import ValidationValueException
 
 
 class TestAddressCommands(unittest.TestCase):
@@ -22,6 +23,16 @@ class TestAddressCommands(unittest.TestCase):
         self.assertIn("Address added", mock_stdout.getvalue())
         contact = self.book.find("Eva")
         self.assertEqual("USA, D18 street 69118", str(contact.address))
+
+    def test_add_address_exception(self):
+        """add_address method. Should raise ValidationValueException"""
+        with self.assertRaises(ValidationValueException) as validation_exception:
+            self.book.add_address("Eva", "USA")
+
+        self.assertIn(
+            "Address failed validation",
+            str(validation_exception.exception),
+        )
 
     @patch("sys.stdout", new_callable=io.StringIO)
     def test_add_address(self, mock_stdout):
