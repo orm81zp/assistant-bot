@@ -9,7 +9,7 @@ def get_validation_message(cmd):
     Parameters:
         cmd (str): a command
 
-    Returns: 
+    Returns:
         output (str): validation message
     """
 
@@ -21,8 +21,17 @@ def get_validation_message(cmd):
             commands_string = "|".join(commands_list)
             arguments = command["arguments"]
             arguments_string = " ".join(arguments)
-            output = Fore.RED + f"Please give me {arguments_string} argument{"s" if len(arguments) > 1 else ""}. Type \"help {cmd}\" to see a hint." + Style.RESET_ALL + "\n"
-            output += Fore.LIGHTBLACK_EX + f"How to use: {commands_string} {arguments_string}" + Style.RESET_ALL
+            output = (
+                Fore.RED
+                + f"Please give me {arguments_string} argument{'s' if len(arguments) > 1 else ''}. Type \"help {cmd}\" to see a hint."
+                + Style.RESET_ALL
+                + "\n"
+            )
+            output += (
+                Fore.LIGHTBLACK_EX
+                + f"How to use: {commands_string} {arguments_string}"
+                + Style.RESET_ALL
+            )
 
     return output
 
