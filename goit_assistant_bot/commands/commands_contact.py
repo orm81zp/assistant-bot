@@ -79,8 +79,8 @@ def search_contact(args, book: AddressBook):
 
     Returns: None
     """
-    search_value = " ".join(args)
-    book.search_contact(search_value)
+    _ = args[0]
+    book.search_contact(" ".join(args))
 
 
 @input_error(get_validation_message(CMD_SHOW_CONTACT))

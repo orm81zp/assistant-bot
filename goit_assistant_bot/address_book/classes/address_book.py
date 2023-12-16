@@ -59,7 +59,7 @@ class AddressBook(UserDict):
 
     def get_note_by_content(self, content) -> Note | None:
         for note in self.data["notes"]:
-            if note.get_content() == content:
+            if note.content == content:
                 return note
         return None
 
@@ -327,7 +327,7 @@ class AddressBook(UserDict):
                 exists_message("A note with the same content")
                 print("The note index is", note_exists.uuid)
             else:
-                note.content.value = content
+                note.content = content
                 updated_message("Note")
         else:
             not_found_message("Note")
