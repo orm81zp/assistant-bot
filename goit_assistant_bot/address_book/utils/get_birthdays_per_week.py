@@ -102,7 +102,7 @@ def get_birthdays_per_week(users, days_range=None):
                 Fore.RED + "Birthday value must be a datetime type." + Style.RESET_ALL
             )
         except Exception as err:
-            print(Fore.RED + f"Oops! Something went wrong, {err}" + Style.RESET_ALL)
+            print(Fore.RED + f"\u02DF Oops! Something went wrong, {err}" + Style.RESET_ALL)
 
     if len(grouped_birthdays) > 0:
         table = PrettyTable(["Weekday", "Contacts"])

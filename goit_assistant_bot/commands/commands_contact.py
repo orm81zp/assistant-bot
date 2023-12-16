@@ -20,7 +20,7 @@ def show_all(_, book: AddressBook):
 
     Returns: None
     """
-    book.find_all()
+    book.show_all()
 
 
 @input_error(get_validation_message(CMD_REMOVE_CONTACT))
@@ -79,8 +79,8 @@ def search_contact(args, book: AddressBook):
 
     Returns: None
     """
-    search_value = " ".join(args)
-    book.search_contact(search_value)
+    _ = args[0]
+    book.search_contact(" ".join(args))
 
 
 @input_error(get_validation_message(CMD_SHOW_CONTACT))
@@ -98,19 +98,6 @@ def show_contact(args, book: AddressBook):
     book.show_contact(name)
 
 
-def save_data(_, book: AddressBook):
-    """
-    Saves the current data.
-
-    Parameters:
-        args (list): list of arguments
-        book (AddressBook class): an AddressBook instance
-
-    Returns: None
-    """
-    book.save()
-
-
 __all__ = [
     "show_all",
     "remove_contact",
@@ -118,5 +105,4 @@ __all__ = [
     "search_contact",
     "change_contact_name",
     "show_contact",
-    "save_data",
 ]

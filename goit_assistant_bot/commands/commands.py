@@ -34,6 +34,7 @@ CMD_HELP = "help"
 CMD_CLOSE = "close"
 CMD_EXIT = "exit"
 CMD_SAVE = "save"
+CMD_CLEAR = "clear"
 
 EXIT_COMMANDS = [CMD_CLOSE, CMD_EXIT]
 
@@ -339,7 +340,12 @@ COMMANDS = [
     {
         "commands": [CMD_SAVE],
         "arguments": [],
-        "description": "used to save the current data",
+        "description": "used to save data",
+    },
+    {
+        "commands": [CMD_CLEAR],
+        "arguments": [],
+        "description": "used to clear screen output",
     },
     {
         "commands": EXIT_COMMANDS,

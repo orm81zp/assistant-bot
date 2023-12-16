@@ -17,6 +17,7 @@ def add_address(args, book: AddressBook):
     """
 
     name, *address = args
+    _ = address[0]
     book.add_address(name, " ".join(address).strip())
 
 

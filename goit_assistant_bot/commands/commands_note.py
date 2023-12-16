@@ -87,8 +87,8 @@ def add_note(args, book: AddressBook):
 
     Returns: None
     """
-    content = " ".join(args)
-    book.add_note(content)
+    _ = args[0]
+    book.add_note(" ".join(args))
 
 
 @input_error(get_validation_message(CMD_CHANGE_NOTE))
@@ -104,8 +104,8 @@ def change_note(args, book: AddressBook):
     """
 
     index, *content = args
-    content = " ".join(content)
-    book.change_note(int(index), content.strip())
+    _ = content[0]
+    book.change_note(int(index), " ".join(content).strip())
 
 
 def show_all_notes(_, book: AddressBook):
@@ -119,7 +119,7 @@ def show_all_notes(_, book: AddressBook):
     Returns: None
     """
 
-    book.find_all_notes()
+    book.show_all_notes()
 
 
 @input_error(get_validation_message(CMD_SEARCH_NOTE_BY_TAG))
@@ -182,8 +182,8 @@ def search_note(args, book: AddressBook):
     Returns: None
     """
 
-    search_value = " ".join(args)
-    book.search_note(search_value.strip())
+    _ = args[0]
+    book.search_note(" ".join(args).strip())
 
 
 __all__ = [

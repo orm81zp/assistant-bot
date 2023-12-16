@@ -18,6 +18,7 @@ casualities/.env/
 # Distribution / packaging
 .Python
 build/
+goit_assistant_bot.egg-info/
 develop-eggs/
 dist/
 downloads/

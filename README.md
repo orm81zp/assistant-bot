@@ -124,7 +124,8 @@ all-tags                  - used to display all tags: all-tags
 show-tag                  - used to display tags in a note: show-tag <note index>
 hello                     - used to display a welcome message: hello
 help                      - used to display information about all commands or a particular one: help [command name]
-save                      - used to save the current data: save
+save                      - used to save data: save
+clear                     - used to clear screen output: clear
 close | exit              - used to close the program, data will be saved: close
 
 Types of argumets:

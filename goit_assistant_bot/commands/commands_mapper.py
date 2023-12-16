@@ -7,10 +7,9 @@ from .commands_contact import (
     remove_contact,
     search_contact,
     change_contact_name,
-    save_data,
 )
 from .commands_email import add_email, show_email, remove_email
-from .commands_general import show_hello, show_help, show_bye
+from .commands_general import show_hello, show_help, show_bye, save, clear
 from .commands_phone import add_phone, remove_phone, change_phone, show_phone
 from .commands_note import (
     add_note,
@@ -60,6 +59,7 @@ from .commands import (
     CMD_HELLO,
     CMD_HELP,
     CMD_SAVE,
+    CMD_CLEAR,
     EXIT_COMMANDS,
 )
 
@@ -199,7 +199,11 @@ MAPPED_COMMANDS = [
     },
     {
         "commands": [CMD_SAVE],
-        "func": save_data,
+        "func": save,
+    },
+    {
+        "commands": [CMD_CLEAR],
+        "func": clear,
     },
     {
         "commands": EXIT_COMMANDS,
