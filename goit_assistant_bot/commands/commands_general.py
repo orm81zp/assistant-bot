@@ -58,7 +58,11 @@ def show_help(args, *_):
     for command in COMMANDS:
         commands = command["commands"]
         commands_string = " | ".join(commands)
-        arguments_string = f" {" ".join(command["arguments"])}" if len(command["arguments"]) > 0 else ""
+        arguments_string = (
+            f" {" ".join(command['arguments'])}"
+            if len(command["arguments"]) > 0
+            else ""
+        )
         description = command["description"]
         if cmd:
             if cmd in commands:
@@ -77,7 +81,11 @@ def show_help(args, *_):
 
     if cmd:
         if not cmd_found:
-            print(Fore.LIGHTBLACK_EX + f"\"{cmd}\" not found, type \"help\" to see all commands" + Style.RESET_ALL)
+            print(
+                Fore.LIGHTBLACK_EX
+                + f'"{cmd}" not found, type "help" to see all commands'
+                + Style.RESET_ALL
+            )
     else:
         print(output)
         print_argument_types(ARGUMET_TYPES)
@@ -112,14 +120,16 @@ def show_hello(*_):
 
     print(TEXT["GREETING"])
 
+
 def save(*_):
     """
     Does nothing, the command is processed by a bot.
     """
 
+
 def clear(*_):
     """Сlearі screen output."""
-    os.system('clear')
+    os.system("clear")
 
 
 __all__ = [
