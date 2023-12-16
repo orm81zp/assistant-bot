@@ -1,5 +1,15 @@
 # Change Log
 
+## 0.0.6
+
+### Features
+
+-   added `clear` command
+
+### Miscellaneous
+
+-   code improvements
+
 ## 0.0.5
 
 ### Features
