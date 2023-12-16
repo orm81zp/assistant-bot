@@ -58,11 +58,12 @@ def show_help(args, *_):
     for command in COMMANDS:
         commands = command["commands"]
         commands_string = " | ".join(commands)
-        arguments_string = (
-            f" {" ".join(command['arguments'])}"
-            if len(command["arguments"]) > 0
-            else ""
-        )
+
+        if len(command["arguments"]) > 0:
+            arguments_string = " " + " ".join(command["arguments"])
+        else:
+            arguments_string = ""
+
         description = command["description"]
         if cmd:
             if cmd in commands:
