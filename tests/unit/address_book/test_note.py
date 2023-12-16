@@ -25,7 +25,8 @@ class TestNoteCommands(unittest.TestCase):
         note = self.book.get_note(1)
         self.assertEqual(note.content, "Lorem Ipsum is simply dummy text.")
 
-    def test_add_note_exception(self):
+    @patch("sys.stdout", new_callable=io.StringIO)
+    def test_add_note_exception(self, _):
         """add_note method. Should raise ValidationValueException"""
         with self.assertRaises(ValidationValueException) as validation_exception:
             self.book.add_note("less 10")
@@ -85,7 +86,8 @@ class TestNoteCommands(unittest.TestCase):
             self.book.get_note(2).content, "2 Lorem Ipsum is simply dummy text."
         )
 
-    def test_change_note_exception(self):
+    @patch("sys.stdout", new_callable=io.StringIO)
+    def test_change_note_exception(self, _):
         """change_note method. Should raise ValidationValueException"""
         with self.assertRaises(ValidationValueException) as validation_exception:
             self.book.add_note("Lorem Ipsum is simply dummy text.")
