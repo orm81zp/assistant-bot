@@ -1,15 +1,15 @@
-from colorama import Fore, Style
 import os
+from colorama import Fore, Style
 from ..constants import TEXT
-from .commands import COMMANDS, ARGUMET_TYPES, VALIDATION_RULES
+from .commands import COMMANDS, ARGUMENT_TYPES, VALIDATION_RULES
 
 
-def print_rules(rules=None):
+def print_argument_rules(rules: None | dict = None):
     """
-    Shows validation rules information.
+    Shows validation rules of arguments.
 
     Parameters:
-        rules (list[dict]): list of rules
+        rules (list[dict]): list of argument rules
 
     Returns: None
     """
@@ -17,27 +17,29 @@ def print_rules(rules=None):
     if not rules:
         rules = VALIDATION_RULES
 
-    print(Fore.YELLOW + "Validation rules:" + Style.RESET_ALL)
-    for k, v in rules.items():
-        print(f"{k:<25} - {v}")
+    if rules and len(rules) > 0:
+        print(Fore.YELLOW + "Validation rules:" + Style.RESET_ALL)
+        for k, v in rules.items():
+            print(f"{k:<25} - {v}")
 
 
-def print_argument_types(types=None):
+def print_argument_types(types: None | dict = None):
     """
-    Shows argument types information.
+    Shows information of argument types.
 
     Parameters:
-        types (list[dict]): list of types
+        types (list[dict]): list of argument types
 
     Returns: None
     """
 
     if not types:
-        types = ARGUMET_TYPES
+        types = ARGUMENT_TYPES
 
-    print(Fore.YELLOW + "Types of argumets:" + Style.RESET_ALL)
-    for k, v in types.items():
-        print(f"{k:<25} - {v}")
+    if types and len(types) > 0:
+        print(Fore.YELLOW + "Types of argumets:" + Style.RESET_ALL)
+        for k, v in types.items():
+            print(f"{k:<25} - {v}")
 
 
 def show_help(args, *_):
@@ -57,27 +59,44 @@ def show_help(args, *_):
     cmd_found = False
     for command in COMMANDS:
         commands = command["commands"]
+        arguments = command["arguments"]
         commands_string = " | ".join(commands)
-
-        if len(command["arguments"]) > 0:
-            arguments_string = " " + " ".join(command["arguments"])
-        else:
-            arguments_string = ""
+        arguments_string = " " + " ".join(arguments)
 
         description = command["description"]
+
+        # show a help for a particular command
         if cmd:
             if cmd in commands:
                 cmd_found = True
-                rules = command.get("rules", None)
-                description += f": {Fore.GREEN + commands[0] + Style.RESET_ALL}{Fore.BLUE + arguments_string + Style.RESET_ALL}"
-                output += f"{Fore.GREEN + commands_string + Style.RESET_ALL}\n- {description}\n"
-                print(output)
+                description += (
+                    ": "
+                    + Fore.GREEN
+                    + commands[0]
+                    + Style.RESET_ALL
+                    + arguments_string
+                )
 
-                if rules:
-                    print_rules(rules)
+                print(
+                    Fore.GREEN
+                    + commands_string
+                    + Style.RESET_ALL
+                    + "\n- "
+                    + description
+                )
+
+                # collect and print rules of a command
+                rules = {}
+                for argument in arguments:
+                    if argument in VALIDATION_RULES:
+                        rules[argument] = VALIDATION_RULES[argument]
+
+                if len(rules) > 0:
+                    print()
+                    print_argument_rules(rules)
                     break
         else:
-            description += f": {commands[0]}{arguments_string}"
+            description += ": " + commands[0] + arguments_string
             output += f"{commands_string:<25} - {description}\n"
 
     if cmd:
@@ -89,9 +108,9 @@ def show_help(args, *_):
             )
     else:
         print(output)
-        print_argument_types(ARGUMET_TYPES)
+        print_argument_types()
         print()
-        print_rules(VALIDATION_RULES)
+        print_argument_rules()
 
 
 def show_bye(*_):
@@ -129,7 +148,7 @@ def save(*_):
 
 
 def clear(*_):
-    """Сlearі screen output."""
+    """Clear screen output."""
     os.system("clear")
 
 
