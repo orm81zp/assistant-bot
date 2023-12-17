@@ -13,17 +13,21 @@ def get_validation_message(cmd):
         output (str): validation message
     """
 
-    output = Fore.RED + "Validation Error" + Style.RESET_ALL
+    output = (
+        Fore.RED
+        + 'Validation Error. Type "help {cmd}" to see a hint.'
+        + Style.RESET_ALL
+    )
 
     for command in COMMANDS:
         commands_list = command["commands"]
         if cmd in commands_list:
-            commands_string = "|".join(commands_list)
+            commands_string = " | ".join(commands_list)
             arguments = command["arguments"]
             arguments_string = " ".join(arguments)
             output = (
                 Fore.RED
-                + f"Please give me {arguments_string} argument{'s' if len(arguments) > 1 else ''}. Type \"help {cmd}\" to see a hint."
+                + f'Please give me {arguments_string}. Type "help {cmd}" to see a hint.'
                 + Style.RESET_ALL
                 + "\n"
             )

@@ -3,8 +3,7 @@ from colorama import Fore, Style
 
 def input_error(error, use_colored_message=False):
     """
-    This is a Decorator
-    Validates for ValueError, IndexError exceptions and prints received error message if they are raised.
+    Decorator handles ValueError, IndexError exceptions and prints received error message for them.
 
     Parameters:
         cmd (str): a command

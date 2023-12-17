@@ -73,7 +73,7 @@ def parse_input(user_input: str | None):
 
 def commands_handler(book: AddressBook, user_data):
     """
-    Calls a command function
+    Calls a command function passing args and book if one is callable and a book is a AddressBook
 
     Parameters:
         book (class AddressBook): an instance of AddressBook

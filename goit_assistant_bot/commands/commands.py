@@ -35,7 +35,6 @@ CMD_CLOSE = "close"
 CMD_EXIT = "exit"
 CMD_SAVE = "save"
 CMD_CLEAR = "clear"
-
 EXIT_COMMANDS = [CMD_CLOSE, CMD_EXIT]
 
 ARG_NAME = "<name>"
@@ -70,7 +69,7 @@ VALIDATION_RULES = {
     ARG_COMMAND_NAME: "(optional) an existing command name. Example: add-phone",
 }
 
-ARGUMET_TYPES = {
+ARGUMENT_TYPES = {
     "<required>": "required argument",
     "[optional]": "optional argument",
 }
@@ -80,34 +79,21 @@ COMMANDS = [
         "commands": [CMD_ADD_CONTACT],
         "arguments": [ARG_NAME],
         "description": "used to add a new contact",
-        "rules": {
-            ARG_NAME: VALIDATION_RULES.get(ARG_NAME),
-        },
     },
     {
         "commands": [CMD_SEARCH_CONTACT],
         "arguments": [ARG_SEARCH_VALUE],
         "description": "used to search contacts by name, birthday, email, phone, address (case-insensitive)",
-        "rules": {
-            ARG_SEARCH_VALUE: VALIDATION_RULES.get(ARG_SEARCH_VALUE),
-        },
     },
     {
         "commands": [CMD_SHOW_CONTACT],
         "arguments": [ARG_NAME],
         "description": "used to display a contact",
-        "rules": {
-            ARG_NAME: VALIDATION_RULES.get(ARG_NAME),
-        },
     },
     {
         "commands": [CMD_CHANGE_CONTACT_NAME],
         "arguments": [ARG_NAME, ARG_NEW_NAME],
         "description": "used to change a contact name",
-        "rules": {
-            ARG_NAME: VALIDATION_RULES.get(ARG_NAME),
-            ARG_NEW_NAME: VALIDATION_RULES.get(ARG_NEW_NAME),
-        },
     },
     {
         "commands": [CMD_ALL_CONTACTS],
@@ -118,170 +104,101 @@ COMMANDS = [
         "commands": [CMD_REMOVE_CONTACT],
         "arguments": [ARG_NAME],
         "description": "used to remove a contact",
-        "rules": {
-            ARG_NAME: VALIDATION_RULES.get(ARG_NAME),
-        },
     },
     {
         "commands": [CMD_ADD_BIRTHDAY],
         "arguments": [ARG_NAME, ARG_BIRTHDAY],
         "description": "used to add a birthday",
-        "rules": {
-            ARG_NAME: VALIDATION_RULES.get(ARG_NAME),
-            ARG_BIRTHDAY: VALIDATION_RULES.get(ARG_BIRTHDAY),
-        },
     },
     {
         "commands": [CMD_SHOW_BIRTHDAY],
         "arguments": [ARG_NAME],
         "description": "used to display a birthday",
-        "rules": {
-            ARG_NAME: VALIDATION_RULES.get(ARG_NAME),
-        },
     },
     {
         "commands": [CMD_REMOVE_BIRTHDAY],
         "arguments": [ARG_NAME],
         "description": "used to remove a birthday",
-        "rules": {
-            ARG_NAME: VALIDATION_RULES.get(ARG_NAME),
-        },
     },
     {
         "commands": [CMD_BIRTHDAYS],
         "arguments": [ARG_DAYS_RANGE],
         "description": "used to display birthdays that will happen in coming days (7 days by default)",
-        "rules": {
-            ARG_DAYS_RANGE: VALIDATION_RULES.get(ARG_DAYS_RANGE),
-        },
     },
     {
         "commands": [CMD_ADD_ADDRESS],
         "arguments": [ARG_NAME, ARG_ADDRESS],
         "description": "used to add an address",
-        "rules": {
-            ARG_NAME: VALIDATION_RULES.get(ARG_NAME),
-            ARG_ADDRESS: VALIDATION_RULES.get(ARG_ADDRESS),
-        },
     },
     {
         "commands": [CMD_SHOW_ADDRESS],
         "arguments": [ARG_NAME],
         "description": "used to display an address",
-        "rules": {
-            ARG_NAME: VALIDATION_RULES.get(ARG_NAME),
-        },
     },
     {
         "commands": [CMD_REMOVE_ADDRESS],
         "arguments": [ARG_NAME],
         "description": "used to remove an address",
-        "rules": {
-            ARG_NAME: VALIDATION_RULES.get(ARG_NAME),
-        },
     },
     {
         "commands": [CMD_ADD_EMAIL],
         "arguments": [ARG_NAME, ARG_EMAIL],
         "description": "used to add an email",
-        "rules": {
-            ARG_NAME: VALIDATION_RULES.get(ARG_NAME),
-            ARG_EMAIL: VALIDATION_RULES.get(ARG_EMAIL),
-        },
     },
     {
         "commands": [CMD_SHOW_EMAIL],
         "arguments": [ARG_NAME],
         "description": "used to display an email",
-        "rules": {
-            ARG_NAME: VALIDATION_RULES.get(ARG_NAME),
-        },
     },
     {
         "commands": [CMD_REMOVE_EMAIL],
         "arguments": [ARG_NAME],
         "description": "used to remove an email",
-        "rules": {
-            ARG_NAME: VALIDATION_RULES.get(ARG_NAME),
-        },
     },
     {
         "commands": [CMD_ADD_PHONE],
         "arguments": [ARG_NAME, ARG_PHONE],
         "description": "used to add a phone",
-        "rules": {
-            ARG_NAME: VALIDATION_RULES.get(ARG_NAME),
-            ARG_PHONE: VALIDATION_RULES.get(ARG_PHONE),
-        },
     },
     {
         "commands": [CMD_SHOW_PHONE],
         "arguments": [ARG_NAME],
         "description": "used to display a phone",
-        "rules": {
-            ARG_NAME: VALIDATION_RULES.get(ARG_NAME),
-        },
     },
     {
         "commands": [CMD_CHANGE_PHONE],
         "arguments": [ARG_NAME, ARG_OLD_PHONE, ARG_NEW_PHONE],
         "description": "used to change a phone",
-        "rules": {
-            ARG_NAME: VALIDATION_RULES.get(ARG_NAME),
-            ARG_PHONE: VALIDATION_RULES.get(ARG_PHONE),
-            ARG_OLD_PHONE: VALIDATION_RULES.get(ARG_OLD_PHONE),
-            ARG_NEW_PHONE: VALIDATION_RULES.get(ARG_NEW_PHONE),
-        },
     },
     {
         "commands": [CMD_REMOVE_PHONE],
         "arguments": [ARG_NAME, ARG_PHONE],
         "description": "used to remove a phone",
-        "rules": {
-            ARG_NAME: VALIDATION_RULES.get(ARG_NAME),
-            ARG_PHONE: VALIDATION_RULES.get(ARG_PHONE),
-        },
     },
     {
         "commands": [CMD_ADD_NOTE],
         "arguments": [ARG_TEXT],
         "description": "used to add a note",
-        "rules": {
-            ARG_TEXT: VALIDATION_RULES.get(ARG_TEXT),
-        },
     },
     {
         "commands": [CMD_SHOW_NOTE],
         "arguments": [ARG_NOTE_INDEX],
         "description": "used to display a note",
-        "rules": {
-            ARG_NOTE_INDEX: VALIDATION_RULES.get(ARG_NOTE_INDEX),
-        },
     },
     {
         "commands": [CMD_CHANGE_NOTE],
         "arguments": [ARG_NOTE_INDEX, ARG_TEXT],
         "description": "used to change a note",
-        "rules": {
-            ARG_NOTE_INDEX: VALIDATION_RULES.get(ARG_NOTE_INDEX),
-            ARG_TEXT: VALIDATION_RULES.get(ARG_TEXT),
-        },
     },
     {
         "commands": [CMD_SEARCH_NOTE],
         "arguments": [ARG_SEARCH_VALUE],
         "description": "used to search notes by content (case-insensitive)",
-        "rules": {
-            ARG_SEARCH_VALUE: VALIDATION_RULES.get(ARG_SEARCH_VALUE),
-        },
     },
     {
         "commands": [CMD_REMOVE_NOTE],
         "arguments": [ARG_NOTE_INDEX],
         "description": "used to remove a note",
-        "rules": {
-            ARG_NOTE_INDEX: VALIDATION_RULES.get(ARG_NOTE_INDEX),
-        },
     },
     {
         "commands": [CMD_ALL_NOTES],
@@ -292,27 +209,16 @@ COMMANDS = [
         "commands": [CMD_SEARCH_NOTE_BY_TAG],
         "arguments": [ARG_TAG],
         "description": "used to display all notes found by a tag (case-insensitive, strict match)",
-        "rules": {
-            ARG_TAG: VALIDATION_RULES.get(ARG_TAG),
-        },
     },
     {
         "commands": [CMD_ADD_TAG],
         "arguments": [ARG_NOTE_INDEX, ARG_TAG],
         "description": "used to add a tag",
-        "rules": {
-            ARG_NOTE_INDEX: VALIDATION_RULES.get(ARG_NOTE_INDEX),
-            ARG_TAG: VALIDATION_RULES.get(ARG_TAG),
-        },
     },
     {
         "commands": [CMD_REMOVE_TAG],
         "arguments": [ARG_NOTE_INDEX, ARG_TAG],
         "description": "used to remove a tag (strict match)",
-        "rules": {
-            ARG_NOTE_INDEX: VALIDATION_RULES.get(ARG_NOTE_INDEX),
-            ARG_TAG: VALIDATION_RULES.get(ARG_TAG),
-        },
     },
     {
         "commands": [CMD_ALL_TAGS],
@@ -323,9 +229,6 @@ COMMANDS = [
         "commands": [CMD_SHOW_TAG],
         "arguments": [ARG_NOTE_INDEX],
         "description": "used to display tags in a note",
-        "rules": {
-            ARG_NOTE_INDEX: VALIDATION_RULES.get(ARG_NOTE_INDEX),
-        },
     },
     {
         "commands": [CMD_HELLO],
