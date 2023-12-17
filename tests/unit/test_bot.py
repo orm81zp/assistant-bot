@@ -118,6 +118,31 @@ class TestBot(unittest.TestCase):
         self.assertIn("Oops! Something went wrong!", mock_stdout.getvalue())
         mock_stop_work.assert_called_once()
 
+    @patch("goit_assistant_bot.bot.start_work")
+    @patch("goit_assistant_bot.bot.get_prompt_input")
+    @patch(
+        "goit_assistant_bot.bot.parse_input",
+        side_effect=[
+            ("help", None, []),
+            ("exit", None, []),
+        ],
+    )
+    @patch(
+        "goit_assistant_bot.bot.commands_handler",
+        side_effect=[
+            KeyboardInterrupt,
+            None,
+        ],
+    )
+    @patch("goit_assistant_bot.bot.save")
+    @patch("goit_assistant_bot.bot.stop_work")
+    @patch("sys.stdout", new_callable=io.StringIO)
+    def test_run_bot_keyboard_exception(self, mock_stdout, mock_stop_work, *_):
+        """Tests exceptions"""
+        run_bot()
+        self.assertIn("Oops! An unexpected exit!", mock_stdout.getvalue())
+        mock_stop_work.assert_called()
+
 
 if __name__ == "__main__":
     unittest.main()

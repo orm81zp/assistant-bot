@@ -33,6 +33,9 @@ def run_bot():
             print(TEXT["NO_COMMAND"])
         except ValidationValueException as err:
             print(err)
+        except KeyboardInterrupt:
+            print(TEXT["UNEXPECTED_EXIT"])
+            stop_work()
         except UnexpectedException as err:
             print(err)
             print(TEXT["UNEXPECTED_EXCEPTION"])
