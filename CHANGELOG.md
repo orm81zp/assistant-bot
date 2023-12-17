@@ -1,5 +1,12 @@
 # Change Log
 
+## 0.0.7
+
+### Miscellaneous
+
+-   code improvements
+-   handle KeyboardInterrupt exception
+
 ## 0.0.6
 
 ### Features
